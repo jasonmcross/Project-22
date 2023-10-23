@@ -1,0 +1,201 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0 0 50px 0;  /* Add bottom padding */
+    background: #f1f1f1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+#error-message {
+    color: red;
+    text-align: center;
+    padding: 5px;
+}
+
+/* General Container Style */
+.container {
+    width: 80%;
+    padding: 16px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,.1);
+    margin-bottom: 20px;
+}
+
+.container h2 {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.container input,
+.container textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.container button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    background-color: #007BFF;
+    margin-top: 10px;
+}
+
+/* Header and Footer Styles */
+header {
+    width: 100%;
+    background-color: #007BFF;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+
+footer {
+    width: 100%;
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    height: 50px;  /* Define the footer height */
+}
+
+/* Responsive for smaller devices */
+@media screen and (max-width: 600px) {
+    .container {
+        width: 90%;
+    }
+}
+
+nav {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 0;
+    width: 100%;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    margin: 0 10px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    top: 35%;
+}
+
+img {
+    height: 100px;
+    width: 100px;
+}
+
+tr {
+    text-align: center;
+}
+
+/* Styles for the modal background overlay */
+#modify-attendees-modal, #respond-to-complaint-modal {
+    display: none; /* The modal is hidden by default */
+    position: fixed; /* Fix the position so it always stays in view even if user scrolls */
+    top: 0;
+    left: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    z-index: 999; /* Ensure the modal stays on top of everything */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background overlay */
+    overflow-y: auto; /* Enable scroll if the modal content becomes too long */
+}
+
+/* Styles for the modal content */
+.modal-content {
+    position: relative;
+    background-color: #fff; /* White background for the content box */
+    margin: 15% auto; /* Center the modal vertically and horizontally */
+    padding: 20px;
+    border-radius: 5px; /* Round the corners */
+    width: 80%; /* Use 80% of the window's width, can adjust as desired */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a soft shadow for depth */
+    max-width: 600px; /* Limit the maximum width */
+}
+
+/* Style for close button, just as an example */
+#close-modal-btn {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    background-color: #f44336; /* Red color for the close button */
+    color: white;
+    border: none;
+    border-radius: 50%; /* Make it round */
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+#close-modal-btn:hover {
+    background-color: #da190b; /* Darken the color a bit when hovering */
+}
+
+/* Base styling for all rows */
+#week-table tr {
+    background-color: #ffffff;  /* white as default background */
+}
+
+/* Styling for every other row, starting from the second one */
+#week-table tr:nth-child(even) {
+    background-color: #f2f2f2;  /* light gray for highlighting */
+}
+
+/* Styling for all table cells */
+#week-table td {
+    border: 1px solid #dcdcdc; /* adds a light gray border */
+    padding: 8px; /* some padding for content inside cells */
+    vertical-align: top; /* aligns content to the top of the cell */
+    text-align: left; /* aligns cell content to the left */
+}
+
+/* Base styling for all rows */
+#day-table tr {
+    background-color: #ffffff;  /* white as default background */
+}
+
+/* Styling for every other row, starting from the second one */
+#day-table tr:nth-child(even) {
+    background-color: #f2f2f2;  /* light gray for highlighting */
+}
+
+/* Styling for all table cells */
+#day-table td {
+    border: 1px solid #dcdcdc; /* adds a light gray border */
+    padding: 8px; /* some padding for content inside cells */
+    vertical-align: top; /* aligns content to the top of the cell */
+    text-align: left; /* aligns cell content to the left */
+}
+
+
+
