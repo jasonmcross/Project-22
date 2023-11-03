@@ -14,5 +14,16 @@ class StackoverflowSpider(scrapy.Spider):
         
         data = {}
 
-        for elements in response.css("div.s-prose.fssubheading > *"):
-            print(elements, "!!!!!!")
+        article_div = response.xpath('//*[@itemprop="articleBody"]/*')
+        h3 = None
+
+        for child in article_div:
+            if child.root.tag == "h3":
+                h3 = child.xpath("string()").get()
+                data[h3] = []
+            elif h3 and child.root.tag == "p":
+                data[h3].append(child.xpath("string()").get())
+            else:
+                h3 = None
+        
+        print(data)
