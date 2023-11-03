@@ -1,6 +1,6 @@
 import scrapy
 from scrapy.spiders import CrawlSpider, Rule
-#from scrapy.linkextractors import LinkExtractor
+import json
 
 class StackoverflowSpider(scrapy.Spider):
     name = "stackoverflow"
@@ -26,4 +26,6 @@ class StackoverflowSpider(scrapy.Spider):
             else:
                 h3 = None
         
-        print(data)
+        #print(data)
+        with open("example.json", "w") as file:
+            json.dump(data, file)
