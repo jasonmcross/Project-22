@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Home</title>
+    <link rel="stylesheet" type="text/css" href="../syntax/syntax.css" />
+</head>
+<body>
+    <header>
+        <h1>Pattern Finder</h1>
+        <button type="button" id="admin-logout" style="position: absolute; right: 0;">Logout</button>
+    </header>
+
+    <main>
+        <section>
+            <h2>Add Digital Library</h2>
+            <label for="library-url">Select a Website: </label>
+            <select name="" id="library-select">
+                <option value="">Stack Overflow</option>
+                <option value="">--Please choose an option--</option>
+            </select>
+
+            <br />
+            <button id="submit-library">Submit</button>
+        </section>
+
+        <section>
+            <h2>Delete Digital Library</h2>
+            <label for="library-id">Enter a digital library ID: </label>
+            <input type="text" id="library-id" placeholder="012345" required />
+
+            <br />
+            <button id="submit-library-delete">Submit</button>
+        </section>
+
+        <section>
+            <h2>View Digital Libraries</h2>
+            <button id="update-library-list">Update</button>
+            
+            <ul>
+                <li>ID: 012345 &emsp; Name: Digital Library 1  &emsp; Last Updated: 2023-10-31</li>
+                <li>ID: 543210 &emsp; Name: Digital Library 2 &emsp; Last Updated: 2023-02-16</li>
+            </ul>
+
+            <output name="result" form="list" for=""></output>
+
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Philopateer Azer, Jason Cross, Tyler Cullen and Yatneil Jose Rasmos Rivera</p>
+    </footer>
+
+</body>
+</html>
