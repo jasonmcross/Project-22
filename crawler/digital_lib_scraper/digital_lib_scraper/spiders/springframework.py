@@ -17,12 +17,17 @@ class SpringframeworkSpider(scrapy.Spider):
         for child in article_div:
             if child.root.tag == "h3":
                 h3 = child.xpath("string()").get()
-                data[h3] = []
+                print(child)
+            #s    data[h3] = []
             elif child.root.tag == "ul":
+                #print(child)
+                #if child.root.tag == "li":
+                #    print(child)
                 ul = child.xpath('//ul')
                 li_ls = ul.xpath('.//li')
                 for li in li_ls:
+                    print(li)
                     if li.xpath('a'):
                         data[h3].append({li.xpath('a//text()').get():li.xpath('string(.)').get()})
         
-        print(data)
+        #print(data)
