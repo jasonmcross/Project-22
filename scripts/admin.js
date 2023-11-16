@@ -12,33 +12,40 @@ function addLibraryScript(event) {
     const selection = document.getElementById("library-select");
 
     var choice = selection.value;
+    var source;
 
     // 0 indicates that no option was selected
     if (choice == 0) {
         return;
     }
-    else {
-        
+    else if (choice == 1) {
+        source = StackOverflow
+        // Run webcrawler and get json result
     }
+    else if (choice == 2) {
+        source = GangofFour
+        // Run webcrawler and get json result
+    }
+    // Send json result to machine learning to get formatted design patterns
+
+    // Send formatted results to database with source and collection
 }
 function deleteLibraryScript(event) {
-    const input = document.getElementById("library-id");
+    const input = document.getElementById("library-source");
 
-    var id = input.value;
+    var source = input.value;
 
-    // Ignore invalid ID values
-    if (id <= 0) {
+    // Ignore if no info is entered
+    if (source == "Library Name" || source == null) {
         return;
     }
     else {
-        
+        // Send request to database to remove design patterns with selected source
     }
 }
 function updateListScript(event) {
-    // Below shows how to output to the library list
-    const word = "Test";
-
-    document.getElementById('library-list').innerHTML += ('<li>' + word + '</li>');
+    // Send request to database for all design patterns stored
+    // Send each design pattern to list with id = library-list
 }
 function logOutScript(event) {
     // Put developer home page URL here
