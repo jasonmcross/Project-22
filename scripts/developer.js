@@ -21,19 +21,19 @@ function submitDesignProblemScript(event) {
         var problemVector = [];
 
         // Request data from database for entered collection and limit by library source
-        var collectionNames = [];
-        var collectionVectors = [][];
+        var collectionPatternNames = [];
+        var collectionPatternVectors = [][];
 
         // Calculates cosine similarity scores between the design problem vector and each design pattern vector
         var cosineScores = [];
 
-        for (var i = 0; i < collectionVectors.length; i++) {
-            cosineScores[i] = cosineSimilarity(problemVector, cosineScores[i])
+        for (var i = 0; i < collectionPatternVectors.length; i++) {
+            cosineScores[i] = cosineSimilarity(problemVector, collectionPatternVectors[i]);
         }
 
         // Displays list that consists of all design patterns and their cosine similarity scores to html
         for (var i = 0; i < cosineScores.length; i++) {
-            document.getElementById('pattern-list').innerHTML += ('<li>' + 'Design Pattern: ' + collectionNames[i] + '&emsp' + 'Cosine Similarity Score: ' + cosineScores[i]);
+            document.getElementById('pattern-list').innerHTML += ('<li>' + 'Design Pattern: ' + collectionPatternNames[i] + '&emsp' + 'Cosine Similarity Score: ' + cosineScores[i]);
         }
     }
 }
