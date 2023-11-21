@@ -17,6 +17,5 @@ class SpringframeworkSpider(scrapy.Spider):
         for child in content.xpath('./li'):
             data[child.xpath('./a').xpath('string()').get()] = child.xpath('string()').get()
         
-        print(response)
-        with open("../data/springframework.json", "w") as file:
+        with open("../data/SpringframeworkSpider.json", "w") as file:
             json.dump(data, file)

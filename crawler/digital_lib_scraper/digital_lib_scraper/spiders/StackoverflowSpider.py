@@ -26,6 +26,5 @@ class StackoverflowSpider(scrapy.Spider):
             else:
                 h3 = None
         
-        print(response)
-        with open("../data/stackoverflow.json", "w") as file:
+        with open("../data/StackoverflowSpider.json", "w") as file:
             json.dump(data, file)
