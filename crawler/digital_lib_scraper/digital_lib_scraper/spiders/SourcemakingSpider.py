@@ -1,27 +1,26 @@
 import scrapy
 import json
-
+import os
 
 class SpringframeworkSpider(scrapy.Spider):
     name = "sourcemaking"
     allowed_domains = ["sourcemaking.com"]
-    start_urls = ["https://https://sourcemaking.com/design_patterns"]
+    start_urls = ["https://sourcemaking.com/design_patterns"]
 
     def parse(self, response):
         
         data = {}
 
-        content = response.xpath('//*[@itemprop="articleBody"]/*')
-        h3 = None
+        content = response.xpath('//article/ul/li[a and br]')
 
-        for child in content:
-            if child.root.tag == "h3":
-                h3 = child.xpath("string()").get()
-                data[h3] = []
-            elif h3 and child.root.tag == "p":
-                data[h3].append(child.xpath("string()").get())
-            else:
-                h3 = None
-        
-        with open("../data/StackoverflowSpider.json", "w") as file:
+        for elements in content:
+            # Gets element string, strips, and split the strings into a list on newline characters
+            # 0 - Pattern Title, 1 -  Pattern Description
+            strls = elements.xpath("string()").get().strip().splitlines()
+            title = strls[0]
+            descr = strls[1]
+            data[title] = descr.strip()
+
+        with open(os.path.abspath(os.path.join(os.getcwd(), "../../../data/sourcemaking.json")), "w") as file:
             json.dump(data, file)
+        
