@@ -1,6 +1,6 @@
 import scrapy
-from scrapy.spiders import CrawlSpider, Rule
 import json
+import os
 
 class StackoverflowSpider(scrapy.Spider):
     name = "stackoverflow"
@@ -14,7 +14,9 @@ class StackoverflowSpider(scrapy.Spider):
         
         data = {}
 
-        content = response.xpath('//*[@itemprop="articleBody"]/*')
+        parse_str = '//div[@itemprop="articleBody"]/'
+
+        content = response.xpath(parse_str + "h2 | " + parse_str + "h3 | " + parse_str + "p")
         h3 = None
 
         for child in content:
@@ -25,6 +27,6 @@ class StackoverflowSpider(scrapy.Spider):
                 data[h3].append(child.xpath("string()").get())
             else:
                 h3 = None
-        
-        with open("../data/StackoverflowSpider.json", "w") as file:
+
+        with open(os.path.abspath(os.path.join(os.getcwd(), "../../../data/stackoverflow.json")), "w") as file:
             json.dump(data, file)

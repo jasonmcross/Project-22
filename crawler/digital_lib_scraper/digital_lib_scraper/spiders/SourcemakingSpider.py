@@ -2,7 +2,7 @@ import scrapy
 import json
 import os
 
-class SpringframeworkSpider(scrapy.Spider):
+class SourcemakingSpider(scrapy.Spider):
     name = "sourcemaking"
     allowed_domains = ["sourcemaking.com"]
     start_urls = ["https://sourcemaking.com/design_patterns"]
@@ -23,4 +23,3 @@ class SpringframeworkSpider(scrapy.Spider):
 
         with open(os.path.abspath(os.path.join(os.getcwd(), "../../../data/sourcemaking.json")), "w") as file:
             json.dump(data, file)
-        
