@@ -11,7 +11,7 @@ class StackoverflowSpider(scrapy.Spider):
     ]
 
     def parse(self, response):
-        
+        print(type(response))
         data = {}
 
         parse_str = '//div[@itemprop="articleBody"]/'
@@ -22,9 +22,9 @@ class StackoverflowSpider(scrapy.Spider):
         for child in content:
             if child.root.tag == "h3":
                 h3 = child.xpath("string()").get()
-                data[h3] = []
+                data[h3] = ""
             elif h3 and child.root.tag == "p":
-                data[h3].append(child.xpath("string()").get())
+                data[h3] += child.xpath("string()").get()
             else:
                 h3 = None
 
