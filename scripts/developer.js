@@ -1,7 +1,7 @@
-const submitDesignProblem = document.getElementById("design-problem-form");
+const submitDesignProblem = document.getElementById("problem-form");
 const goToLogin = document.getElementById("admin-login");
 
-submitDesignProblem.addEventListener("submit", submitDesignProblemScript);
+submitDesignProblem.addEventListener("click", submitDesignProblemScript);
 goToLogin.addEventListener("click", goToLoginScript);
 
 function submitDesignProblemScript() {
@@ -37,7 +37,9 @@ function submitDesignProblemScript() {
 
         // Request data from database for entered collection and limit by library source
         var collectionPatternNames = [];
-        var collectionPatternVectors = [];
+
+        var collectionPatternVectors = [0][0];
+
 
         // Calculates cosine similarity scores between the design problem vector and each design pattern vector
         var cosineScores = [];
@@ -48,13 +50,13 @@ function submitDesignProblemScript() {
 
         // Displays list that consists of all design patterns and their cosine similarity scores to html
         for (var i = 0; i < cosineScores.length; i++) {
-            document.getElementById('pattern-list').innerHTML += ('<li>' + 'Design Pattern: ' + collectionPatternNames[i] + '&emsp' + 'Cosine Similarity Score: ' + cosineScores[i]);
+            document.getElementById("pattern-list").innerHTML += ('<li>' + 'Design Pattern: ' + collectionPatternNames[i] + '&emsp' + 'Cosine Similarity Score: ' + cosineScores[i]);
         }
     }
 }
 function goToLoginScript(event) {
     // Put admin login page URL here
-    window.location.replace("");
+    window.location.replace("../newpages/admin-login.html");
 }
 
 // Calculates the cosine similarity between two vectors represented as arrays
