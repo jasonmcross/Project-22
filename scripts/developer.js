@@ -4,10 +4,25 @@ const goToLogin = document.getElementById("admin-login");
 submitDesignProblem.addEventListener("click", submitDesignProblemScript);
 goToLogin.addEventListener("click", goToLoginScript);
 
-function submitDesignProblemScript(event) {
+function submitDesignProblemScript() {
     const problem = document.getElementById("design-problem").value;
     var collection = document.getElementById("collection-select").value;
     var source = document.getElementById("library-select").value;
+
+    fetch('/mediator', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ description: problem }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('result').innerText = JSON.stringify(data, null, 2);
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
 
     // 0 indicates that no collection was selected
     if (collection <= 0) {
@@ -22,7 +37,9 @@ function submitDesignProblemScript(event) {
 
         // Request data from database for entered collection and limit by library source
         var collectionPatternNames = [];
+
         var collectionPatternVectors = [0][0];
+
 
         // Calculates cosine similarity scores between the design problem vector and each design pattern vector
         var cosineScores = [];

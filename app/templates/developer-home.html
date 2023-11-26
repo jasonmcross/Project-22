@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Developer Home</title>
-    <link rel="stylesheet" type="text/css" href="../syntax/syntax.css" />
+    <link rel="stylesheet" type="text/css" href="../static/css/syntax.css" />
 </head>
 <body>
     <header>
-        <script src="../scripts/developer.js" defer></script>
         <h1>Pattern Finder</h1>
         <button type="button" id="admin-login" style="position: absolute; right: 0; top: 16px;">Admin Login</button>
         <h2 style="font-size:40px;">Developer Home</h2>
@@ -17,7 +16,7 @@
         <section style="position: absolute; top: 208px;">
             <h2>Ask Design Problem</h2>
 
-            <form id="problem-form">
+            <form id="design-problem-form">
                 <label for="design-problem">Enter a design problem: </label>
                 <br />
                 <textarea name="problem" id="design-problem" rows="10" cols="50" placeholder="Design problem description."></textarea>
@@ -37,9 +36,7 @@
                 </select>
 
                 <br />
-
                 <button onclick="submitDesignProblemScript()">Submit</button>
-
             </form>
 
         </section>
@@ -63,8 +60,10 @@
     </main>
 
     <footer>
-        <p>&copy; 2023 Philopateer Azer, Jason Cross, Tyler Cullen and Yatniel Jose Ramos Rivera</p>
+        <p>&copy; 2023 Philopateer Azer, Jason Cross, Tyler Cullen and Yatneil Jose Rasmos Rivera</p>
     </footer>
+
+    <script src="{{ url_for('static', filename='js/developer.js') }}"></script>
 
 </body>
 </html>
