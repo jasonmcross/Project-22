@@ -4,25 +4,26 @@ const goToLogin = document.getElementById("admin-login");
 submitDesignProblem.addEventListener("submit", submitDesignProblemScript);
 goToLogin.addEventListener("click", goToLoginScript);
 
-function submitDesignProblemScript() {
+function submitDesignProblemScript(event) {
+    event.preventDefault();
     const problem = document.getElementById("design-problem").value;
     var collection = document.getElementById("collection-select").value;
     var source = document.getElementById("library-select").value;
 
-    fetch('/mediator', {
+    fetch('/predict', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({ description: problem }),
     })
-    .then(response => response.json())
-    .then(data => {
-        document.getElementById('result').innerText = JSON.stringify(data, null, 2);
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('pattern-list').innerText = JSON.stringify(data, null, 2);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
 
     // 0 indicates that no collection was selected
     if (collection <= 0) {
