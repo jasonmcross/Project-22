@@ -3,8 +3,8 @@ const deleteLibrary = document.getElementById("delete-library");
 const updateList = document.getElementById("update-library-list");
 const logOut = document.getElementById("admin-logout");
 
-addLibrary.addEventListener("submit", addLibraryScript);
-deleteLibrary.addEventListener("submit", deleteLibraryScript);
+addLibrary.addEventListener("click", addLibraryScript);
+deleteLibrary.addEventListener("click", deleteLibraryScript);
 updateList.addEventListener("click", updateListScript);
 logOut.addEventListener("click", logOutScript);
 
@@ -19,16 +19,18 @@ function addLibraryScript(event) {
         return;
     }
     else if (choice == 1) {
-        source = StackOverflow
+        source = "StackOverflow"
         // Run webcrawler and get json result
+       // var result = pyodide.runPython(await(await fetch("../crawler/dig_lib_crawler.py")).text());
     }
     else if (choice == 2) {
-        source = GangofFour
+        source = "GangofFour"
         // Run webcrawler and get json result
     }
     // Send json result to machine learning to get formatted design patterns
 
     // Send formatted results to database with source and collection
+    document.getElementById("library-list").insertAdjacentElement('afterbegin', "t");
 }
 function deleteLibraryScript(event) {
     const input = document.getElementById("library-source");
@@ -48,6 +50,5 @@ function updateListScript(event) {
     // Send each design pattern to list with id = library-list
 }
 function logOutScript(event) {
-    // Put developer home page URL here
-    window.location.replace("");
+    window.location.replace("../newpages/admin-login.html");
 }
