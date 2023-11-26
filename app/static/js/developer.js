@@ -33,6 +33,5 @@ function submitDesignProblemScript(event) {
         });
 }
 function goToLoginScript(event) {
-    // Put admin login page URL here
-    window.location.replace("");
+    window.location.replace("../newpages/admin-login.html");
 }
