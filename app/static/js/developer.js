@@ -19,7 +19,14 @@ function submitDesignProblemScript(event) {
     })
         .then(response => response.json())
         .then(data => {
-            document.getElementById('pattern-list').innerText = JSON.stringify(data, null, 2);
+            let resultList = document.getElementById('pattern-list'); // Get the existing <ul> element
+    resultList.innerHTML = ''; // Clear existing content
+
+    data.forEach(item => {
+        // item[0] is the pattern name, item[1] is the probability
+        let listItem = `<li>${item[0]}: ${item[1].toFixed(2)}</li>`; // Create list item
+        resultList.innerHTML += listItem; // Append list item to <ul>
+    });
         })
         .catch((error) => {
             console.error('Error:', error);
