@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Developer Home</title>
-    <link rel="stylesheet" type="text/css" href="../syntax/syntax.css" />
+    <link rel="stylesheet" type="text/css" href="../static/css/syntax.css" />
 </head>
 <body>
     <header>
@@ -63,7 +63,7 @@
         <p>&copy; 2023 Philopateer Azer, Jason Cross, Tyler Cullen and Yatneil Jose Rasmos Rivera</p>
     </footer>
 
-    <script src="../scripts/developer.js"></script>
+    <script src="{{ url_for('static', filename='js/developer.js') }}"></script>
 
 </body>
 </html>
