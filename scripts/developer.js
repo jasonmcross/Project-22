@@ -25,6 +25,5 @@ function submitDesignProblemScript() {
     });
 }
 function goToLoginScript(event) {
-    // Put admin login page URL here
     window.location.replace("../newpages/admin-login.html");
 }
