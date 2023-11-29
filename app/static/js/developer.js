@@ -24,7 +24,8 @@ function submitDesignProblemScript(event) {
 
     data.forEach(item => {
         // item[0] is the pattern name, item[1] is the probability
-        let listItem = `<li>${item[0]}: ${item[1].toFixed(2)}</li>`; // Create list item
+        // \xa0 spaces out the text
+       let listItem = `<li>Design Problem: ${item[0]} \xa0\xa0\xa0\xa0 Cosine Similarity Score: ${item[1].toFixed(2)}</li>`; // Create list item
         resultList.innerHTML += listItem; // Append list item to <ul>
     });
         })
