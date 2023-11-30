@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Developer Home</title>
-    <link rel="stylesheet" type="text/css" href="../syntax/syntax.css" />
+    <link rel="stylesheet" type="text/css" href="../static/css/syntax.css" />
 </head>
+
 <body>
     <header>
         <h1>Pattern Finder</h1>
@@ -16,10 +18,11 @@
         <section style="position: absolute; top: 208px;">
             <h2>Ask Design Problem</h2>
 
-            <form id="design-problem-form">
+            <form id="design-problem-form" onsubmit = "submitDesignProblemScript(event)">
                 <label for="design-problem">Enter a design problem: </label>
                 <br />
-                <textarea name="problem" id="design-problem" rows="10" cols="50" placeholder="Design problem description."></textarea>
+                <textarea name="problem" id="design-problem" rows="10" cols="50"
+                    placeholder="Design problem description."></textarea>
 
                 <br />
                 <label for="collection-select">Choose a design pattern collection: </label>
@@ -36,13 +39,15 @@
                 </select>
 
                 <br />
-                <button id="submit-problem">Submit</button>
-            </form>
+                <button type="submit">Submit</button>
+            </form>            
 
         </section>
 
+        
+
         <section style="position: absolute; top: 208px; right: 384px;">
-            <h2>Recommended Design Patterns</h2>
+            <h2>Recommended Design Patterns</h2>            
 
             <ul id="pattern-list" style="overflow-y: scroll;">
                 <li>Design Pattern: Factory Method &emsp; Cosine Similarity: 0.65</li>
@@ -58,10 +63,11 @@
     </main>
 
     <footer>
-        <p>&copy; 2023 Philopateer Azer, Jason Cross, Tyler Cullen and Yatneil Jose Rasmos Rivera</p>
+        <p>&copy; 2023 Philopateer Azer, Jason Cross, Tyler Cullen and Yatniel Jose Ramos Rivera</p>
     </footer>
 
-    <script src="../scripts/developer.js"></script>
+    <script src="{{ url_for('static', filename='js/developer.js') }}"></script>
 
 </body>
+
 </html>
