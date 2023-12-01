@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Admin Home</title>
-    <link rel="stylesheet" type="text/css" href="../syntax/syntax.css" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/syntax.css') }}" />
 </head>
 <body>
     <header>
@@ -15,8 +15,8 @@
 
     <main>
         <section style="position: absolute; top: 208px;">
-            <h2>Add Digital Library</h2>
-            <form id="add-library">
+            <h2>Add/Update Digital Library</h2>
+            <form id="update-library">
                 <label for="library-url">Select a Website: </label>
                 <select name="" id="library-select">
                     <option value="1">Stack Overflow</option>
@@ -24,7 +24,7 @@
                 </select>
 
                 <br />
-            <button id="submit-library">Submit</button>
+                <button id="submit-library">Submit</button>
             </form>
         </section>
 
@@ -54,6 +54,8 @@
     <footer>
         <p>&copy; 2023 Philopateer Azer, Jason Cross, Tyler Cullen and Yatniel Jose Ramos Rivera</p>
     </footer>
+
+    <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
 
 </body>
 </html>
