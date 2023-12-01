@@ -25,7 +25,7 @@ function submitDesignProblemScript(event) {
     data.forEach(item => {
         // item[0] is the pattern name, item[1] is the probability
         // \xa0 spaces out the text
-        let listItem = `<li>Design Problem: ${item[0]} \xa0\xa0\xa0\xa0 Cosine Similarity Score: ${item[1].toFixed(2)}</li>`; // Create list item
+        let listItem = `<li>Design Problem: ${item[0]} \xa0\xa0\xa0\xa0Similarity Score: ${item[1].toFixed(2)}</li>`; // Create list item
         resultList.innerHTML += listItem; // Append list item to <ul>
     });
         })
@@ -33,6 +33,22 @@ function submitDesignProblemScript(event) {
             console.error('Error:', error);
         });
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    fetch('/get-sources')
+        .then(response => response.json())
+        .then(files => {
+            const dropdown = document.getElementById('library-select');
+            files.forEach(file => {
+                const fileNameWithoutExtension = file.replace(/\.[^/.]+$/, "");
+                const option = document.createElement('option');
+                option.value = option.textContent = fileNameWithoutExtension;
+                dropdown.appendChild(option);
+            });
+        })
+        .catch(error => console.error('Error:', error));
+});
+
 function goToLoginScript(event) {
     window.location.href = "/adminlogin";
 }

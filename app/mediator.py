@@ -1,4 +1,4 @@
-import sys
+import sys, os
 from flask import Flask, request, render_template, jsonify
 
 sys.path.insert(0, '../machinelearning')
@@ -24,6 +24,12 @@ def predict():
     description = request.json['description']
     predictions = classifier.predict_design_pattern(description)
     return jsonify(predictions)
+
+@app.route('/get-sources')
+def get_sources():
+    directory = '../crawler_cleanup'
+    json_files = [f for f in os.listdir(directory) if f.endswith('.json') and os.path.isfile(os.path.join(directory, f))]
+    return jsonify(json_files)
 
 @app.route('/updateLibrary', methods=['POST'])
 def updateLibrary():
