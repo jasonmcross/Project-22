@@ -15,10 +15,6 @@ def index():
 def adminLogin():
     return render_template('admin-login.html')
 
-@app.route('/goback')
-def goBack():
-    return render_template('developer-home.html')
-
 @app.route('/adminhome')
 def adminHome():
     return render_template('admin-home.html') 
