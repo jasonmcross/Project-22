@@ -9,7 +9,7 @@ def main():
 
     for file in files:
         if file.endswith(".py") and file != "__init__.py":
-            cmd = "scrapy runspider " + dir_path + "/" + file # to check error message: -v 2"
+            cmd = "scrapy runspider " + '"' + os.path.join(dir_path, file) + '"' # to check error message: -v 2"
             subprocess.run(cmd, shell=True, check=True, text=True, stdout=subprocess.PIPE)
 
 if __name__ == '__main__':
