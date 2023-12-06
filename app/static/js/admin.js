@@ -43,27 +43,17 @@ function deleteLibraryScript(event) {
     }
 }
 function updateListScript(event) {
-    fetch('/list', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    })
-        .then(response => response.json())
-        .then(data => {
-            let resultList = document.getElementById('library-list'); // Get the existing <ul> element
-            resultList.innerHTML = ''; // Clear existing content
-
-            data.forEach(item => {
-                // item[0] is the digital library source, item[1] is the last updated date
-                // \xa0 spaces out the text
-                let listItem = `<li>Digital Library Source: ${item[0]} \xa0\xa0\xa0\xa0 Last Updated: ${item[1].toFixed(2)}</li>`; // Create list item
-                resultList.innerHTML += listItem; // Append list item to <ul>
-            });
-        })
-        .catch((error) => {
-            console.error('Error:', error);
+    fetch('/get-sources')
+    .then(response => response.json())
+    .then(files => {
+        const dropdown = document.getElementById('library-list');
+        files.forEach(file => {
+            const fileNameWithoutExtension = file.replace(/\.[^/.]+$/, "");
+             const option = fileNameWithoutExtension;
+             dropdown.innerHTML += `<li>Digital Library Source: ${option} \xa0\xa0\xa0\xa0</li>`
         });
+    })
+    .catch(error => console.error('Error:', error));
 }
 function logOutScript(event) {
     window.location.href = "/adminlogin";
