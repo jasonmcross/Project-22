@@ -1,36 +1,33 @@
-const addLibrary = document.getElementById("add-library");
+const updateLibrary = document.getElementById("update-library");
 const deleteLibrary = document.getElementById("delete-library");
 const updateList = document.getElementById("update-library-list");
 const logOut = document.getElementById("admin-logout");
 
-addLibrary.addEventListener("click", addLibraryScript);
+updateLibrary.addEventListener("click", updateLibraryScript);
 deleteLibrary.addEventListener("click", deleteLibraryScript);
 updateList.addEventListener("click", updateListScript);
 logOut.addEventListener("click", logOutScript);
 
-function addLibraryScript(event) {
+function updateLibraryScript(event) {
     const selection = document.getElementById("library-select");
 
     var choice = selection.value;
-    var source;
 
     // 0 indicates that no option was selected
     if (choice == 0) {
         return;
     }
-    else if (choice == 1) {
-        source = "StackOverflow"
-        // Run webcrawler and get json result
-       // var result = pyodide.runPython(await(await fetch("../crawler/dig_lib_crawler.py")).text());
-    }
-    else if (choice == 2) {
-        source = "GangofFour"
-        // Run webcrawler and get json result
-    }
-    // Send json result to machine learning to get formatted design patterns
+    else {
+        fetch('/updateLibrary', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
 
-    // Send formatted results to database with source and collection
-    document.getElementById("library-list").insertAdjacentElement('afterbegin', "t");
+            },
+            body: JSON.stringify({ description: choice }),
+        })
+            .then(response => response.json())
+    }
 }
 function deleteLibraryScript(event) {
     const input = document.getElementById("library-source");
@@ -42,13 +39,32 @@ function deleteLibraryScript(event) {
         return;
     }
     else {
-        // Send request to database to remove design patterns with selected source
+        
     }
 }
 function updateListScript(event) {
-    // Send request to database for all design patterns stored
-    // Send each design pattern to list with id = library-list
+    fetch('/list', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+        .then(response => response.json())
+        .then(data => {
+            let resultList = document.getElementById('library-list'); // Get the existing <ul> element
+            resultList.innerHTML = ''; // Clear existing content
+
+            data.forEach(item => {
+                // item[0] is the digital library source, item[1] is the last updated date
+                // \xa0 spaces out the text
+                let listItem = `<li>Digital Library Source: ${item[0]} \xa0\xa0\xa0\xa0 Last Updated: ${item[1].toFixed(2)}</li>`; // Create list item
+                resultList.innerHTML += listItem; // Append list item to <ul>
+            });
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
 }
 function logOutScript(event) {
-    window.location.replace("../newpages/admin-login.html");
+    window.location.href = "/adminlogin";
 }
