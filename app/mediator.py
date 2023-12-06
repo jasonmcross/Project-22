@@ -34,10 +34,6 @@ def get_sources():
 @app.route('/updateLibrary', methods=['POST'])
 def updateLibrary():
     description = request.json['description']
-
-@app.route('/list', methods=['GET'])
-def list():
-    description = request.json['description']
     
 if __name__ == '__main__':
     app.run(debug=True)
