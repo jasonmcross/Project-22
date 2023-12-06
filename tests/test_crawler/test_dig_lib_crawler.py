@@ -11,6 +11,7 @@ sys.path.append(SPIDER_PATH)
 
 from SpringframeworkSpider import SpringframeworkSpider
 from StackoverflowSpider import StackoverflowSpider
+from SourcemakingSpider import SourcemakingSpider
 
 spiders_module = locals()
 
@@ -28,4 +29,4 @@ def test_scrape(crawler_runner, spider_name):
     crawler_instance = runner.create_crawler(spider)
     runner.crawl(crawler_instance)
     
-    assert os.path.exists(os.path.abspath(os.path.join(DATA_PATH, str(spider_name) + ".json")))
+    assert os.path.exists(os.path.abspath(os.path.join(DATA_PATH, str(spider_name).rstrip("Spider").lower() + ".json")))
