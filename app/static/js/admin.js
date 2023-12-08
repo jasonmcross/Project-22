@@ -1,32 +1,31 @@
-const updateLibrary = document.getElementById("submit-library");
+const updateLibrary = document.getElementById("update-library");
 const deleteLibrary = document.getElementById("delete-library");
 const updateList = document.getElementById("update-library-list");
 const logOut = document.getElementById("admin-logout");
 
-updateLibrary.addEventListener("submit-library", updateLibraryScript);
+updateLibrary.addEventListener("submit", updateLibraryScript);
 deleteLibrary.addEventListener("click", deleteLibraryScript);
 updateList.addEventListener("click", updateListScript);
 logOut.addEventListener("click", logOutScript);
 
 function updateLibraryScript(event) {
-    const selection = document.getElementById("library-select");
-
-    var choice = selection.value;
+    event.preventDefault();
+    const selection = document.getElementById("library-select").value;
 
     // 0 indicates that no option was selected
-    if (choice == 0) {
+    if (selection == 0) {
         return;
     }
     else {
         fetch('/crawl', {
             method: 'POST'
         })
-        .then(response => response.text())
-        .then(data => {
-            alert('Response from server: ' + data);
-            
-        })
-        .catch(error => console.error('Error:', error));
+            .then(response => response.text())
+            .then(data => {
+                console.log(data);
+
+            })
+            .catch(error => console.error('Error:', error));
     }
 }
 
@@ -73,3 +72,4 @@ function updateListScript(event) {
 function logOutScript(event) {
     window.location.href = "/adminlogin";
 }
+
