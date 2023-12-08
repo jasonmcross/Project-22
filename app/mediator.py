@@ -3,6 +3,8 @@ from flask import Flask, request, render_template, jsonify
 
 sys.path.insert(0, '../machinelearning')
 import classifier
+sys.path.insert(0, '../crawler/src')
+import main
 
 app = Flask(__name__)
 
@@ -34,6 +36,10 @@ def get_sources():
 @app.route('/updateLibrary', methods=['POST'])
 def updateLibrary():
     description = request.json['description']
-    
+
+@app.route('/crawl', methods=['POST'])
+def crawl():
+    main.main()
+
 if __name__ == '__main__':
     app.run(debug=True)

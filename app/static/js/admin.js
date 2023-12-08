@@ -29,6 +29,19 @@ function updateLibraryScript(event) {
             .then(response => response.json())
     }
 }
+
+document.getElementById('submit-library').addEventListener('click', function() {
+    fetch('/crawl', {
+        method: 'POST'
+    })
+    .then(response => response.text())
+    .then(data => {
+        console.log(data);
+        
+    })
+    .catch(error => console.error('Error:', error));
+});
+
 document.addEventListener('DOMContentLoaded', function () {
     fetch('/get-sources')
         .then(response => response.json())
