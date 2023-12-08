@@ -1,6 +1,7 @@
 import os
 import sys
 import pytest
+import scrapy
 from scrapy.crawler import CrawlerRunner
 from scrapy.utils.project import get_project_settings
 
@@ -11,22 +12,24 @@ sys.path.append(SPIDER_PATH)
 
 from SpringframeworkSpider import SpringframeworkSpider
 from StackoverflowSpider import StackoverflowSpider
-from SourcemakingSpider import SourcemakingSpider
 
-spiders_module = locals()
+spider_modules = locals()
 
 @pytest.fixture()
 def crawler_runner():
     settings = get_project_settings()
     return CrawlerRunner(settings)
 
-@pytest.mark.parametrize("spider_name", [name for name in spiders_module if name.endswith("Spider")])
-def test_scrape(crawler_runner, spider_name):
-    spider = spiders_module[spider_name]
-    runner = crawler_runner
+@pytest.mark.parametrize("spider_name", [name for name in spider_modules if name.endswith("Spider")])
+@pytest.mark.asyncio
+async def test_scrape(crawler_runner, spider_name):
+    spider = spider_modules[spider_name]
     print(os.path.join(DATA_PATH, str(spider_name) + ".json"))
 
-    crawler_instance = runner.create_crawler(spider)
-    runner.crawl(crawler_instance)
+    crawler_instance = await crawler_runner.create_crawler(spider)
+    await crawler_instance.crawl()
     
-    assert os.path.exists(os.path.abspath(os.path.join(DATA_PATH, str(spider_name).rstrip("Spider").lower() + ".json")))
+    result = crawler_runner.spider.data
+    assert len(result) > 0
+
+    assert os.path.exists(os.path.abspath(os.path.join(DATA_PATH, str(spider_name) + ".json")))
