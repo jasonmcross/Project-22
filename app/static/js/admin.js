@@ -1,9 +1,9 @@
-const updateLibrary = document.getElementById("update-library");
+const updateLibrary = document.getElementById("submit-library");
 const deleteLibrary = document.getElementById("delete-library");
 const updateList = document.getElementById("update-library-list");
 const logOut = document.getElementById("admin-logout");
 
-updateLibrary.addEventListener("click", updateLibraryScript);
+updateLibrary.addEventListener("submit-library", updateLibraryScript);
 deleteLibrary.addEventListener("click", deleteLibraryScript);
 updateList.addEventListener("click", updateListScript);
 logOut.addEventListener("click", logOutScript);
@@ -18,29 +18,17 @@ function updateLibraryScript(event) {
         return;
     }
     else {
-        fetch('/updateLibrary', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-
-            },
-            body: JSON.stringify({ description: choice }),
+        fetch('/crawl', {
+            method: 'POST'
         })
-            .then(response => response.json())
+        .then(response => response.text())
+        .then(data => {
+            alert('Response from server: ' + data);
+            
+        })
+        .catch(error => console.error('Error:', error));
     }
 }
-
-document.getElementById('submit-library').addEventListener('click', function() {
-    fetch('/crawl', {
-        method: 'POST'
-    })
-    .then(response => response.text())
-    .then(data => {
-        alert('Response from server: ' + data);
-        
-    })
-    .catch(error => console.error('Error:', error));
-});
 
 document.addEventListener('DOMContentLoaded', function () {
     fetch('/get-sources')

@@ -42,5 +42,7 @@ def crawl():
     print("Crawling...")
     main.main()
 
+    return "Script executed successfully", 200
+
 if __name__ == '__main__':
     app.run(debug=True)
