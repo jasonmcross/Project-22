@@ -29,6 +29,20 @@ function updateLibraryScript(event) {
             .then(response => response.json())
     }
 }
+document.addEventListener('DOMContentLoaded', function () {
+    fetch('/get-sources')
+        .then(response => response.json())
+        .then(files => {
+            const dropdown = document.getElementById('library-select');
+            files.forEach(file => {
+                const fileNameWithoutExtension = file.replace(/\.[^/.]+$/, "");
+                const option = document.createElement('option');
+                option.value = option.textContent = fileNameWithoutExtension;
+                dropdown.appendChild(option);
+            });
+        })
+        .catch(error => console.error('Error:', error));
+});
 function deleteLibraryScript(event) {
     const input = document.getElementById("library-source");
 
