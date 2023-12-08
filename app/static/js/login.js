@@ -8,8 +8,8 @@ function loginScript(event) {
     const user = document.getElementById("username").value;
     const password = document.getElementById("password").value;
 
-    window.location.replace("../newpages/admin-home.html");
+    window.location.href = "/adminhome";
 }
 function goBackScript(event) {
-    window.location.replace("../newpages/developer-home.html");
+    window.location.href = "/";
 }
