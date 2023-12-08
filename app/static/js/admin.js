@@ -36,7 +36,7 @@ document.getElementById('submit-library').addEventListener('click', function() {
     })
     .then(response => response.text())
     .then(data => {
-        console.log(data);
+        alert('Response from server: ' + data);
         
     })
     .catch(error => console.error('Error:', error));

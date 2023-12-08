@@ -39,6 +39,7 @@ def updateLibrary():
 
 @app.route('/crawl', methods=['POST'])
 def crawl():
+    print("Crawling...")
     main.main()
 
 if __name__ == '__main__':

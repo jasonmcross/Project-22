@@ -13,5 +13,5 @@ def main():
 
     print("Sites Crawled.")
 
-if __name__ == '__main__':
-    main()
+#if __name__ == '__main__':
+#    main()
