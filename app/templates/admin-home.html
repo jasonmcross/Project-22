@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Home</title>
+    <link rel="stylesheet" type="text/css" href="../syntax/syntax.css" />
+</head>
+<body>
+    <header>
+        <script src="../scripts/admin.js" defer></script>
+        <h1>Digital Library Manager</h1>
+        <button type="button" id="admin-logout" style="position: absolute; right: 0; top: 16px;">Logout</button>
+        <h2 style="font-size:40px;">Admin Home</h2>
+    </header>
+
+    <main>
+        <section style="position: absolute; top: 208px;">
+            <h2>Add Digital Library</h2>
+            <form id="add-library">
+                <label for="library-url">Select a Website: </label>
+                <select name="" id="library-select">
+                    <option value="1">Stack Overflow</option>
+                    <option value="0">--Please choose an option--</option>
+                </select>
+
+                <br />
+            <button id="submit-library">Submit</button>
+            </form>
+        </section>
+
+        <section style="position: absolute; top: 426px;">
+            <h2>Delete Digital Library</h2>
+            <form id="delete-library">
+                <label for="library-source">Enter a digital library source: </label>
+                <input type="text" id="library-source" placeholder="Library Name" required />
+
+                <br />
+                <button id="submit-library-delete">Submit</button>
+            </form>
+        </section>
+
+        <section style="position: absolute; top: 208px; right: 384px;">
+            <h2>View Digital Libraries</h2>
+            <button id="update-library-list">Update</button>
+
+            <ul id="library-list" style="overflow-y: scroll;">
+                <li>Name: Stack Overflow  &emsp; Last Updated: 2023-10-31</li>
+                <li>Name: Gang of Four Website &emsp; Last Updated: 2023-02-16</li>
+            </ul>
+
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Philopateer Azer, Jason Cross, Tyler Cullen and Yatniel Jose Ramos Rivera</p>
+    </footer>
+
+</body>
+</html>
