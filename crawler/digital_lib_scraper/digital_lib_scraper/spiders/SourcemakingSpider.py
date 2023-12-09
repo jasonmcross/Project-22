@@ -8,18 +8,24 @@ class SourcemakingSpider(scrapy.Spider):
     start_urls = ["https://sourcemaking.com/design_patterns"]
 
     def parse(self, response):
-        
-        data = {}
 
-        content = response.xpath('//article/ul/li[a and br]')
+        cat_links = response.xpath('//article/h3/a/@href').getall()
 
-        for elements in content:
-            # Gets element string, strips, and split the strings into a list on newline characters
-            # 0 - Pattern Title, 1 -  Pattern Description
-            strls = elements.xpath("string()").get().strip().splitlines()
-            title = strls[0]
-            descr = strls[1]
-            data[title] = descr.strip()
+        for link in cat_links:
+            yield scrapy.Request(response.urljoin(link), callback=self.parse_categories, meta={'result': cat_links})
 
-        with open(os.path.abspath(os.path.join(os.getcwd(), "../../../data/sourcemaking.json")), "w") as file:
-            json.dump(data, file)
+    def parse_categories(self, response):
+
+        categories = response.xpath("//article/h1")
+        pat_links = response.xpath("//article/ul/li/a/@href").getall()
+
+        for link in pat_links:
+            yield scrapy.Request(response.urljoin(link), callback=self.parse_patterns, meta={"categories": categories})
+
+    def parse_patterns(self, response):
+
+        resp = response.xpath("//article")
+        h1 = resp.xpath("//h1")#/strong/text()").get()#.xpath("string()").get()
+
+        category = response.meta.get("categories")
+        print(h1.xpath("string()").get().replace(" Design Pattern", ""))
