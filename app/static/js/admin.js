@@ -3,32 +3,46 @@ const deleteLibrary = document.getElementById("delete-library");
 const updateList = document.getElementById("update-library-list");
 const logOut = document.getElementById("admin-logout");
 
-updateLibrary.addEventListener("click", updateLibraryScript);
+updateLibrary.addEventListener("submit", updateLibraryScript);
 deleteLibrary.addEventListener("click", deleteLibraryScript);
 updateList.addEventListener("click", updateListScript);
 logOut.addEventListener("click", logOutScript);
 
 function updateLibraryScript(event) {
-    const selection = document.getElementById("library-select");
-
-    var choice = selection.value;
+    event.preventDefault();
+    const selection = document.getElementById("library-select").value;
 
     // 0 indicates that no option was selected
-    if (choice == 0) {
+    if (selection == 0) {
         return;
     }
     else {
-        fetch('/updateLibrary', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-
-            },
-            body: JSON.stringify({ description: choice }),
+        fetch('/crawl', {
+            method: 'POST'
         })
-            .then(response => response.json())
+            .then(response => response.text())
+            .then(data => {
+                console.log(data);
+
+            })
+            .catch(error => console.error('Error:', error));
     }
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    fetch('/get-sources')
+        .then(response => response.json())
+        .then(files => {
+            const dropdown = document.getElementById('library-select');
+            files.forEach(file => {
+                const fileNameWithoutExtension = file.replace(/\.[^/.]+$/, "");
+                const option = document.createElement('option');
+                option.value = option.textContent = fileNameWithoutExtension;
+                dropdown.appendChild(option);
+            });
+        })
+        .catch(error => console.error('Error:', error));
+});
 function deleteLibraryScript(event) {
     const input = document.getElementById("library-source");
 
@@ -58,3 +72,4 @@ function updateListScript(event) {
 function logOutScript(event) {
     window.location.href = "/adminlogin";
 }
+
