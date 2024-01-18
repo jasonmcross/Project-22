@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+
+{% block header %}Pattern Finder{% endblock %}
+
+{% block page_content %}
+<div class="d-flex justify-content-between">
+    <div>
+        <form method="POST">
+            <br />
+            <br />
+            <div class="form-group">
+                <label for="problem">Enter design problem:</label>
+                <input type="text"
+                       class="form-control"
+                       id="problem"
+                       name="problem"
+                       placeholder="" />
+            </div>
+            <br />
+            <div class="form-group">
+                <label for="collection">Choose a design pattern collection: </label>
+                <select name="collection" id="collection">
+                    <option value="0">--Please choose an option--</option>
+                    <option value="1">All</option>
+                    <option value="2">Gang of Four</option>
+
+                </select>
+            </div>
+            <br />
+            <div class="form-group">
+                <label for="library">Choose a digital library source: </label>
+                <select name="library" id="library">
+                    <option value="0">All</option>
+                </select>
+            </div>
+            <br />
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+    <div>
+        <br />
+        <br />
+        <label for="patterns">Recommended Design Patterns</label>
+        <ul name="patterns "class="list-group list-group-flush" id="patterns">
+            {% for pattern in patterns %}
+            <li class="list-group-item">
+                {{ pattern.data }}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}
