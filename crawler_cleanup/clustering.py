@@ -5,14 +5,14 @@ import predicttest as pt
 from sklearn.feature_extraction.text import TfidfVectorizer 
 from sklearn.decomposition import PCA 
 from sklearn.cluster import KMeans 
-import matplotlib.pyplot as plt 
+#import matplotlib.pyplot as plt 
 from sklearn.cluster import MiniBatchKMeans
   
 
 df = pd.read_csv('sourcemaking.csv', encoding='ISO-8859-1',
                    header=None, names=['Category', 'Pattern', 'Description'])
 
-print(df.head())
+#print(df.head())
 
 vec = TfidfVectorizer(stop_words="english")
 vec.fit(df.Description.values)
@@ -40,4 +40,12 @@ with open('clustering_model.pkl', 'wb') as model_file:
 with open('vectorizer.pkl', 'wb') as vec_file:
     pickle.dump(vec, vec_file)
 
-print(pt.predictIt('I want to create a new object', df))
+design_problems = [
+    "Design a drawing editor. A design is composed of te graphics (lines, rectangles and roses), positioned at precise positions. Each graphic form must be modeled by a class that provides a method draw(): void. A rose is a complex graphic designed by a black-box class component. This component performs this drawing in memory, and provides access through a method getRose(): int that returns the address of the drawing. It is probable that the system evolves in order to draw circles",
+    "Design a DVD market place work. The DVD marketplace provides DVD to its clients with three categories: children, normal and new. A DVD is new during some weeks, and after change category. The DVD price depends on the category. It is probable that the system evolves in order to take into account the horror category",
+    "Many distinct and unrelated operations need to be performed on node objects in a heterogeneous aggregate structure. You want to avoid 'polluting00' the node classes with these operations. And, you do not want to have to query the type of each node and cast the pointer to the appropriate type before performing the desired operation"
+]
+
+for problem in design_problems:
+
+    print(pt.predictIt(problem, df))
