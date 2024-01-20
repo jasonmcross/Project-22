@@ -8,44 +8,43 @@ from sklearn.cluster import KMeans
 #import matplotlib.pyplot as plt 
 from sklearn.cluster import MiniBatchKMeans
   
-
-df = pd.read_csv('sourcemaking.csv', encoding='ISO-8859-1',
+def trainIt():
+    df = pd.read_csv('sourcemaking.csv', encoding='ISO-8859-1',
                    header=None, names=['Category', 'Pattern', 'Description'])
 
-#print(df.head())
+    #print(df.head())
 
-vec = TfidfVectorizer(stop_words="english")
-vec.fit(df.Description.values)
-features = vec.transform(df.Description.values)
+    vec = TfidfVectorizer(stop_words="english")
+    vec.fit(df.Description.values)
+    features = vec.transform(df.Description.values)
 
-cls = MiniBatchKMeans(n_clusters=3, random_state = 0)
-cls.fit(features)
+    cls = MiniBatchKMeans(n_clusters=3, random_state = 0)
+    cls.fit(features)
 
-pca = PCA(n_components=2, random_state = 0)
-reduced_features = pca.fit_transform(features.toarray())
-reduced_cluster_centers = pca.transform(cls.cluster_centers_)
+    pca = PCA(n_components=2, random_state = 0)
+    #reduced_features = pca.fit_transform(features.toarray())
+    #reduced_cluster_centers = pca.transform(cls.cluster_centers_)
 
-""" plt.scatter(reduced_features[:,0], reduced_features[:,1], c=cls.labels_)
-plt.scatter(reduced_cluster_centers[:, 0], reduced_cluster_centers[:,1], marker='x', s=150, c='b')
-plt.title("Pattern Clusters")
-plt.xlabel("PCA Feature 1")
-plt.ylabel("PCA Feature 2")
-plt.show() """
+    """ plt.scatter(reduced_features[:,0], reduced_features[:,1], c=cls.labels_)
+    plt.scatter(reduced_cluster_centers[:, 0], reduced_cluster_centers[:,1], marker='x', s=150, c='b')
+    plt.title("Pattern Clusters")
+    plt.xlabel("PCA Feature 1")
+    plt.ylabel("PCA Feature 2")
+    plt.show() """
 
-# Save model
-with open('clustering_model.pkl', 'wb') as model_file:
-    pickle.dump(cls, model_file)
+    # Save model
+    with open('clustering_model.pkl', 'wb') as model_file:
+        pickle.dump(cls, model_file)
 
-# Save vectorizer
-with open('vectorizer.pkl', 'wb') as vec_file:
-    pickle.dump(vec, vec_file)
+    # Save vectorizer
+    with open('vectorizer.pkl', 'wb') as vec_file:
+        pickle.dump(vec, vec_file)
 
-design_problems = [
-    "Design a drawing editor. A design is composed of te graphics (lines, rectangles and roses), positioned at precise positions. Each graphic form must be modeled by a class that provides a method draw(): void. A rose is a complex graphic designed by a black-box class component. This component performs this drawing in memory, and provides access through a method getRose(): int that returns the address of the drawing. It is probable that the system evolves in order to draw circles",
-    "Design a DVD market place work. The DVD marketplace provides DVD to its clients with three categories: children, normal and new. A DVD is new during some weeks, and after change category. The DVD price depends on the category. It is probable that the system evolves in order to take into account the horror category",
-    "Many distinct and unrelated operations need to be performed on node objects in a heterogeneous aggregate structure. You want to avoid 'polluting00' the node classes with these operations. And, you do not want to have to query the type of each node and cast the pointer to the appropriate type before performing the desired operation"
-]
+    design_problems = [
+        "Design a drawing editor. A design is composed of te graphics (lines, rectangles and roses), positioned at precise positions. Each graphic form must be modeled by a class that provides a method draw(): void. A rose is a complex graphic designed by a black-box class component. This component performs this drawing in memory, and provides access through a method getRose(): int that returns the address of the drawing. It is probable that the system evolves in order to draw circles",
+        "Design a DVD market place work. The DVD marketplace provides DVD to its clients with three categories: children, normal and new. A DVD is new during some weeks, and after change category. The DVD price depends on the category. It is probable that the system evolves in order to take into account the horror category",
+        "Many distinct and unrelated operations need to be performed on node objects in a heterogeneous aggregate structure. You want to avoid 'polluting00' the node classes with these operations. And, you do not want to have to query the type of each node and cast the pointer to the appropriate type before performing the desired operation"
+    ]
 
-for problem in design_problems:
-
-    print(pt.predictIt(problem, df))
+    for problem in design_problems:
+        print(pt.predictIt(problem, df))    
