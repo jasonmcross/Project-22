@@ -16,27 +16,27 @@ export class UsersService {
     return this.databaseService.users.findMany;
   }
 
-  async findOne(login: string) {
+  async findOne(email: string) {
     return this.databaseService.users.findUnique({
       where:{
-        login,
+        email,
       },
     });
   }
 
-  async update(login: string, updateUserDto: Prisma.usersUpdateInput) {
+  async update(email: string, updateUserDto: Prisma.usersUpdateInput) {
     return this.databaseService.users.update({
       where:{
-        login,
+        email,
       },
       data: updateUserDto
     });
   }
 
-  async remove(login: string) {
+  async remove(email: string) {
     return this.databaseService.users.delete({
       where:{
-        login,
+        email,
       }
     });
   }
