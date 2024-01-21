@@ -29,7 +29,7 @@ datasource db {
 // }
 
 model patterns {
-  patternId    Int @id @default(autoincrement())
+  // patternId    Int @id @default(autoincrement())
   name  String @unique
   group patternGroup  
   collection  String
@@ -42,4 +42,11 @@ enum patternGroup{
   Behavioral
   Structural
   Creational
+}
+
+model users {
+  firstName  String
+  lastName String
+  email String @unique
+  password String 
 }
