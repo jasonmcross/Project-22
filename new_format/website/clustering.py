@@ -9,7 +9,7 @@ from sklearn.cluster import KMeans
 from sklearn.cluster import MiniBatchKMeans
   
 def trainIt():
-    df = pd.read_csv('sourcemaking.csv', encoding='ISO-8859-1',
+    df = pd.read_csv('combined_patternsGOF.csv', encoding='ISO-8859-1',
                    header=None, names=['Category', 'Pattern', 'Description'])
 
     #print(df.head())

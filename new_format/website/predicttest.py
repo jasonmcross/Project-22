@@ -15,7 +15,7 @@ def predictIt(input):
     with open(filepath, 'rb') as vec_file:
         loaded_vec = pickle.load(vec_file)
         
-    filepath = Path(__file__).parent / "sourcemaking.csv"
+    filepath = Path(__file__).parent / "combined_patternsGOF.csv"
     df = pd.read_csv(filepath, encoding='ISO-8859-1',
                    header=None, names=['Category', 'Pattern', 'Description'])
 
