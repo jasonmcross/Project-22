@@ -2,17 +2,21 @@ from sklearn.metrics.pairwise import cosine_similarity
 import pandas as pd
 import numpy as np
 import pickle
+from pathlib import Path
 
 def predictIt(input):
     # Load model
-    with open('clustering_model.pkl', 'rb') as model_file:
+    filepath = Path(__file__).parent / "clustering_model.pkl"
+    with open(filepath, 'rb') as model_file:
         loaded_cls = pickle.load(model_file)
 
     # Load vectorizer
-    with open('vectorizer.pkl', 'rb') as vec_file:
+    filepath = Path(__file__).parent / "vectorizer.pkl"
+    with open(filepath, 'rb') as vec_file:
         loaded_vec = pickle.load(vec_file)
-
-    df = pd.read_csv('sourcemaking.csv', encoding='ISO-8859-1',
+        
+    filepath = Path(__file__).parent / "sourcemaking.csv"
+    df = pd.read_csv(filepath, encoding='ISO-8859-1',
                    header=None, names=['Category', 'Pattern', 'Description'])
 
     # Vectorize input
