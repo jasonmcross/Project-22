@@ -7,9 +7,11 @@ from sklearn.decomposition import PCA
 from sklearn.cluster import KMeans 
 #import matplotlib.pyplot as plt 
 from sklearn.cluster import MiniBatchKMeans
+from pathlib import Path
   
 def trainIt():
-    df = pd.read_csv('combined_patternsGOF.csv', encoding='ISO-8859-1',
+    filepath = Path(__file__).parent / "combined_patternsGOF.csv"
+    df = pd.read_csv(filepath, encoding='ISO-8859-1',
                    header=None, names=['Category', 'Pattern', 'Description'])
 
     #print(df.head())
@@ -33,11 +35,13 @@ def trainIt():
     plt.show() """
 
     # Save model
-    with open('clustering_model.pkl', 'wb') as model_file:
+    filepath = Path(__file__).parent / "clustering_model.pkl"
+    with open(filepath, 'wb') as model_file:
         pickle.dump(cls, model_file)
 
     # Save vectorizer
-    with open('vectorizer.pkl', 'wb') as vec_file:
+    filepath = Path(__file__).parent / "vectorizer.pkl"
+    with open(filepath, 'wb') as vec_file:
         pickle.dump(vec, vec_file)
 
     design_problems = [
