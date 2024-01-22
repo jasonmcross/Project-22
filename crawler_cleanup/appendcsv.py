@@ -3,10 +3,10 @@ import glob
 import csv
 
 # List of JSON files to combine
-json_files = glob.glob('*.json')
+json_files = glob.glob('*GOF.json')
 
 # Open a CSV file for writing
-with open('combined_patterns.csv', 'w', newline='') as csvfile:
+with open('combined_patternsGOF.csv', 'w', newline='') as csvfile:
     writer = csv.writer(csvfile)
 
     # Iterate through each JSON file
