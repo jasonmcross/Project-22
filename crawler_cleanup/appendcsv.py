@@ -1,19 +1,20 @@
-import json
+import pandas as pd
 import glob
 import csv
 
-# List of JSON files to combine
-json_files = glob.glob('*GOF.json')
+# List of CSV files to combine
+path = 'G:/Project-22/crawler/data/'
+csv_files = glob.glob(path + '/*GOF.csv')
 
-# Open a CSV file for writing
-with open('combined_patternsGOF.csv', 'w', newline='') as csvfile:
-    writer = csv.writer(csvfile)
+dfs = []
 
-    # Iterate through each JSON file
-    for file_name in json_files:
-        with open(file_name, 'r') as file:
-            data = json.load(file)
+# Read each CSV file and append to dataframe
+for csv_file in csv_files:
+    df = pd.read_csv(csv_file, index_col = None, header = 0)
+    dfs.append(df)
 
-            # Write each key-value pair to the CSV
-            for key, value in data.items():
-                writer.writerow([key, value])
+# Concatenate all dataframes
+combined_df = pd.concat(dfs, axis = 0, ignore_index = True)
+
+# Write to CSV
+combined_df.to_csv('crawler/data/combined_patternsGOF.csv', index = False)
