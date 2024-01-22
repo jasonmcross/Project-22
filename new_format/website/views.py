@@ -11,6 +11,10 @@ def developer_home():
         
         if len(problem) < 2:
             flash('Enter a valid design problem.', category='error')
+        elif len(problem) > 1000:
+            flash('Enter a valid design problem.', category='error')
+        elif collection == "0":
+            flash('Select a digital library collection', category='error')
         else:
             patterns = predicttest.predictIt(problem)
             flash('Design problem submitted.', category='success')
