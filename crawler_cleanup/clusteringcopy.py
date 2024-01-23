@@ -1,7 +1,7 @@
 import pickle
 import numpy as np 
 import pandas as pd
-import predicttest as pt
+import predicttestcopy as pt
 from sklearn.feature_extraction.text import TfidfVectorizer 
 from sklearn.decomposition import PCA 
 from sklearn.cluster import KMeans 
@@ -10,7 +10,7 @@ from sklearn.cluster import MiniBatchKMeans
 from pathlib import Path
   
 def trainIt():
-    filepath = Path(__file__).parent / "combined_patternsGOF.csv"
+    filepath = Path(__file__).parent / "combinedGOF.csv"
     df = pd.read_csv(filepath, encoding='ISO-8859-1',
                    header=None, names=['Category', 'Pattern', 'Description'])
 
@@ -23,7 +23,7 @@ def trainIt():
     cls = MiniBatchKMeans(n_clusters=3, random_state = 0)
     cls.fit(features)
 
-    pca = PCA(n_components=2, random_state = 0)
+    #pca = PCA(n_components=2, random_state = 0)
     #reduced_features = pca.fit_transform(features.toarray())
     #reduced_cluster_centers = pca.transform(cls.cluster_centers_)
 
