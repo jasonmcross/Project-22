@@ -6,16 +6,16 @@ from pathlib import Path
 
 def predictIt(input):
     # Load model
-    filepath = Path(__file__).parent / "clustering_model.pkl"
+    filepath = Path(__file__).parent / "crawler_cleanup/clustering_model.pkl"
     with open(filepath, 'rb') as model_file:
         loaded_cls = pickle.load(model_file)
 
     # Load vectorizer
-    filepath = Path(__file__).parent / "vectorizer.pkl"
+    filepath = Path(__file__).parent / "crawler_cleanup/vectorizer.pkl"
     with open(filepath, 'rb') as vec_file:
         loaded_vec = pickle.load(vec_file)
         
-    filepath = Path(__file__).parent / "combined_patternsGOF.csv"
+    filepath = Path(__file__).parent / "crawler_cleanup/combined_patternsGOF.csv"
     df = pd.read_csv(filepath, encoding='ISO-8859-1',
                    header=None, names=['Category', 'Pattern', 'Description'])
 
