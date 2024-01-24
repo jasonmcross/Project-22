@@ -16,7 +16,7 @@ def developer_home():
         elif collection == "0":
             flash('Select a digital library collection', category='error')
         else:
-            patterns = predicttest.predictIt(problem)
+            patterns = predicttest.predictIt(problem, collection)
             flash('Design problem submitted.', category='success')
             return render_template("developer-home.html", patterns=patterns)
         
