@@ -4,7 +4,7 @@ import numpy as np
 import pickle
 from pathlib import Path
 
-def predictIt(input):
+def predictIt(input, collection):
     # Load model
     filepath = Path(__file__).parent / "crawler_cleanup/clustering_model.pkl"
     with open(filepath, 'rb') as model_file:
@@ -14,8 +14,14 @@ def predictIt(input):
     filepath = Path(__file__).parent / "crawler_cleanup/vectorizer.pkl"
     with open(filepath, 'rb') as vec_file:
         loaded_vec = pickle.load(vec_file)
-        
-    filepath = Path(__file__).parent / "crawler_cleanup/combined_patternsGOF.csv"
+
+    # User selected Gang of Four collection
+    if collection == 2:
+        filepath = Path(__file__).parent / "crawler_cleanup/combinedGOF.csv"
+    # User selected All collections
+    else:
+        filepath = Path(__file__).parent / "crawler_cleanup/combinedGOF.csv"
+    
     df = pd.read_csv(filepath, encoding='ISO-8859-1',
                    header=None, names=['Category', 'Pattern', 'Description'])
 
