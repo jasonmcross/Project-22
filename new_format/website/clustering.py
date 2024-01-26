@@ -10,7 +10,7 @@ from sklearn.cluster import MiniBatchKMeans
 from pathlib import Path
   
 def trainIt():
-    filepath = Path(__file__).parent / "combined_patternsGOF.csv"
+    filepath = Path(__file__).parent / "crawler_cleanup/combinedGOF.csv"
     df = pd.read_csv(filepath, encoding='ISO-8859-1',
                    header=None, names=['Category', 'Pattern', 'Description'])
 
@@ -35,12 +35,12 @@ def trainIt():
     plt.show() """
 
     # Save model
-    filepath = Path(__file__).parent / "clustering_model.pkl"
+    filepath = Path(__file__).parent / "crawler_cleanup/clustering_model.pkl"
     with open(filepath, 'wb') as model_file:
         pickle.dump(cls, model_file)
 
     # Save vectorizer
-    filepath = Path(__file__).parent / "vectorizer.pkl"
+    filepath = Path(__file__).parent / "crawler_cleanup/vectorizer.pkl"
     with open(filepath, 'wb') as vec_file:
         pickle.dump(vec, vec_file)
 
@@ -51,6 +51,6 @@ def trainIt():
     ]
 
     for problem in design_problems:
-        print(pt.predictIt(problem))    
+        print(pt.predictIt(problem, 1))    
 
 trainIt()
