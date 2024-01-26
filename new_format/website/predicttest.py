@@ -38,12 +38,12 @@ def predictIt(input, collection):
     similarities = cosine_similarity(user_input_vectorized, loaded_vec.transform(patterns['Description'].values))
 
    # Find most similar pattern
-   similar_index = np.argmax(similarities)
-   similar_index1 = similar_index-1
-   similar_index2 = similar_index-2
-   similar_pattern = patterns.iloc[similar_index]
-   similar_pattern1 = patterns.iloc[similar_index1]
-   similar_pattern2 = patterns.iloc[similar_index2]
+    similar_index = np.argmax(similarities)
+    similar_index1 = similar_index-1
+    similar_index2 = similar_index-2
+    similar_pattern = patterns.iloc[similar_index]
+    similar_pattern1 = patterns.iloc[similar_index1]
+    similar_pattern2 = patterns.iloc[similar_index2]
 
    # Return pattern
-   return similar_pattern['Category'], similar_pattern['Pattern'], similar_pattern1['Category'], similar_pattern1['Pattern'], similar_pattern2['Category'], similar_pattern2['Pattern']
+    return similar_pattern['Category'], similar_pattern['Pattern'], similar_pattern1['Category'], similar_pattern1['Pattern'], similar_pattern2['Category'], similar_pattern2['Pattern']
