@@ -5,12 +5,12 @@ import predicttest as pt
 from sklearn.feature_extraction.text import TfidfVectorizer 
 from sklearn.decomposition import PCA 
 from sklearn.cluster import KMeans 
-#import matplotlib.pyplot as plt 
+import matplotlib.pyplot as plt 
 from sklearn.cluster import MiniBatchKMeans
 from pathlib import Path
   
 def trainIt():
-    filepath = Path(__file__).parent / "crawler_cleanup/combinedGOF.csv"
+    filepath = Path(__file__).parent / "crawler_cleanup/combinedGOF_lemm.csv"
     df = pd.read_csv(filepath, encoding='ISO-8859-1',
                    header=None, names=['Category', 'Pattern', 'Description'])
 
@@ -24,15 +24,15 @@ def trainIt():
     cls.fit(features)
 
     pca = PCA(n_components=2, random_state = 0)
-    #reduced_features = pca.fit_transform(features.toarray())
-    #reduced_cluster_centers = pca.transform(cls.cluster_centers_)
+    reduced_features = pca.fit_transform(features.toarray())
+    reduced_cluster_centers = pca.transform(cls.cluster_centers_)
 
-    """ plt.scatter(reduced_features[:,0], reduced_features[:,1], c=cls.labels_)
+    plt.scatter(reduced_features[:,0], reduced_features[:,1], c=cls.labels_)
     plt.scatter(reduced_cluster_centers[:, 0], reduced_cluster_centers[:,1], marker='x', s=150, c='b')
     plt.title("Pattern Clusters")
     plt.xlabel("PCA Feature 1")
     plt.ylabel("PCA Feature 2")
-    plt.show() """
+    plt.show() 
 
     # Save model
     filepath = Path(__file__).parent / "crawler_cleanup/clustering_model.pkl"

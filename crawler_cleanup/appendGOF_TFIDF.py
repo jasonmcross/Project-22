@@ -13,8 +13,10 @@ import glob
 #path = 'C:/VSCodeProject-22/crawler/data/'
 #csv_files = glob.glob(path + '/*GOF.csv')
 
-df1 = pd.read_csv('C:/VSCode/Project-22/crawler/data/refactoringGOF.csv', header = None)
-df2 = pd.read_csv('C:/VSCode/Project-22/crawler/data/sourcemakingGOF.csv', header = None)
+
+
+df1 = pd.read_csv(os.path.abspath(os.path.join(os.getcwd(), '/crawler/data/refactoringGOF.csv', header = None)
+df2 = pd.read_csv(os.path.abspath(os.path.join(os.getcwd(), '/crawler/data/sourcemakingGOF.csv', header = None)
 
 nltk.download('wordnet')
 nltk.download('stopwords')
@@ -51,7 +53,7 @@ vectorizer = TfidfVectorizer(ngram_range=(1, 2))  # This will consider single wo
 tfidf_matrix = vectorizer.fit_transform(df_combined.iloc[:, 2])
 
 # Write to CSV
-df_combined.to_csv('C:/VSCode/Project-22/crawler_cleanup/combinedGOF_TFIDF.csv', index=False, header = False)
+df_combined.to_csv(os.path.abspath(os.path.join(os.getcwd(), '/crawler_cleanup/combinedGOF_TFIDF.csv', index=False, header = False)
 
 
 # Combine files into one file

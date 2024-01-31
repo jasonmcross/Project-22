@@ -1,36 +1,95 @@
 import pickle
 import numpy as np 
 import pandas as pd
-import predicttest as pt
+import predicttestcopy as pt
 from sklearn.feature_extraction.text import TfidfVectorizer 
 from sklearn.decomposition import PCA 
 from sklearn.cluster import KMeans 
-#import matplotlib.pyplot as plt 
+import matplotlib.pyplot as plt 
 from sklearn.cluster import MiniBatchKMeans
-  
+#import appendGOF_lemm
+#import os
+#import nltk
+#from nltk.corpus import wordnet, stopwords
+#from nltk.stem import WordNetLemmatizer
+#import string
+#from nltk.tokenize import word_tokenize
+#from nltk.tag import pos_tag
+#
+#df1 = pd.read_csv(os.path.abspath(os.path.join('..', 'crawler', 'data', 'refactoringGOF.csv')), header = None)
+#df2 = pd.read_csv(os.path.abspath(os.path.join('..', 'crawler', 'data', 'sourcemakingGOF.csv')), header = None)
+#
+#nltk.download('wordnet')
+#nltk.download('stopwords')
+#nltk.download('punkt')
+#stop_words = set(stopwords.words('english'))
+#nltk.download('averaged_perceptron_tagger')  # For part-of-speech tagging
+#
+#lemmatizer = WordNetLemmatizer()
+#
+#def get_wordnet_pos(word):
+#    """Map POS tag to first character lemmatize() accepts"""
+#    tag = nltk.pos_tag([word])[0][1][0].upper()
+#    tag_dict = {"J": wordnet.ADJ,
+#                "N": wordnet.NOUN,
+#                "V": wordnet.VERB,
+#                "R": wordnet.ADV}
+#    
+#    return wordnet.VERB if tag == "V" else None
+#
+#def extract_verbs(text):
+#    tokens = nltk.word_tokenize(text)
+#    tagged_tokens = nltk.pos_tag(tokens)
+#    verbs = [token for token, pos in tagged_tokens if pos.startswith('VB')]
+#    return ' '.join(verbs)
+#
+#def preprocessText(texts):
+#    texts = texts.lower()
+#    texts = ''.join([char for char in texts if char not in string.punctuation])
+#    lemmatizer = WordNetLemmatizer()
+#    
+#    processed_texts = []
+#    for text in texts:
+#        tokens = word_tokenize(text)
+#        tagged_tokens = pos_tag(tokens)
+#        verbs = [lemmatizer.lemmatize(token, pos='v') for token, pos in tagged_tokens if pos.startswith('VB')]
+#        processed_texts.append(' '.join(verbs))
+#    return processed_texts
+#    #words = [lemmatizer.lemmatize(w, get_wordnet_pos(w)) for w in nltk.word_tokenize(text) if w not in stop_words]
+#    #return ' '.join(words)
+#
+## Apply preprocessing to 3rd column of files
+#df1.iloc[:, 2] = df1.iloc[:,2].astype(str).apply(preprocessText)
+#df2.iloc[:, 2] = df2.iloc[:,2].astype(str).apply(preprocessText)
+#
+## Concatenate dataframes
+#df_combined = pd.concat([df1, df2], ignore_index=True)
+
 def trainIt():
-    df = pd.read_csv('sourcemaking.csv', encoding='ISO-8859-1',
+    df = pd.read_csv('combinedGOF_lemm.csv', encoding='ISO-8859-1',
                    header=None, names=['Category', 'Pattern', 'Description'])
 
-    #print(df.head())
+    #print(#df.head())
+                   
 
     vec = TfidfVectorizer(stop_words="english")
-    vec.fit(df.Description.values)
-    features = vec.transform(df.Description.values)
+    #vec.fit(df.Description.values)
+    #features = vec.transform(df.Description.values)
+    tfidf_matrix = vec.fit_transform(df.Description.values)
 
-    cls = MiniBatchKMeans(n_clusters=3, random_state = 0)
-    cls.fit(features)
+    cls = KMeans(n_clusters=3, random_state = 0)
+    cls.fit(tfidf_matrix)
 
     pca = PCA(n_components=2, random_state = 0)
-    #reduced_features = pca.fit_transform(features.toarray())
-    #reduced_cluster_centers = pca.transform(cls.cluster_centers_)
+    reduced_features = pca.fit_transform(tfidf_matrix.toarray())
+    reduced_cluster_centers = pca.transform(cls.cluster_centers_)
 
-    """ plt.scatter(reduced_features[:,0], reduced_features[:,1], c=cls.labels_)
+    plt.scatter(reduced_features[:,0], reduced_features[:,1], c=cls.labels_)
     plt.scatter(reduced_cluster_centers[:, 0], reduced_cluster_centers[:,1], marker='x', s=150, c='b')
     plt.title("Pattern Clusters")
     plt.xlabel("PCA Feature 1")
     plt.ylabel("PCA Feature 2")
-    plt.show() """
+    plt.show() 
 
     # Save model
     with open('clustering_model.pkl', 'wb') as model_file:
@@ -47,4 +106,6 @@ def trainIt():
     ]
 
     for problem in design_problems:
-        print(pt.predictIt(problem, df))    
+        print(pt.predictIt(problem))    
+
+trainIt()
