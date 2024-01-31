@@ -23,8 +23,12 @@ def preprocessText(text):
     text = text.lower()
     # Remove punctuation
     text = ''.join([char for char in text if char not in string.punctuation])
-    # Remove stopwords and stem
-    text = ' '.join([ps.stem(word) for word in text.split() if word not in stop_words])
+    # Split, remove stopwords and stem
+    words = [ps.stem(word) for word in text.split() if word not in stop_words]
+    # Remove duplicate words
+    words = list(set(words))
+    # Join words back together
+    text = ' '.join(words)
 
     return text
 
