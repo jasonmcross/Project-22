@@ -5,7 +5,7 @@ import predicttestcopy as pt
 from sklearn.feature_extraction.text import TfidfVectorizer 
 from sklearn.decomposition import PCA 
 from sklearn.cluster import KMeans 
-#import matplotlib.pyplot as plt 
+import matplotlib.pyplot as plt 
 from sklearn.cluster import MiniBatchKMeans
 from pathlib import Path
   
@@ -23,16 +23,16 @@ def trainIt():
     cls = MiniBatchKMeans(n_clusters=3, random_state = 0)
     cls.fit(features)
 
-    #pca = PCA(n_components=2, random_state = 0)
-    #reduced_features = pca.fit_transform(features.toarray())
-    #reduced_cluster_centers = pca.transform(cls.cluster_centers_)
+    pca = PCA(n_components=2, random_state = 0)
+    reduced_features = pca.fit_transform(features.toarray())
+    reduced_cluster_centers = pca.transform(cls.cluster_centers_)
 
-    """ plt.scatter(reduced_features[:,0], reduced_features[:,1], c=cls.labels_)
+    plt.scatter(reduced_features[:,0], reduced_features[:,1], c=cls.labels_)
     plt.scatter(reduced_cluster_centers[:, 0], reduced_cluster_centers[:,1], marker='x', s=150, c='b')
     plt.title("Pattern Clusters")
     plt.xlabel("PCA Feature 1")
     plt.ylabel("PCA Feature 2")
-    plt.show() """
+    plt.show()
 
     # Save model
     filepath = Path(__file__).parent / "clustering_model.pkl"
