@@ -9,14 +9,15 @@ import glob
 
 
 # List of CSV files to combine
-#path = 'G:/Project-22/crawler/data/'
+#path = 'C:/VSCodeProject-22/crawler/data/'
 #csv_files = glob.glob(path + '/*GOF.csv')
 
-df1 = pd.read_csv('G:/Project-22/crawler/data/refactoringGOF.csv', header = None)
-df2 = pd.read_csv('G:/Project-22/crawler/data/sourcemakingGOF.csv', header = None)
+df1 = pd.read_csv('C:/VSCode/Project-22/crawler/data/refactoringGOF.csv', header = None)
+df2 = pd.read_csv('C:/VSCode/Project-22/crawler/data/sourcemakingGOF.csv', header = None)
 
 nltk.download('wordnet')
 nltk.download('stopwords')
+nltk.download('punkt')
 stop_words = set(stopwords.words('english'))
 nltk.download('averaged_perceptron_tagger')  # For part-of-speech tagging
 
@@ -29,8 +30,8 @@ def get_wordnet_pos(word):
                 "N": wordnet.NOUN,
                 "V": wordnet.VERB,
                 "R": wordnet.ADV}
-
-    return tag_dict.get(tag, wordnet.NOUN)
+    
+    return wordnet.VERB if tag == "V" else None
 
 def preprocessText(text):
     text = text.lower()
@@ -46,7 +47,7 @@ df2.iloc[:, 2] = df2.iloc[:,2].astype(str).apply(preprocessText)
 df_combined = pd.concat([df1, df2], ignore_index=True)
 
 # Write to CSV
-df_combined.to_csv('G:/Project-22/crawler_cleanup/combinedGOF_lemm.csv', index=False, header = False)
+df_combined.to_csv('C:/VSCode/Project-22/crawler_cleanup/combinedGOF_lemm.csv', index=False, header = False)
 
 
 # Combine files into one file
