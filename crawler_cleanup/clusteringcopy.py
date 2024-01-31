@@ -16,7 +16,7 @@ def trainIt():
 
     #print(df.head())
 
-    vec = TfidfVectorizer(stop_words="english")
+    vec = TfidfVectorizer(ngram_range=(1, 2))
     vec.fit(df.Description.values)
     features = vec.transform(df.Description.values)
 
