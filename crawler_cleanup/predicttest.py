@@ -13,7 +13,7 @@ def predictIt(input):
     with open('vectorizer.pkl', 'rb') as vec_file:
         loaded_vec = pickle.load(vec_file)
 
-    df = pd.read_csv('sourcemaking.csv', encoding='ISO-8859-1',
+    df = pd.read_csv('combinedGOF.csv', encoding='ISO-8859-1',
                    header=None, names=['Category', 'Pattern', 'Description'])
 
     # Vectorize input
