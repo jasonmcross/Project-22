@@ -6,6 +6,7 @@ from sklearn.decomposition import PCA
 from sklearn.cluster import KMeans
 from sklearn.cluster import AgglomerativeClustering
 from sklearn.cluster import DBSCAN
+from sklearn.neighbors import NearestNeighbors
 from sklearn.cluster import SpectralClustering
 from sklearn.cluster import MeanShift
 from sklearn.mixture import GaussianMixture
@@ -69,36 +70,47 @@ def trainIt():
 #        AgglomerativeClustering        #
 #                                       #
 #########################################
-    cls = AgglomerativeClustering(n_clusters=3)
-    cls.fit(features.toarray())
-    pca = PCA(n_components=2, random_state = 0)
-    reduced_features = pca.fit_transform(features.toarray())
-
-    # Calculate centroids
-    centroids = np.zeros((cls.n_clusters_, features.shape[1]))
-    for cluster in range(cls.n_clusters_):
-        cluster_indices = np.where(cls.labels_ == cluster)[0]
-        cluster_points = features[cluster_indices]
-        centroids[cluster] = cluster_points.mean(axis=0)
-
-    # Make centroids available for import
-    def get_centroids():
-        return centroids
-        
-    plt.scatter(reduced_features[:,0], reduced_features[:,1], c=cls.labels_)
-    plt.title("AgglomerativeClustering")
-    plt.xlabel("PCA Feature 1")
-    plt.ylabel("PCA Feature 2")
-    plt.show()
+    #cls = AgglomerativeClustering(n_clusters=3)
+    #cls.fit(features.toarray())
+    #pca = PCA(n_components=2, random_state = 0)
+    #reduced_features = pca.fit_transform(features.toarray())
+#
+    ## Calculate centroids
+    #centroids = np.zeros((cls.n_clusters_, features.shape[1]))
+    #for cluster in range(cls.n_clusters_):
+    #    cluster_indices = np.where(cls.labels_ == cluster)[0]
+    #    cluster_points = features[cluster_indices]
+    #    centroids[cluster] = cluster_points.mean(axis=0)
+    #        
+    #plt.scatter(reduced_features[:,0], reduced_features[:,1], c=cls.labels_)
+    #plt.title("AgglomerativeClustering")
+    #plt.xlabel("PCA Feature 1")
+    #plt.ylabel("PCA Feature 2")
+    #plt.show()
 
 #########################################
 #                                       #
 #               DBSCAN                  #
 #                                       #
 #########################################
+    min_samples = 5
+
+    neighbors = NearestNeighbors(n_neighbors=min_samples)
+    neighbors_fit = neighbors.fit(features)  # 'features' is your dataset
+    distances, indices = neighbors_fit.kneighbors(features)
+
+    # Sort distance values
+    distances = np.sort(distances[:, min_samples-1], axis=0)
+
+    plt.figure(figsize=(10, 5))
+    plt.plot(distances)
+    plt.xlabel('Points')
+    plt.ylabel(f'Distance to {min_samples}th nearest neighbor')
+    plt.title('K-Nearest Neighbors Distance')
+    plt.show()
+
     #cls = DBSCAN(eps=0.5, min_samples=5)
     #cls.fit(features)
-
     #pca = PCA(n_components=2, random_state = 0)
     #reduced_features = pca.fit_transform(features.toarray())
     #    

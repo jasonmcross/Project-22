@@ -1,0 +1,23 @@
+Behavioral,Visitor,this are objects by in from or is have class code as classes want these type if makes of to each a an concrete it you The that because with and its primary was behavior which Each method for the node add You
+Behavioral,Command,this be when from or is class different as of to each a an on you The that with base can into and the
+Behavioral,Strategy,"themselves should all be in from class could A not of use to a an only The that with algorithms, and for the class,"
+Behavioral,Memento,"all this objects state when from or undo store object internal but of so to a an only it The that can state. and its other restore state, for the"
+Behavioral,Mediator,all this be at in or is have as classes of make to a you that with example coupled can and other for the
+Behavioral,Observer,from new is or model of and to all each a be particular while The that the in
+Behavioral,Chain of Responsibility,all any be one when must have not request of to each a an only it more The that with can and until which the contains
+Behavioral,Iterator,"such should way elements all You be are one example, algorithms in would need is without have different even as types if of might so access to each a an on data it more you generic that with traversal same require than can into collection and its But do traverse for the sequentially"
+Behavioral,State,"finite be are machines transitions, State at current based in state or is code adding change statements as problem not of to machine each a on depending will transitions The that class. appropriate pattern state. transition and behavior which state, approach the difficult"
+Behavioral,Template Method,"common all be interface in from or is have class some different classes these algorithm of to a used that In If base and client structure for the class,"
+Structural,Proxy,this be need when from is the not want object time of access to a an it you that directly control into actually
+Structural,Flyweight,be by would when or have as system object of to each a on that into and its Each for the
+Structural,Facade,or become of set and to a it with the in that
+Structural,Composite,Composite all this be contain in have as could classes not these of to a an only you that pattern and the
+Structural,Decorator,this be by at from is class as like could additional not want methods object number of to each a an on it you The that can and working client for the You
+Structural,Bridge,this two one would need we have class extend as want types new of so to each a it The with four and hierarchy three for the add
+Creational,Singleton,if of has a one the that Singleton pattern
+Structural,Adapter,work with creating existing some to and a on you that not the in
+Creational,Builder,creates all construct be in is as create object of so to a it that control can complex over and client many for the
+Creational,Prototype,"all objects one in from class code create object new of to a an on concrete that and its for the class,"
+Creational,Abstract Factory,"often, creating products objects their or create they new of so to a it that and family. families the"
+Creational,Factory Method,require is can of creating class to all a on behavior only by that the decide
+Behavioral,Interpreter,be interpretation are by Interpreter in as interpreter of to a an The that interpret pattern then and the
