@@ -8,8 +8,9 @@ from nltk.corpus import wordnet
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
+from sklearn.metrics.pairwise import cosine_similarity
 import matplotlib.pyplot as plt
-import seaborn as sb
+import re
 import numpy as np
 
 # Project main directory#os.path.abspath(os.path.join(__file__, '..', '..'))
@@ -17,15 +18,16 @@ import numpy as np
 def extract_nouns_verbs(data):
     tokens = word_tokenize(data)
     tagged = pos_tag(tokens)
-    nouns_verbs = [word for word, pos in tagged if pos.startswith('N') or pos.startswith('V')]
-    return(nouns_verbs)
+    remove_punc = lambda text: re.sub(r'[^\w\s]', '', text)
+    nouns_verbs = [remove_punc(word) for word, pos in tagged if (pos.startswith('V') or pos.startswith('N')) and len(word)>1]
+    return(list(set(nouns_verbs)))
 
 def lemmatize_words(words):
     lemmatizer = WordNetLemmatizer()
     lemmas = [lemmatizer.lemmatize(word, pos='v') for word in words]
     return(lemmas)
 
-def expand_keywords(words):
+def synonymizer(words):
     synonyms = set()
     for word in words:
         for syn in wordnet.synsets(word):
@@ -33,15 +35,16 @@ def expand_keywords(words):
                 synonyms.add(lemma.name())
     return(list(synonyms))
 
-def preprocess(data: list):
+def preprocess(data: list, weight_df: pd.DataFrame):
 
     df_dict = {}
+    #print(weight_df['Word'].apply(synonymizer))
     df_dict['desc'] = data
     df = pd.DataFrame(df_dict)
     df['tokens'] = df['desc'].apply(word_tokenize)
     df['nouns_verbs'] = df['desc'].apply(extract_nouns_verbs)
     df['lemmas'] = df['nouns_verbs'].apply(lemmatize_words)
-    df['keywords'] = df['lemmas'].apply(expand_keywords)
+    df['keywords'] = df['lemmas'].apply(synonymizer)
     return(df, set(keyword for sublist in df['keywords'] for keyword in sublist))
 
 def plot_clusters(k, matrix):
@@ -74,28 +77,47 @@ def main():
     comparison_df = pd.concat(csv_files, axis=0,)# ignore_index=False)
     #comparison_df.index = ['Category', 'Pattern', 'Description'] 
 
-    df, keywords = preprocess(data)
+    cluster_weights = {'create': 2, 'behavior': 2, 'relationship': 2}
+    weight_df = pd.DataFrame(list(cluster_weights.items()), columns=['Word', 'Weigth'])
+    df, keywords = preprocess(data, weight_df)
+    for lemma in df['lemmas'][0]:
+        keywords.add(lemma)
     vocab = {word: ind for ind, word in enumerate(keywords)}
     print(len(comparison_df))
-    tfidf_vect = TfidfVectorizer(vocabulary=vocab)
+    tfidf_vect = TfidfVectorizer(vocabulary=vocab, stop_words=['english'])
     #print(df['desc'].apply(' '.join))
-    tfidf_mtrx = tfidf_vect.fit_transform(df['lemmas'].apply(' '.join))
-    kmeans = KMeans(n_clusters=3)
+    tfidf_mtrx = tfidf_vect.fit_transform(df['lemmas'].apply(' '.join))# + df['keywords'].apply(' '.join))
+    for word, weight in cluster_weights.items():
+        word_ind = tfidf_vect.vocabulary_.get(word)
+        if word_ind is not None:
+            tfidf_mtrx[:, word_ind] *= weight
+    kmeans = KMeans(n_clusters=3, random_state=0)
     feats = kmeans.fit(tfidf_mtrx)
-    centers = kmeans.cluster_centers_    
     df['cluster'] = kmeans.labels_
-    print(df['cluster'])
-    plot_clusters(kmeans, tfidf_mtrx)
-
+    plot_clusters(feats, tfidf_mtrx)
+    
     designproblems = [
         "Design a drawing editor. A design is composed of the graphics (lines, rectangles and roses), positioned at precise positions. Each graphic form must be modeled by a class that provides a method draw(): void. A rose is a complex graphic designed by a black-box class component. This component performs this drawing in memory, and provides access through a method getRose(): int that returns the address of the drawing. It is probable that the system evolves in order to draw circles",
         "Design a DVD market place work. The DVD marketplace provides DVD to its clients with three categories: children, normal and new. A DVD is new during some weeks, and after change category. The DVD price depends on the category. It is probable that the system evolves in order to take into account the horror category",
         "Many distinct and unrelated operations need to be performed on node objects in a heterogeneous aggregate structure. You want to avoid 'polluting00' the node classes with these operations. And, you do not want to have to query the type of each node and cast the pointer to the appropriate type before performing the desired operation"
     ]
-    _, input_keywords = preprocess(designproblems)
-    input_tdidf = tfidf_vect.transform(' '.join(expand) for expand in input_keywords)
-
-    print(input_keywords)
+    _, input_keywords = preprocess(designproblems, weight_df)
+    #print(len(input_keywords))
+    input_tdidf = tfidf_vect.transform(designproblems)
+    #cluster_data = pd.DataFrame({'point': range(len(comparison_df)), 'cluster': comparison_df['cluster']})
+    #cluster_data[]
+    predictions = kmeans.predict(input_tdidf)
+    #patterns = comparison_df[kmeans.labels_ == predictions]
+    print(kmeans.labels_)
+    #print(len(input_tdidf))
+    #cluster = kmeans.predict(input_tdidf)
+    #print(cluster)
+    #patterns = comparison_df[kmeans.labels_ == cluster]
+    #similarities = cosine_similarity(input_tdidf, tfidf_vect.transform(patterns['Description'].values))
+    #similar_ind = np.argmax(similarities)
+    #similar_pattern = patterns.iloc[similar_ind]
+    #print(similar_pattern['Category'], similar_pattern['Pattern'])
+    #print(input_keywords)
     #plt.figure(figsize=(8, 6))
     #plt.scatter(feats[:,0], feats[:,1])
     #plt.show()
