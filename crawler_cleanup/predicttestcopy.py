@@ -30,8 +30,8 @@ def predictIt(input):
     #                                       #
     #########################################
 
-    ## Predict cluster
-    #cluster = loaded_cls.predict(user_input_vectorized)[0]
+    # Predict cluster
+    cluster = loaded_cls.predict(user_input_vectorized)[0]
 
     #########################################
     #                                       #
@@ -88,16 +88,19 @@ def predictIt(input):
     #                                       #
     #########################################
 
-    # Calculate membership values for the new data point
-    new_data_memberships = loaded_cls.predict(user_input_vectorized.toarray())
+    ## Calculate membership values for the new data point
+    #new_data_memberships = loaded_cls.predict(user_input_vectorized.toarray())
+#
+    ## Determine the most likely cluster (highest membership value)
+    ##cluster = np.argmax(new_data_memberships, axis=1)[0]
+    #cluster = np.argmax(new_data_memberships)
+#
+    ## If you need the actual membership values
+    ##membership_values = new_data_memberships[0]
 
-    # Determine the most likely cluster (highest membership value)
-    #cluster = np.argmax(new_data_memberships, axis=1)[0]
-    cluster = np.argmax(new_data_memberships)
-
-    # If you need the actual membership values
-    #membership_values = new_data_memberships[0]
-
+    
+    
+    
     # Find patterns in cluster
     patterns = df[loaded_cls.labels_ == cluster]
 

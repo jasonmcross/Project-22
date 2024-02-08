@@ -12,8 +12,8 @@ import os
 #path = 'C:/VSCodeProject-22/crawler/data/'
 #csv_files = glob.glob(path + '/*GOF.csv')
 
-df1 = pd.read_csv('C:/VSCode/Project-22/crawler/data/refactoringGOF.csv', header = None)
-df2 = pd.read_csv('C:/VSCode/Project-22/crawler/data/sourcemakingGOF.csv', header = None)
+df = pd.read_csv('C:\VSCode\Project-22\crawler_cleanup\masterGOF.csv', header = None)
+#df2 = pd.read_csv('C:/VSCode/Project-22/crawler/data/sourcemakingGOF.csv', header = None)
 
 nltk.download('stopwords')
 stop_words = set(stopwords.words('english'))
@@ -34,14 +34,14 @@ def preprocessText(text):
     return text
 
 # Apply preprocessing to 3rd column of files
-df1.iloc[:, 2] = df1.iloc[:,2].astype(str).apply(preprocessText)
-df2.iloc[:, 2] = df2.iloc[:,2].astype(str).apply(preprocessText)
+df.iloc[:, 2] = df.iloc[:,2].astype(str).apply(preprocessText)
+#df2.iloc[:, 2] = df2.iloc[:,2].astype(str).apply(preprocessText)
 
 # Concatenate dataframes
-df_combined = pd.concat([df1, df2], ignore_index=True)
+#df_combined = pd.concat([df1, df2], ignore_index=True)
 
 # Write to CSV
-df_combined.to_csv('C:/VSCode/Project-22/crawler_cleanup/combinedGOFNew.csv', index=False, header = False)
+df.to_csv('C:/VSCode/Project-22/crawler_cleanup/masterGOFNew.csv', index=False, header = False)
 
 
 # Combine files into one file

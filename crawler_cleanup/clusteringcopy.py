@@ -38,18 +38,18 @@ def trainIt():
 #           MiniBatchKMeans             #
 #                                       #
 #########################################
-    #cls = MiniBatchKMeans(n_clusters=3, random_state = 0)
-    #cls.fit(features)
-    #pca = PCA(n_components=2, random_state = 0)
-    #reduced_features = pca.fit_transform(features.toarray())
-    #reduced_cluster_centers = pca.transform(cls.cluster_centers_)
-    #
-    #plt.scatter(reduced_features[:,0], reduced_features[:,1], c=cls.labels_)
-    #plt.scatter(reduced_cluster_centers[:, 0], reduced_cluster_centers[:,1], marker='x', s=150, c='b')
-    #plt.title("MiniBatchKMeans")
-    #plt.xlabel("PCA Feature 1")
-    #plt.ylabel("PCA Feature 2")
-    #plt.show()
+    cls = MiniBatchKMeans(n_clusters=3, random_state = 0)
+    cls.fit(features)
+    pca = PCA(n_components=2, random_state = 0)
+    reduced_features = pca.fit_transform(features.toarray())
+    reduced_cluster_centers = pca.transform(cls.cluster_centers_)
+    
+    plt.scatter(reduced_features[:,0], reduced_features[:,1], c=cls.labels_)
+    plt.scatter(reduced_cluster_centers[:, 0], reduced_cluster_centers[:,1], marker='x', s=150, c='b')
+    plt.title("MiniBatchKMeans")
+    plt.xlabel("PCA Feature 1")
+    plt.ylabel("PCA Feature 2")
+    plt.show()
 
 #########################################
 #                                       #
@@ -186,33 +186,33 @@ def trainIt():
 #            Fuzzy C-Mean               #
 #                                       #
 #########################################
-    # Initialize and fit the FCM model
-    cls = FCM(n_clusters=3)
-    cls.fit(features.toarray()) 
-
-    # Get the predicted cluster memberships for each data point
-    fcm_labels = cls.u.argmax(axis=1)
-
-    # Apply PCA to reduce dimensions for visualization
-    pca = PCA(n_components=2)
-    reduced_features = pca.fit_transform(features.toarray())
-
-    # Cluster centers in the original feature space
-    fcm_centers = cls.centers
-
-    # Transform cluster centers to the reduced feature space
-    reduced_centers = pca.transform(fcm_centers)
-
-    # Plot the clustered data points
-    plt.scatter(reduced_features[:, 0], reduced_features[:, 1], c=fcm_labels, alpha=0.5)
-
-    # Plot the cluster centers
-    plt.scatter(reduced_centers[:, 0], reduced_centers[:, 1], marker='x', s=200, c='black')
-
-    plt.title("Fuzzy C-Means")
-    plt.xlabel("PCA Feature 1")
-    plt.ylabel("PCA Feature 2")
-    plt.show()
+    ## Initialize and fit the FCM model
+    #cls = FCM(n_clusters=3)
+    #cls.fit(features.toarray()) 
+#
+    ## Get the predicted cluster memberships for each data point
+    #fcm_labels = cls.u.argmax(axis=1)
+#
+    ## Apply PCA to reduce dimensions for visualization
+    #pca = PCA(n_components=2)
+    #reduced_features = pca.fit_transform(features.toarray())
+#
+    ## Cluster centers in the original feature space
+    #fcm_centers = cls.centers
+#
+    ## Transform cluster centers to the reduced feature space
+    #reduced_centers = pca.transform(fcm_centers)
+#
+    ## Plot the clustered data points
+    #plt.scatter(reduced_features[:, 0], reduced_features[:, 1], c=fcm_labels, alpha=0.5)
+#
+    ## Plot the cluster centers
+    #plt.scatter(reduced_centers[:, 0], reduced_centers[:, 1], marker='x', s=200, c='black')
+#
+    #plt.title("Fuzzy C-Means")
+    #plt.xlabel("PCA Feature 1")
+    #plt.ylabel("PCA Feature 2")
+    #plt.show()
 
 
 
@@ -227,6 +227,6 @@ def trainIt():
         pickle.dump(vec, vec_file)        
 
 # Make centroids available for import
-def get_centroids():
-    #print(centroids)
-    return centroids
+#def get_centroids():
+#    #print(centroids)
+#    return centroids
