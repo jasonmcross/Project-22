@@ -19,7 +19,7 @@ def extract_nouns_verbs(data):
     tokens = word_tokenize(data)
     tagged = pos_tag(tokens)
     remove_punc = lambda text: re.sub(r'[^\w\s]', '', text)
-    nouns_verbs = [remove_punc(word) for word, pos in tagged if (pos.startswith('V') or pos.startswith('N')) and len(word)>1]
+    nouns_verbs = [remove_punc(word) for word, pos in tagged if (pos.startswith('V') or pos.startswith('N'))]
     return(list(set(nouns_verbs)))
 
 def lemmatize_words(words):
