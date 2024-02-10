@@ -3,10 +3,6 @@ from neon_python.userDB import DatabaseOperations
 
 auth = Blueprint('auth', __name__)
 
-
-
-
-
 db = DatabaseOperations()
 
 @auth.route('/login', methods=['GET', 'POST'])
@@ -49,5 +45,4 @@ def sign_up():
 
 @auth.route('/developerHome')
 def developerHome():
-     #return "<h1> Logout </h1>"
     return render_template("developer-home.html")
