@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { Prisma, patternGroup } from '@prisma/client';
 import { DatabaseService } from 'src/database/database.service';
 
-@Injectable()
 export class PatternsService {
   constructor(private readonly databaseService: DatabaseService) {}
   
