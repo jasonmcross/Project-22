@@ -11,6 +11,7 @@ def login():
         email = request.form.get('email')
         password = request.form.get('password')
 
+
         # Lookup user in the database
         user_data = db.lookup_user(email)
 
@@ -19,6 +20,7 @@ def login():
             return redirect(url_for('auth.developerHome'))
         else:
             flash('Invalid email or password. Please try again.', category='error')
+
 
     return render_template("admin-login.html")
 
@@ -31,7 +33,11 @@ def sign_up():
         
         if len(email) < 12:
             flash('Invalid email entered.', category='error')
+        elif len(email) > 100:
+            flash('Invalid email entered.', category='error')
         elif len(password) < 10:
+            flash('Invalid password length entered.', category='error')
+        elif len(password) > 100:
             flash('Invalid password length entered.', category='error')
         elif password != con_password:
             flash('Entered passwords do not match', category='error')
@@ -42,7 +48,7 @@ def sign_up():
             return redirect(url_for('auth.login'))
         
     return render_template("admin-sign-up.html")
-
+  
 @auth.route('/developerHome')
 def developerHome():
     return render_template("developer-home.html")

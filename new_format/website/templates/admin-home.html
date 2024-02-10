@@ -4,5 +4,13 @@
 {% block header %}Digital Library Manager{% endblock %}
 
 {% block page_content %}
-
+<ul class="list-group list-group-flush" id="libraries">
+    {% for library in libraries %}
+    <li class="list-group-item">
+        {{ library }}
+    </li>
+    <button type="button" class="update" onclick=""></button>
+    <button type="button" class="close" onclick=""></button>
+    {% endfor %}
+</ul>
 {% endblock %}
