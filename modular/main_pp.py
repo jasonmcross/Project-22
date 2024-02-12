@@ -21,7 +21,7 @@ def main():
     #cp.kmeans(features_default, df)
     cp.kmeans(features_ngram, df)
     #cp.mbkmeans(features_default, df)
-    cp.mbkmeans(features_ngram, df)
+    #cp.mbkmeans(features_ngram, df)
 
 if __name__ == "__main__":
     main()
