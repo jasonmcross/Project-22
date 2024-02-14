@@ -16,7 +16,7 @@ def vectorize_default(df: pd.DataFrame):
     return features
 
 def vectorize_ngram(df: pd.DataFrame):
-    vec = TfidfVectorizer(ngram_range=(1, 2))
+    vec = TfidfVectorizer(ngram_range=(2, 3))
     vec.fit(df.Description.values)
     features = vec.transform(df.Description.values)
 

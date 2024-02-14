@@ -66,5 +66,6 @@ def extract_nouns_verbs(data):
     nouns_verbs = [word for word, pos in tagged if (pos.startswith('V') or pos.startswith('N'))]
 
     text = ' '.join(nouns_verbs)
+    text = data + ' ' + text
 
     return text
