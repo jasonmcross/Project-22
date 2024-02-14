@@ -27,7 +27,7 @@ centroids = None
 #                                       #
 #########################################
 def kmeans(features, df: pd.DataFrame):
-    km = KMeans(n_clusters=3, random_state = 0)
+    km = KMeans(n_clusters=3, random_state = 0, algorithm='elkan')
     km.fit(features)
     pca = PCA(n_components=2, random_state = 0)
     reduced_features = pca.fit_transform(features.toarray())
@@ -46,7 +46,7 @@ def kmeans(features, df: pd.DataFrame):
     plt.show()
 
     df['cluster'] = km.labels_
-    df.to_csv('kmeans.csv', index=False, header=False, mode='w')
+    df.to_csv('kmeans_elkan_syn.csv', index=False, header=False, mode='w')
 
 
 #########################################

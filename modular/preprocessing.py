@@ -49,17 +49,21 @@ def tokenize(data):
 
 def synonymize(data):
     # Find synonyms
-    synonyms = set()
-    for word in data:
-        for syn in wordnet.synsets(word):
-            for lemma in syn.lemmas():
-                synonyms.add(lemma.name())
+    #synonyms = set()
+    #for word in data:
+    #    for syn in wordnet.synsets(word):
+    #        for lemma in syn.lemmas():
+    #            synonyms.add(lemma.name())
+    #text = ' '.join(list(synonyms))
+    text = wordnet.synsets(data)
 
-    return list(synonyms)
+    return text
 
 def extract_nouns_verbs(data):
     tokens = word_tokenize(data)
     tagged = pos_tag(tokens)
     nouns_verbs = [word for word, pos in tagged if (pos.startswith('V') or pos.startswith('N'))]
 
-    return(list(set(nouns_verbs)))
+    text = ' '.join(nouns_verbs)
+
+    return text
