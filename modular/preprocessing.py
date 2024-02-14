@@ -9,6 +9,7 @@ from nltk.tokenize import word_tokenize
 from nltk.tag import pos_tag
 
 nltk.download('stopwords')
+nltk.download('wordnet')
 stop_words = set(stopwords.words('english'))
 ps = PorterStemmer()
 
@@ -37,7 +38,7 @@ def lemma(data):
     # Lemmatize words
     lemmatizer = WordNetLemmatizer()
     lemmas = [lemmatizer.lemmatize(word, pos='v') for word in data]
-    text = ' '.join(lemmas)
+    text = ''.join(lemmas)
 
     return text
 
@@ -49,13 +50,13 @@ def tokenize(data):
 
 def synonymize(data):
     # Find synonyms
-    #synonyms = set()
-    #for word in data:
-    #    for syn in wordnet.synsets(word):
-    #        for lemma in syn.lemmas():
-    #            synonyms.add(lemma.name())
-    #text = ' '.join(list(synonyms))
-    text = wordnet.synsets(data)
+    synonyms = set()
+    for word in data:
+        for syn in wordnet.synsets(word):
+            for lemma in syn.lemmas():
+                synonyms.add(lemma.name())
+    text = ' '.join(synonyms)
+    text = data + ' ' + text
 
     return text
 

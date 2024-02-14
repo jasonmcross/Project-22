@@ -11,11 +11,12 @@ def main():
 
     df.iloc[:, 2] = df.iloc[:,2].astype(str).apply(pp.lower_punc)
     df.iloc[:, 2] = df.iloc[:,2].astype(str).apply(pp.remove_stop)
-    df.iloc[:, 2] = df.iloc[:,2].astype(str).apply(pp.stem)
+    #df.iloc[:, 2] = df.iloc[:,2].astype(str).apply(pp.stem)
     #df.iloc[:, 2] = df.iloc[:,2].astype(str).apply(pp.lemma)
     #df.iloc[:, 2] = df.iloc[:,2].astype(str).apply(pp.tokenize)
-    #df.iloc[:, 2] = df.iloc[:,2].astype(str).apply(pp.synonymize)
     #df.iloc[:, 2] = df.iloc[:,2].astype(str).apply(pp.extract_nouns_verbs)
+    df.iloc[:, 2] = df.iloc[:,2].astype(str).apply(pp.synonymize)
+    
 
     features_default = vec.vectorize_default(df)
     #features_ngram = vec.vectorize_ngram(df)
