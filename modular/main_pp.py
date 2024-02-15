@@ -26,6 +26,18 @@ def main():
     #cp.kmeans(features_ngram, df)
     #cp.mbkmeans(features_default, df)
     #cp.mbkmeans(features_ngram, df)
+    #cp.agglomerative(features_default, df)
+    #cp.agglomerative(features_ngram, df)
+    #cp.dbscan(features_default, df)
+    #cp.dbscan(features_ngram, df)
+    #cp.spectral(features_default, df)
+    #cp.spectral(features_ngram, df)
+    #cp.mean_shift(features_default, df)
+    #cp.mean_shift(features_ngram, df)
+    #cp.gaussion_mixture(features_default, df)
+    #cp.gaussion_mixture(features_ngram, df)
+    #cp.fuzzy_cmean(features_default, df)
+    #cp.fuzzy_cmean(features_ngram, df)
 
 if __name__ == "__main__":
     main()
