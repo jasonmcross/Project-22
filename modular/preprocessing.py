@@ -13,6 +13,9 @@ nltk.download('wordnet')
 stop_words = set(stopwords.words('english'))
 ps = PorterStemmer()
 
+junk_words = ["imagine", "pattern", "design", "patterns", "also", "like", "code", "let", "used", "use", "app", "fun", "may", "problem", "client", "often", "later", "however", "got", 
+              "given",  "need", "object", "objects", "class", "classes"]
+
 def lower_punc(data):
     # Convert to lowercase
     text = data.lower()
@@ -31,6 +34,12 @@ def stem(data):
     # Stem words
     words = [ps.stem(word) for word in data.split()]
     text = ' '.join(words)
+
+    return text
+
+def remove_junk(data):
+    # Remove junk words
+    text = ' '.join([word for word in data.split() if word not in junk_words])
 
     return text
 

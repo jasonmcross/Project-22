@@ -46,7 +46,7 @@ def kmeans(features, df: pd.DataFrame):
     plt.show()
 
     df['cluster'] = km.labels_
-    df.to_csv('kmeans_elkan_stop_ngram.csv', index=False, header=False, mode='w')
+    df.to_csv('masterGOF_junk.csv', index=False, header=False, mode='w', encoding='utf-8')
 
 
 #########################################
@@ -69,4 +69,4 @@ def mbkmeans(features, df: pd.DataFrame):
     plt.show()
 
     df['cluster'] = mbkm.labels_
-    df.to_csv('mbkmeans.csv', index=False, header=False, mode='w')
+    df.to_csv('mbkmeans.csv', index=False, header=False, mode='w', encoding='utf-8')
