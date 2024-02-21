@@ -8,15 +8,15 @@ def developer_home():
     if request.method == 'POST':
         problem = request.form.get('problem')
         collection = request.form.get('collection')
+        source = request.form.get('source')
 
         # Machine learning values
         vector = request.form.get('vector')
         cluster = request.form.get('cluster')
         
-        test = request.form.get('flexCheck')
+        preprocess = [request.form.get('junkWords'), request.form.get('stem'), request.form.get('tokenize'), request.form.get('lemmatize'), request.form.get('extractNouns')
+                      ,request.form.get('extractVerbs'), request.form.get('extractAdj'), request.form.get('synonymize')]
 
-        print(test)
-        
         if len(problem) < 2:
             flash('Enter a valid design problem.', category='error')
         elif len(problem) > 1000:
@@ -24,7 +24,7 @@ def developer_home():
         elif collection == "0":
             flash('Select a digital library collection', category='error')
         else:
-            patterns = predicttest.predictIt(problem, collection)
+            patterns = predicttest.predictIt(problem, collection, source, vector, cluster, preprocess)
             flash('Design problem submitted.', category='success')
             return render_template("developer-home.html", patterns=patterns)
         
