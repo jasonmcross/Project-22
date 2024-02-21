@@ -36,6 +36,82 @@
                 </select>
             </div>
             <br />
+            <div class="form-group">
+                <label for="preprocess">Choose what preprocessing to use: </label>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="1" id="flexCheck">
+                    <label class="form-check-label" for="flexCheck">
+                        Remove Junk Words
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Stem
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Tokenize
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Lemmatize
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Extract Nouns
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Extract Verbs
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Extract Adjectives
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Synonymize
+                    </label>
+                </div>
+            </div>
+            <br />
+            <div class="form-group">
+                <label for="vector">Choose what vectorizing to use: </label>
+                <select name="vector" id="vector">
+                    <option value="1">Default</option>
+                    <option value="2">N-Gram</option>
+
+                </select>
+            </div>
+            <br />
+            <div class="form-group">
+                <label for="cluster">Choose what clustering to use: </label>
+                <select name="cluster" id="cluster">
+                    <option value="1">K-Means</option>
+                    <option value="2">Mini Batch K-Means</option>
+                    <option value="3">Agglomerative</option>
+                    <option value="4">DBSCAN</option>
+                    <option value="5">Spectral</option>
+                    <option value="6">Mean Shift</option>
+                    <option value="7">Gaussian Mixture</option>
+                    <option value="8">Fuzzy C-Means</option>
+
+                </select>
+            </div>
+            <br />
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
