@@ -11,16 +11,23 @@ def login():
         email = request.form.get('email')
         password = request.form.get('password')
 
-
-        # Lookup user in the database
-        user_data = db.lookup_user(email)
-
-        if user_data and user_data[0] == password:
-            flash('Login successful!', category='success')
-            return redirect(url_for('auth.developerHome'))
+        if len(email) < 12:
+            flash('Invalid email entered.', category='error')
+        elif len(email) > 100:
+            flash('Invalid email entered.', category='error')
+        elif len(password) < 10:
+            flash('Invalid password length entered.', category='error')
+        elif len(password) > 100:
+            flash('Invalid password length entered.', category='error')
         else:
-            flash('Invalid email or password. Please try again.', category='error')
+            # Lookup user in the database
+            user_data = db.lookup_user(email)
 
+            if user_data and user_data[0] == password:
+                flash('Login successful!', category='success')
+                return render_template("admin-home.html")
+            else:
+                flash('Invalid email or password. Please try again.', category='error')
 
     return render_template("admin-login.html")
 
@@ -30,6 +37,7 @@ def sign_up():
         email = request.form.get('email')
         password = request.form.get('password')
         con_password = request.form.get('con_password')
+        name = request.form.get('name')
         
         if len(email) < 12:
             flash('Invalid email entered.', category='error')
@@ -43,12 +51,12 @@ def sign_up():
             flash('Entered passwords do not match', category='error')
         else:
             # Add the new admin account to the database
-            db.add_user(email, 'Admin', password)
+            db.add_user(email, name, password)
             flash('Admin account created successfully.', category='success')
-            return redirect(url_for('auth.login'))
+            return render_template("admin-home.html")
         
     return render_template("admin-sign-up.html")
   
-@auth.route('/developerHome')
-def developerHome():
+@auth.route('/logout')
+def logout():
     return render_template("developer-home.html")
