@@ -24,4 +24,13 @@ def developer_home():
 
 @views.route('/admin-home', methods=['GET', 'POST'])
 def admin_home():
-    return render_template("admin-home.html")
+    if request.method =='POST':
+        req = request.form.get('req')
+        
+        if req == "update":
+            return render_template("admin-home.html")
+        elif req == "delete":
+            return render_template("admin-home.html")
+
+    libraries = ["SourceMaking (Gang of Four)", "RefactoringGuru (Gang of Four)", "GeeksForGeeks (Gang of Four)"]
+    return render_template("admin-home.html", libraries=libraries)
