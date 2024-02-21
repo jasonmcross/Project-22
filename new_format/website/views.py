@@ -8,6 +8,14 @@ def developer_home():
     if request.method == 'POST':
         problem = request.form.get('problem')
         collection = request.form.get('collection')
+
+        # Machine learning values
+        vector = request.form.get('vector')
+        cluster = request.form.get('cluster')
+        
+        test = request.form.get('flexCheck')
+
+        print(test)
         
         if len(problem) < 2:
             flash('Enter a valid design problem.', category='error')
