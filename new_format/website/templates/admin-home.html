@@ -6,11 +6,17 @@
 {% block page_content %}
 <ul class="list-group list-group-flush" id="libraries">
     {% for library in libraries %}
-    <li class="list-group-item">
+    <li class="list-group-item d-flex flex-wrap">
         {{ library }}
+        <form class="mx-auto" method="POST">
+            <input type="hidden" name="req" id="req" value="update" />
+            <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+        <form class="mx-auto" method="POST">
+            <input type="hidden" name="req" id="req" value="delete" />
+            <button type="submit" class="btn btn-primary">Delete</button>
+        </form>
     </li>
-    <button type="button" class="update" onclick=""></button>
-    <button type="button" class="close" onclick=""></button>
     {% endfor %}
 </ul>
 {% endblock %}
