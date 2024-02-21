@@ -2,9 +2,12 @@ from sklearn.metrics.pairwise import cosine_similarity
 import pandas as pd
 import numpy as np
 import pickle
+import preprocessing as pp
+import vectorizer as vec
+import cluster_plot as cp
 from pathlib import Path
 
-def predictIt(input):
+def predictIt(input, data: pd.DataFrame):
     # Load model
     filepath = Path(__file__).parent / "clustering_model_master.pkl"
     with open(filepath, 'rb') as model_file:
@@ -15,9 +18,8 @@ def predictIt(input):
     with open(filepath, 'rb') as vec_file:
         loaded_vec = pickle.load(vec_file)
 
-    filepath = Path(__file__).parent / "masterGOF.csv"
-    df = pd.read_csv(filepath, encoding='ISO-8859-1',
-                   header=None, names=['Category', 'Pattern', 'Description'])
+    # Load data
+    df = data
     
     # Vectorize input
     user_input_vectorized = loaded_vec.transform([input])
