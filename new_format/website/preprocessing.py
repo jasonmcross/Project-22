@@ -53,7 +53,8 @@ def lemma(data):
 
 def tokenize(data):
     # Tokenize words
-    text = word_tokenize(data)
+    tok = word_tokenize(data)
+    text = ' '.join(tok)
 
     return text
 

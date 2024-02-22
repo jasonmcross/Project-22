@@ -18,6 +18,8 @@ def predictIt(problem, collection, source, vector, clusterer, preprocess):
                        header=None, names=['Category', 'Pattern', 'Description'])
     
     # Preprocess data
+    df.iloc[:, 2] = df.iloc[:,2].astype(str).apply(pp.lower_punc)
+    df.iloc[:, 2] = df.iloc[:,2].astype(str).apply(pp.remove_stop)
     for i, value in enumerate(preprocess):
         if value == "1":
             df.iloc[:, 2] = df.iloc[:,2].astype(str).apply(preprocess_functions[i])

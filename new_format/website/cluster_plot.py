@@ -38,12 +38,12 @@ def kmeans(features, df: pd.DataFrame):
         plt.scatter(cluster_points[:, 0], cluster_points[:, 1], label=f'Cluster {cluster_label}')
     
     #plt.scatter(reduced_features[:,0], reduced_features[:,1], c=km.labels_)
-    plt.scatter(reduced_cluster_centers[:, 0], reduced_cluster_centers[:,1], marker='x', s=150, c='b')
-    plt.legend()
-    plt.title("KMeans")
-    plt.xlabel("PCA Feature 1")
-    plt.ylabel("PCA Feature 2")
-    plt.show()
+    #plt.scatter(reduced_cluster_centers[:, 0], reduced_cluster_centers[:,1], marker='x', s=150, c='b')
+    #plt.legend()
+    #plt.title("KMeans")
+    #plt.xlabel("PCA Feature 1")
+    #plt.ylabel("PCA Feature 2")
+    #plt.show()
 
     df['cluster'] = km.labels_
     df.to_csv('masterGOF_junk.csv', index=False, header=False, mode='w', encoding='utf-8')
