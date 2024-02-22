@@ -2,7 +2,7 @@ import scrapy
 import csv
 import os
 
-class SourcemakingSpider(scrapy.Spider):
+class sourcemaking_GOF_Spider(scrapy.Spider):
     name = "sourcemaking"
     allowed_domains = ["sourcemaking.com"]
     start_urls = ["https://sourcemaking.com/design_patterns"]
@@ -52,7 +52,7 @@ class SourcemakingSpider(scrapy.Spider):
         self.write_to_csv(out_data)
 
     def write_to_csv(self, data):
-        with open(os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../../data/sourcemakingGOF.csv")), "a", newline="", encoding="utf-8") as csvfile:
+        with open(os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../../data/sourcemaking_GOF.csv")), "a", newline="", encoding="utf-8") as csvfile:
             fieldnames = ["Category", "Pattern", "Data"]
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
             writer.writerow(data)
