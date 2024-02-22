@@ -109,8 +109,8 @@ def predictIt(problem, collection, source, vector, clusterer, preprocess):
 
     # Find most similar patterns
     similar_index = np.argmax(similarities)
-    similar_index1 = similar_index-1
-    similar_index2 = similar_index-2
+    similar_index1 = similar_index+1
+    similar_index2 = similar_index+2
 
     # Get similarity score
     similarity_score = similarities[0][similar_index]
