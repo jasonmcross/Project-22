@@ -10,6 +10,8 @@ from nltk.tag import pos_tag
 
 nltk.download('stopwords')
 nltk.download('wordnet')
+nltk.download('punkt')
+nltk.download('averaged_perceptron_tagger')
 stop_words = set(stopwords.words('english'))
 ps = PorterStemmer()
 
