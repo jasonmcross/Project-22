@@ -65,12 +65,12 @@ def mbkmeans(features, df: pd.DataFrame):
     reduced_features = pca.fit_transform(features.toarray())
     reduced_cluster_centers = pca.transform(mbkm.cluster_centers_)
     
-    plt.scatter(reduced_features[:,0], reduced_features[:,1], c=mbkm.labels_)
-    plt.scatter(reduced_cluster_centers[:, 0], reduced_cluster_centers[:,1], marker='x', s=150, c='b')
-    plt.title("MiniBatchKMeans")
-    plt.xlabel("PCA Feature 1")
-    plt.ylabel("PCA Feature 2")
-    plt.show()
+    #plt.scatter(reduced_features[:,0], reduced_features[:,1], c=mbkm.labels_)
+    #plt.scatter(reduced_cluster_centers[:, 0], reduced_cluster_centers[:,1], marker='x', s=150, c='b')
+    #plt.title("MiniBatchKMeans")
+    #plt.xlabel("PCA Feature 1")
+    #plt.ylabel("PCA Feature 2")
+    #plt.show()
 
     df['cluster'] = mbkm.labels_
     df.to_csv('mbkmeans.csv', index=False, header=False, mode='w', encoding='utf-8')
@@ -97,11 +97,11 @@ def agglomerative(features, df: pd.DataFrame):
         cluster_points = features[cluster_indices]
         centroids[cluster] = cluster_points.mean(axis=0)
             
-    plt.scatter(reduced_features[:,0], reduced_features[:,1], c=ac.labels_)
-    plt.title("AgglomerativeClustering")
-    plt.xlabel("PCA Feature 1")
-    plt.ylabel("PCA Feature 2")
-    plt.show()
+    #plt.scatter(reduced_features[:,0], reduced_features[:,1], c=ac.labels_)
+    #plt.title("AgglomerativeClustering")
+    #plt.xlabel("PCA Feature 1")
+    #plt.ylabel("PCA Feature 2")
+    #plt.show()
 
     df['cluster'] = ac.labels_
     df.to_csv('agglomerative.csv', index=False, header=False, mode='w', encoding='utf-8')
@@ -121,11 +121,11 @@ def dbscan(features, df: pd.DataFrame):
     pca = PCA(n_components=2, random_state = 0)
     reduced_features = pca.fit_transform(features.toarray())
 
-    plt.scatter(reduced_features[:,0], reduced_features[:,1], c=dbs.labels_)
-    plt.title("DBSCAN")
-    plt.xlabel("PCA Feature 1")
-    plt.ylabel("PCA Feature 2")
-    plt.show()
+    #plt.scatter(reduced_features[:,0], reduced_features[:,1], c=dbs.labels_)
+    #plt.title("DBSCAN")
+    #plt.xlabel("PCA Feature 1")
+    #plt.ylabel("PCA Feature 2")
+    #plt.show()
 
     df['cluster'] = dbs.labels_
     df.to_csv('dbscan.csv', index=False, header=False, mode='w', encoding='utf-8')
@@ -145,11 +145,11 @@ def spectral(features, df: pd.DataFrame):
     pca = PCA(n_components=2, random_state = 0)
     reduced_features = pca.fit_transform(features.toarray())
 
-    plt.scatter(reduced_features[:,0], reduced_features[:,1], c=sc.labels_)
-    plt.title("SpectralClustering")
-    plt.xlabel("PCA Feature 1")
-    plt.ylabel("PCA Feature 2")
-    plt.show()
+    #plt.scatter(reduced_features[:,0], reduced_features[:,1], c=sc.labels_)
+    #plt.title("SpectralClustering")
+    #plt.xlabel("PCA Feature 1")
+    #plt.ylabel("PCA Feature 2")
+    #plt.show()
 
     df['cluster'] = sc.labels_
     df.to_csv('spectral.csv', index=False, header=False, mode='w', encoding='utf-8')
@@ -170,11 +170,11 @@ def mean_shift(features, df: pd.DataFrame):
     pca = PCA(n_components=2, random_state = 0)
     reduced_features = pca.fit_transform(features.toarray())
 
-    plt.scatter(reduced_features[:,0], reduced_features[:,1], c=ms.labels_)
-    plt.title("MeanShift")
-    plt.xlabel("PCA Feature 1")
-    plt.ylabel("PCA Feature 2")
-    plt.show()
+    #plt.scatter(reduced_features[:,0], reduced_features[:,1], c=ms.labels_)
+    #plt.title("MeanShift")
+    #plt.xlabel("PCA Feature 1")
+    #plt.ylabel("PCA Feature 2")
+    #plt.show()
 
     df['cluster'] = ms.labels_
     df.to_csv('mean_shift.csv', index=False, header=False, mode='w', encoding='utf-8')
@@ -195,12 +195,12 @@ def gaussian_mixture(features, df: pd.DataFrame):
     pca = PCA(n_components=2, random_state = 0)
     reduced_features = pca.fit_transform(features.toarray())
 
-    plt.scatter(reduced_features[:,0], reduced_features[:,1], c=labels, cmap='viridis')
-    plt.title("GaussianMixture")
-    plt.xlabel("PCA Feature 1")
-    plt.ylabel("PCA Feature 2")
-    plt.colorbar(label='Cluster Label')
-    plt.show()
+    #plt.scatter(reduced_features[:,0], reduced_features[:,1], c=labels, cmap='viridis')
+    #plt.title("GaussianMixture")
+    #plt.xlabel("PCA Feature 1")
+    #plt.ylabel("PCA Feature 2")
+    #plt.colorbar(label='Cluster Label')
+    #plt.show()
 
     df['cluster'] = labels
     df.to_csv('gaussian_mixture.csv', index=False, header=False, mode='w', encoding='utf-8')
@@ -220,11 +220,11 @@ def fuzzy_cmean(features, df: pd.DataFrame):
     pca = PCA(n_components=2, random_state = 0)
     reduced_features = pca.fit_transform(features.toarray())
 
-    plt.scatter(reduced_features[:,0], reduced_features[:,1], c=fcm.u.argmax(axis=1))
-    plt.title("Fuzzy C-Mean")
-    plt.xlabel("PCA Feature 1")
-    plt.ylabel("PCA Feature 2")
-    plt.show()
+    #plt.scatter(reduced_features[:,0], reduced_features[:,1], c=fcm.u.argmax(axis=1))
+    #plt.title("Fuzzy C-Mean")
+    #plt.xlabel("PCA Feature 1")
+    #plt.ylabel("PCA Feature 2")
+    #plt.show()
 
     df['cluster'] = fcm.u.argmax(axis=1)
     df.to_csv('fuzzy_cmean.csv', index=False, header=False, mode='w', encoding='utf-8')
