@@ -43,3 +43,11 @@ class DatabaseOperations:
         result = cur.fetchone()
         cur.close()
         return result
+    
+    def lookup_user_info(self, email):
+        cur = self.conn.cursor()
+        sql = "SELECT * FROM users WHERE email = %s"
+        cur.execute(sql, (email,))
+        result = cur.fetchone()
+        cur.close()
+        return result
