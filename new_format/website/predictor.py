@@ -2,9 +2,9 @@ from sklearn.metrics.pairwise import cosine_similarity
 import pandas as pd
 import numpy as np
 import pickle
-import preprocessing as pp
-import vectorizer as vec
-import cluster_plot as cp
+from website import preprocessing as pp
+from website import vectorizer as vec
+from website import cluster_plot as cp
 from pathlib import Path
 
 def predictIt(problem, collection, source, vector, clusterer, preprocess):

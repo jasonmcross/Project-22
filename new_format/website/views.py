@@ -1,5 +1,5 @@
 from flask import Flask, Blueprint, render_template, request, flash
-from website import predicttest
+from website import predictor
 
 views = Blueprint('views', __name__)
 
@@ -24,7 +24,7 @@ def developer_home():
         elif collection == "0":
             flash('Select a digital library collection', category='error')
         else:
-            patterns = predicttest.predictIt(problem, collection, source, vector, cluster, preprocess)
+            patterns = predictor.predictIt(problem, collection, source, vector, cluster, preprocess)
             flash('Design problem submitted.', category='success')
             return render_template("developer-home.html", patterns=patterns)
         
