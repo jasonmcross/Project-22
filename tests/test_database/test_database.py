@@ -1,19 +1,17 @@
-from pymongo import MongoClient
+import sys
+import os
 import pytest
 
-@pytest.fixture
-def database():
-    client = MongoClient('ip_addr', 22222)
-    db = client['database_name']
-    data = {"Factory Pattern": "A creational pattern used in software development to create objects without specifying the exact class of the object that will be created. It provides an interface for creating objects but allows subclasses to alter the type of objects that will be instantiated."}
-    return(db["collection_name"], data)
+sys.path.append(os.path.abspath(os.path.join(os.curdir, '../..')))
+from new_format.neon_python.userDB import DatabaseOperations
 
-def test_insert(database):
-    db, data = database
-    res = db.insert_one(data)
-    assert res
-
-def test_delete(database):
-    db, data = database
-    res = db.delete_one(data)
-    assert res
+#@pytest.fixture
+def test_database():
+    db = DatabaseOperations()
+    assert db
+    db.add_user('test@pf.com', 'Pattern Finder', 'password')
+    user = db.lookup_user('test@pf.com')
+    assert user
+    db.remove_user('test@pf.com')
+    user = db.lookup_user('test@pf.com')
+    assert user is None
