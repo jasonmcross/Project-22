@@ -1,11 +1,9 @@
 import sys
 import os
-import pytest
 
 sys.path.append(os.path.abspath(os.path.join(os.curdir, '../..')))
 from new_format.neon_python.userDB import DatabaseOperations
 
-#@pytest.fixture
 def test_database():
     db = DatabaseOperations()
     assert db
