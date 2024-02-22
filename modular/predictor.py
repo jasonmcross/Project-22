@@ -7,22 +7,91 @@ import vectorizer as vec
 import cluster_plot as cp
 from pathlib import Path
 
-def predictIt(input, data: pd.DataFrame):
+def predictIt(problem, collection, source, vector, clusterer, preprocess):
+    # Array of preprocessing functions
+    preprocess_functions = [pp.remove_junk, pp.stem, pp.tokenize, pp.lemma, pp.extract_nouns, pp.extract_verbs, pp.extract_adj, pp.synonymize]
+    
+    # Load data
+    if collection == "1" or collection == "2":
+        filepath = Path(__file__).parent / "source_files/masterGOF.csv"
+        df = pd.read_csv(filepath, encoding='ISO-8859-1',
+                       header=None, names=['Category', 'Pattern', 'Description'])
+    
+    # Preprocess data
+    for i, value in enumerate(preprocess):
+        if value == "1":
+            df.iloc[:, 2] = df.iloc[:,2].astype(str).apply(preprocess_functions[i])
+    
+    # Vectorize data
+    if vector == "1":
+        features = vec.vectorize_default(df)
+    elif vector == "2":
+        features = vec.vectorize_ngram(df)
+
+    # Cluster data
+    if clusterer == "1":
+        cp.kmeans(features, df)
+    elif clusterer == "2":
+        cp.mbkmeans(features, df)
+    elif clusterer == "3":
+        cp.agglomerative(features, df)
+    elif clusterer == "4":
+        cp.dbscan(features, df)
+    elif clusterer == "5":
+        cp.spectral(features, df)
+    elif clusterer == "6":
+        cp.mean_shift(features, df)
+    elif clusterer == "7":
+        cp.gaussion_mixture(features, df)
+    elif clusterer == "8":
+        cp.fuzzy_cmean(features, df)
+    
     # Load model
-    filepath = Path(__file__).parent / "clustering_model_master.pkl"
-    with open(filepath, 'rb') as model_file:
-        loaded_cls = pickle.load(model_file)
+    if clusterer == "1":
+        filepath = Path(__file__).parent / "models/kmeans_model.pkl"
+        with open(filepath, 'rb') as model_file:
+            loaded_cls = pickle.load(model_file)
+    elif clusterer == "2":
+        filepath = Path(__file__).parent / "models/mbkmeans_model.pkl"
+        with open(filepath, 'rb') as model_file:
+            loaded_cls = pickle.load(model_file)
+    elif clusterer == "3":
+        filepath = Path(__file__).parent / "models/agglomerative_model.pkl"
+        with open(filepath, 'rb') as model_file:
+            loaded_cls = pickle.load(model_file)
+    elif clusterer == "4":
+        filepath = Path(__file__).parent / "models/dbscan_model.pkl"
+        with open(filepath, 'rb') as model_file:
+            loaded_cls = pickle.load(model_file)
+    elif clusterer == "5":
+        filepath = Path(__file__).parent / "models/spectral_model.pkl"
+        with open(filepath, 'rb') as model_file:
+            loaded_cls = pickle.load(model_file)
+    elif clusterer == "6":
+        filepath = Path(__file__).parent / "models/mean_shift_model.pkl"
+        with open(filepath, 'rb') as model_file:
+            loaded_cls = pickle.load(model_file)
+    elif clusterer == "7":
+        filepath = Path(__file__).parent / "models/gaussion_mixture_model.pkl"
+        with open(filepath, 'rb') as model_file:
+            loaded_cls = pickle.load(model_file)
+    elif clusterer == "8":
+        filepath = Path(__file__).parent / "models/fuzzy_cmean_model.pkl"
+        with open(filepath, 'rb') as model_file:
+            loaded_cls = pickle.load(model_file)
 
     # Load vectorizer
-    filepath = Path(__file__).parent / "vectorizer_master.pkl"
-    with open(filepath, 'rb') as vec_file:
-        loaded_vec = pickle.load(vec_file)
-
-    # Load data
-    df = data
+    if vector == "1":
+        filepath = Path(__file__).parent / "vectorizers/vectorizer_default.pkl"
+        with open(filepath, 'rb') as vec_file:
+            loaded_vec = pickle.load(vec_file)
+    elif vector == "2":
+        filepath = Path(__file__).parent / "vectorizers/vectorizer_ngram.pkl"
+        with open(filepath, 'rb') as vec_file:
+            loaded_vec = pickle.load(vec_file)
     
     # Vectorize input
-    user_input_vectorized = loaded_vec.transform([input])
+    user_input_vectorized = loaded_vec.transform([problem])
 
     # Predict cluster
     cluster = loaded_cls.predict(user_input_vectorized)[0]

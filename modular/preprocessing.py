@@ -69,12 +69,32 @@ def synonymize(data):
 
     return text
 
-def extract_nouns_verbs(data):
+def extract_nouns(data):
     tokens = word_tokenize(data)
     tagged = pos_tag(tokens)
-    nouns_verbs = [word for word, pos in tagged if (pos.startswith('V') or pos.startswith('N'))]
+    nouns = [word for word, pos in tagged if (pos.startswith('N'))]
 
-    text = ' '.join(nouns_verbs)
+    text = ' '.join(nouns)
+    text = data + ' ' + text
+
+    return text
+
+def extract_verbs(data):
+    tokens = word_tokenize(data)
+    tagged = pos_tag(tokens)
+    verbs = [word for word, pos in tagged if (pos.startswith('V'))]
+
+    text = ' '.join(verbs)
+    text = data + ' ' + text
+
+    return text
+
+def extract_adj(data):
+    tokens = word_tokenize(data)
+    tagged = pos_tag(tokens)
+    adjs = [word for word, pos in tagged if (pos.startswith('J'))]
+
+    text = ' '.join(adjs)
     text = data + ' ' + text
 
     return text

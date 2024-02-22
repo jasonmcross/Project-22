@@ -48,7 +48,7 @@ def kmeans(features, df: pd.DataFrame):
     df['cluster'] = km.labels_
     df.to_csv('masterGOF_junk.csv', index=False, header=False, mode='w', encoding='utf-8')
 
-    filepath = Path(__file__).parent / "kmeans_model.pkl"
+    filepath = Path(__file__).parent / "models/kmeans_model.pkl"
     with open(filepath, 'wb') as model_file:
         pickle.dump(km, model_file)
 
@@ -75,7 +75,7 @@ def mbkmeans(features, df: pd.DataFrame):
     df['cluster'] = mbkm.labels_
     df.to_csv('mbkmeans.csv', index=False, header=False, mode='w', encoding='utf-8')
 
-    filepath = Path(__file__).parent / "mbkmeans_model.pkl"
+    filepath = Path(__file__).parent / "models/mbkmeans_model.pkl"
     with open(filepath, 'wb') as model_file:
         pickle.dump(mbkm, model_file)
 
@@ -106,7 +106,7 @@ def agglomerative(features, df: pd.DataFrame):
     df['cluster'] = ac.labels_
     df.to_csv('agglomerative.csv', index=False, header=False, mode='w', encoding='utf-8')
 
-    filepath = Path(__file__).parent / "agglomerative_model.pkl"
+    filepath = Path(__file__).parent / "models/agglomerative_model.pkl"
     with open(filepath, 'wb') as model_file:
         pickle.dump(ac, model_file)
 
@@ -130,7 +130,7 @@ def dbscan(features, df: pd.DataFrame):
     df['cluster'] = dbs.labels_
     df.to_csv('dbscan.csv', index=False, header=False, mode='w', encoding='utf-8')
 
-    filepath = Path(__file__).parent / "dbscan_model.pkl"
+    filepath = Path(__file__).parent / "models/dbscan_model.pkl"
     with open(filepath, 'wb') as model_file:
         pickle.dump(dbs, model_file)
 
@@ -154,7 +154,7 @@ def spectral(features, df: pd.DataFrame):
     df['cluster'] = sc.labels_
     df.to_csv('spectral.csv', index=False, header=False, mode='w', encoding='utf-8')
 
-    filepath = Path(__file__).parent / "spectral_model.pkl"
+    filepath = Path(__file__).parent / "models/spectral_model.pkl"
     with open(filepath, 'wb') as model_file:
         pickle.dump(sc, model_file)
 
@@ -179,7 +179,7 @@ def mean_shift(features, df: pd.DataFrame):
     df['cluster'] = ms.labels_
     df.to_csv('mean_shift.csv', index=False, header=False, mode='w', encoding='utf-8')
 
-    filepath = Path(__file__).parent / "mean_shift_model.pkl"
+    filepath = Path(__file__).parent / "models/mean_shift_model.pkl"
     with open(filepath, 'wb') as model_file:
         pickle.dump(ms, model_file)
 
@@ -205,7 +205,7 @@ def gaussian_mixture(features, df: pd.DataFrame):
     df['cluster'] = labels
     df.to_csv('gaussian_mixture.csv', index=False, header=False, mode='w', encoding='utf-8')
 
-    filepath = Path(__file__).parent / "gaussian_mixture_model.pkl"
+    filepath = Path(__file__).parent / "models/gaussian_mixture_model.pkl"
     with open(filepath, 'wb') as model_file:
         pickle.dump(gm, model_file)
 
@@ -229,6 +229,6 @@ def fuzzy_cmean(features, df: pd.DataFrame):
     df['cluster'] = fcm.u.argmax(axis=1)
     df.to_csv('fuzzy_cmean.csv', index=False, header=False, mode='w', encoding='utf-8')
 
-    filepath = Path(__file__).parent / "fuzzy_cmean_model.pkl"
+    filepath = Path(__file__).parent / "models/fuzzy_cmean_model.pkl"
     with open(filepath, 'wb') as model_file:
         pickle.dump(fcm, model_file)
