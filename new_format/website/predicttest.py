@@ -17,10 +17,10 @@ def predictIt(input, collection):
 
     # User selected Gang of Four collection
     if collection == 2:
-        filepath = Path(__file__).parent / "crawler_cleanup/combinedGOF.csv"
+        filepath = Path(__file__).parent / "crawler_cleanup/combined_GOF.csv"
     # User selected All collections
     else:
-        filepath = Path(__file__).parent / "crawler_cleanup/combinedGOF.csv"
+        filepath = Path(__file__).parent / "crawler_cleanup/combined_GOF.csv"
     
     df = pd.read_csv(filepath, encoding='ISO-8859-1',
                    header=None, names=['Category', 'Pattern', 'Description'])

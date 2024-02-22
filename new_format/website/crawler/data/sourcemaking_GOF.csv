@@ -42,27 +42,16 @@ a regression to functional decomposition - separate the algorithms from
 the data structures.  While this is a legitimate interpretation,
 perhaps a better perspective/rationale is the goal of promoting
 non-traditional behavior to full object status."
-Behavioral,Template Method,"Define the skeleton of an algorithm in an operation, deferring some
-steps to client subclasses.  Template Method lets subclasses redefine
-certain steps of an algorithm without changing the algorithm's
-structure.Base class declares algorithm 'placeholders', and derived classes
-implement the placeholders.Two different components have significant similarities, but demonstrate
-no reuse of common interface or implementation.  If a change common to
-both components becomes necessary, duplicate effort must be expended.The component designer decides which steps of an algorithm are
-invariant (or standard), and which are variant (or customizable).  The
-invariant steps are implemented in an abstract base class, while the
-variant steps are either given a default implementation, or no
-implementation at all.  The variant steps represent ""hooks"", or
-""placeholders"", that can, or must, be supplied by the component's
-client in a concrete derived class.The component designer mandates the required steps of an algorithm, and
-the ordering of the steps, but allows the component client to extend
-or replace some number of these steps.Template Method is used prominently in frameworks.  Each framework
-implements the invariant pieces of a domain's architecture, and defines
-""placeholders"" for all necessary or interesting client customization
-options.  In so doing, the framework becomes the ""center of the
-universe"", and the client customizations are simply ""the third rock
-from the sun"".  This inverted control structure has been affectionately
-labelled ""the Hollywood principle"" - ""don't call us, we'll call you""."
+Behavioral,Memento,"Without violating encapsulation, capture and externalize an object's internal state so that the object can be returned to this state later.A magic cookie that encapsulates a ""check point"" capability. Promote undo or rollback to full object status.Need to restore an object back to its previous state (e.g. ""undo""
+or ""rollback"" operations).The client requests a Memento from the source object when it needs to
+checkpoint the source object's state.  The source object initializes
+the Memento with a characterization of its state.  The client is the
+""care-taker"" of the Memento, but only the source object can store and
+retrieve information from the Memento (the Memento is ""opaque"" to the
+client and all other objects).  If the client subsequently needs to
+""rollback"" the source object's state, it hands the Memento back to the
+source object for reinstatement.An unlimited ""undo"" and ""redo"" capability can be readily implemented
+with a stack of Command objects and a stack of Memento objects.The Memento design pattern defines three distinct roles: "
 Behavioral,Mediator,"Define an object that encapsulates how a set of objects interact.
 Mediator promotes loose coupling by keeping objects from referring
 to each other explicitly, and it lets you vary their interaction
@@ -139,77 +128,6 @@ binary tree, linked list, and hash table) and three algorithms (sort,
 find, and merge), a traditional approach would require four times three
 permutations to develop and maintain.  Whereas, a generic programming
 approach would only require four plus three configuration items."
-Behavioral,Command,"Encapsulate a request as an object, thereby letting you parametrize
-clients with different requests, queue or log requests, and support
-undoable operations.Promote ""invocation of a method on an object"" to full object statusAn object-oriented callbackNeed to issue requests to objects without knowing anything about the
-operation being requested or the receiver of the request.Command decouples the object that invokes the operation from the one
-that knows how to perform it.  To achieve this separation, the designer
-creates an abstract base class that maps a receiver (an object) with an
-action (a pointer to a member function).  The base class contains an
-execute() method that simply calls the action on the receiver.All clients of Command objects treat each object as a ""black box"" by
-simply invoking the object's virtual execute() method whenever the
-client requires the object's ""service"".A Command class holds some subset of the following: an object, a
-method to be applied to the object, and the arguments to be passed when
-the method is applied.  The Command's ""execute"" method then causes
-the pieces to come together.Sequences of Command objects can be assembled into composite (or macro)
-commands."
-Behavioral,Strategy,"Define a family of algorithms, encapsulate each one,
-and make them interchangeable. Strategy lets the algorithm
-vary independently from the clients that use it.Capture the abstraction in an interface, bury
-implementation details in derived classes.One of the dominant strategies of object-oriented
-design is the ""open-closed principle"".Figure demonstrates how this is routinely achieved -
-encapsulate interface details in a base class, and bury
-implementation details in derived classes.  Clients can
-then couple themselves to an interface, and not have to
-experience the upheaval associated with change: no impact
-when the number of derived classes changes, and no impact
-when the implementation of a derived class changes.
-
-A generic value of the software community for years has been,
-""maximize cohesion and minimize coupling"".  The object-oriented
-design approach shown in figure is all about minimizing
-coupling.  Since the client is coupled only to an abstraction
-(i.e. a useful fiction), and not a particular realization of
-that abstraction, the client could be said to be practicing
-""abstract coupling"" . an object-oriented variant of the more
-generic exhortation ""minimize coupling"".A more popular characterization of this ""abstract coupling""
-principle is ""Program to an interface, not an implementation"".Clients should prefer the ""additional level of indirection""
-that an interface (or an abstract base class) affords.
-The interface captures the abstraction (i.e. the ""useful fiction"")
-the client wants to exercise, and the implementations of that
-interface are effectively hidden."
-Behavioral,Memento,"Without violating encapsulation, capture and externalize an object's internal state so that the object can be returned to this state later.A magic cookie that encapsulates a ""check point"" capability. Promote undo or rollback to full object status.Need to restore an object back to its previous state (e.g. ""undo""
-or ""rollback"" operations).The client requests a Memento from the source object when it needs to
-checkpoint the source object's state.  The source object initializes
-the Memento with a characterization of its state.  The client is the
-""care-taker"" of the Memento, but only the source object can store and
-retrieve information from the Memento (the Memento is ""opaque"" to the
-client and all other objects).  If the client subsequently needs to
-""rollback"" the source object's state, it hands the Memento back to the
-source object for reinstatement.An unlimited ""undo"" and ""redo"" capability can be readily implemented
-with a stack of Command objects and a stack of Memento objects.The Memento design pattern defines three distinct roles: "
-Behavioral,Observer,"Define a one-to-many dependency between objects so that when one object
-changes state, all its dependents are notified and updated
-automatically.Encapsulate the core (or common or engine) components in a Subject
-abstraction, and the variable (or optional or user interface) components
-in an Observer hierarchy.The ""View"" part of Model-View-Controller.A large monolithic design does not scale well as new graphing or
-monitoring requirements are levied.Define an object that is the ""keeper"" of the data model and/or business
-logic (the Subject).  Delegate all ""view"" functionality to decoupled and
-distinct Observer objects.  Observers register themselves with the
-Subject as they are created.  Whenever the Subject changes, it
-broadcasts to all registered Observers that it has changed, and each
-Observer queries the Subject for that subset of the Subject's state
-that it is responsible for monitoring.This allows the number and ""type"" of ""view"" objects to be configured
-dynamically, instead of being statically specified at compile-time.The protocol described above specifies a ""pull"" interaction model.  Instead
-of the Subject ""pushing"" what has changed to all Observers, each Observer is
-responsible for ""pulling"" its particular ""window of interest"" from the
-Subject.  The ""push"" model compromises reuse, while the ""pull"" model is
-less efficient.Issues that are discussed, but left to the discretion of the designer,
-include:  implementing event compression (only sending a single change
-broadcast after a series of consecutive changes has occurred), having a
-single Observer monitoring multiple Subjects, and ensuring that a
-Subject notify its Observers when it is about to go away.The Observer pattern captures the lion's share of the Model-View-Controller
-architecture that has been a part of the Smalltalk community for years."
 Behavioral,Null Object,"The intent of a Null Object is to encapsulate the absence of an object by providing a substitutable alternative that offers suitable default do nothing behavior. In short, a design where ""nothing will come of nothing""Use the Null Object pattern whenan object requires a collaborator. The Null Object pattern does not introduce this collaboration--it makes use of a collaboration that already existssome collaborator instances should do nothingyou want to abstract the handling of null away from the clientGiven that an object reference may be optionally null, and that the result of a null check is to do nothing or use some default value, how can the absence of an object — the presence of a null reference — be treated transparently?Sometimes a class that requires a collaborator does not need the collaborator to do anything. However, the class wishes to treat a collaborator that does nothing the same way it treats one that actually provides behavior.Consider for example a simple screen saver which displays balls that move about the screen and have special color effects. This is easily achieved by creating a Ball class to represent the balls and using a Strategy pattern to control the ball's motion and another Strategy pattern to control the ball's color.It would then be trivial to write strategies for many different types of motion and color effects and create balls with any combination of those. However, to start with you want to create the simplest strategies possible to make sure everything is working. And these strategies could also be useful later since you want as strategies as possible strategies.
 
 Now, the simplest strategy would be no strategy. That is do nothing, don't move and don't change color. However, the Strategy pattern requires the ball to have objects which implement the strategy interfaces. This is where the Null Object pattern becomes useful.Simply implement a NullMovementStrategy which doesn't move the ball and a NullColorStrategy which doesn't change the ball's color. Both of these can probably be implemented with essentially no code. All the methods in these classes do ""nothing"". They are perfect examples of the Null Object Pattern.The key to the Null Object pattern is an abstract class that defines the interface for all objects of this type. The Null Object is implemented as a subclass of this abstract class. Because it conforms to the abstract class' interface, it can be used any place this type of object is needed. As compared to using a special ""null"" value which doesn't actually implement the abstract interface and which must constantly be checked for with special code in any object which uses the abstract interface.It is sometimes thought that Null Objects are over simple and ""stupid"" but in truth a Null Object always knows exactly what needs to be done without interacting with any other objects. So in truth it is very ""smart."""
@@ -258,35 +176,20 @@ successor in the chain.Make sure there exists a ""safety net"" to ""catch"" any 
 go unhandled.Do not use Chain of Responsibility when each request is only handled by
 one handler, or, when the client object knows which service object
 should handle the request."
-Creational,Singleton,"Ensure a class has only one instance, and provide a global point of
-access to it.Encapsulated ""just-in-time initialization"" or ""initialization on
-first use"".Application needs one, and only one, instance of an object.  Additionally,
-lazy initialization and global access are necessary.Make the class of the single instance object responsible for creation,
-initialization, access, and enforcement.  Declare the instance as a
-private static data member.  Provide a public static member function
-that encapsulates all initialization code, and provides access to the
-instance.The client calls the accessor function (using the class name and scope
-resolution operator) whenever a reference to the single instance is
-required.Singleton should be considered only if all three of the following
-criteria are satisfied:Ownership of the single instance cannot be reasonably assignedLazy initialization is desirableGlobal access is not otherwise provided forIf ownership of the single instance, when and how initialization
-occurs, and global access are not issues, Singleton is not sufficiently
-interesting.The Singleton pattern can be extended to support access to an
-application-specific number of instances.The ""static member function accessor"" approach will not support
-subclassing of the Singleton class.  If subclassing is desired, refer
-to the discussion in the book.Deleting a Singleton class/instance is a non-trivial design problem.
-  See ""To Kill A Singleton"" by John Vlissides for a discussion."
-Creational,Prototype,"Specify the kinds of objects to create using a prototypical instance,
-and create new objects by copying this prototype.Co-opt one instance of a class for use as a breeder of all future
-instances.The new operator considered harmful.Application ""hard wires"" the class of object to create in each
-""new"" expression.Declare an abstract base class that specifies a pure virtual ""clone""
-method, and, maintains a dictionary of all ""cloneable"" concrete derived
-classes.  Any class that needs a ""polymorphic constructor"" capability:
-derives itself from the abstract base class, registers its prototypical
-instance, and implements the clone() operation.The client then, instead of writing code that invokes the ""new""
-operator on a hard-wired class name, calls a ""clone"" operation on the
-abstract base class, supplying a string or enumerated data type that
-designates the particular concrete derived class desired."
-Creational,Builder,"Separate the construction of a complex object from its representation so that the same construction process can create different representations.Parse a complex representation, create one of several targets.An application needs to create the elements of a complex aggregate. The specification for the aggregate exists on secondary storage and one of many representations needs to be built in primary storage.Separate the algorithm for interpreting (i.e. reading and parsing) a stored persistence mechanism (e.g. RTF files) from the algorithm for building and representing one of many target products (e.g. ASCII, TeX, text widget).  The focus/distinction is on creating complex aggregates.The ""director"" invokes ""builder"" services as it interprets the external format.  The ""builder"" creates part of the complex object each time it is called and maintains all intermediate state.  When the product is finished, the client retrieves the result from the ""builder"".Affords finer control over the construction process.  Unlike creational patterns that construct products in one shot, the Builder pattern constructs the product step by step under the control of the ""director""."
+Behavioral,Command,"Encapsulate a request as an object, thereby letting you parametrize
+clients with different requests, queue or log requests, and support
+undoable operations.Promote ""invocation of a method on an object"" to full object statusAn object-oriented callbackNeed to issue requests to objects without knowing anything about the
+operation being requested or the receiver of the request.Command decouples the object that invokes the operation from the one
+that knows how to perform it.  To achieve this separation, the designer
+creates an abstract base class that maps a receiver (an object) with an
+action (a pointer to a member function).  The base class contains an
+execute() method that simply calls the action on the receiver.All clients of Command objects treat each object as a ""black box"" by
+simply invoking the object's virtual execute() method whenever the
+client requires the object's ""service"".A Command class holds some subset of the following: an object, a
+method to be applied to the object, and the arguments to be passed when
+the method is applied.  The Command's ""execute"" method then causes
+the pieces to come together.Sequences of Command objects can be assembled into composite (or macro)
+commands."
 Structural,Proxy,"Provide a surrogate or placeholder for another object to control
 access to it.Use an extra level of indirection to support distributed,
 controlled, or intelligent access.Add a wrapper and delegation to protect the real component from
@@ -300,43 +203,28 @@ directly to the encapsulated real object.There are four common situations in whi
 can be freed automatically when there are no more references (aka smart
 pointer),Loading a persistent object into memory when it's first referenced,Checking that the real object is locked before it is accessed to
 ensure that no other object can change it."
-Creational,Factory Method,"Define an interface for creating an object, but let subclasses decide
-which class to instantiate.  Factory Method lets a class defer
-instantiation to subclasses.Defining a ""virtual"" constructor.The new operator considered harmful.A framework needs to standardize the architectural model for a range of
-applications, but allow for individual applications to define their own
-domain objects and provide for their instantiation.Factory Method is to creating objects as Template Method is to
-implementing an algorithm.  A superclass specifies all standard and
-generic behavior (using pure virtual ""placeholders"" for creation
-steps), and then delegates the creation details to subclasses that are
-supplied by the client.Factory Method makes a design more customizable and only a little more
-complicated.  Other design patterns require new classes, whereas
-Factory Method only requires a new operation.People often use Factory Method as the standard way to create objects;
-but it isn't necessary if: the class that's instantiated never changes,
-or instantiation takes place in an operation that subclasses can easily
-override (such as an initialization operation).Factory Method is similar to Abstract Factory but without the emphasis
-on families.Factory Methods are routinely specified by an architectural framework,
-and then implemented by the user of the framework."
-Creational,Object Pool,"Object pooling can offer a significant performance boost; it is most effective in situations where the cost of initializing a class instance is high, the rate of instantiation of a class is high, and the number of instantiations in use at any one time is low.
-Object pools (otherwise known as resource pools) are used to manage the object caching. A client with access to a Object pool can avoid creating a new Objects by simply asking the pool for one that has already been instantiated instead. Generally the pool will be a growing pool, i.e. the pool itself will create new objects if the pool is empty, or we can have a pool, which restricts the number of objects created.It is desirable to keep all Reusable objects that are not currently in use in the same object pool so that they can be managed by one coherent policy. To achieve this, the Reusable Pool class is designed to be a singleton class.The Object Pool lets others ""check out"" objects from its pool, when those objects are no longer needed by their processes, they are returned to the pool in order to be reused. However, we don't want a process to have to wait for a particular object to be released, so the Object Pool also instantiates new objects as they are required, but must also implement a facility to clean up unused objects periodically."
+Behavioral,Template Method,"Define the skeleton of an algorithm in an operation, deferring some
+steps to client subclasses.  Template Method lets subclasses redefine
+certain steps of an algorithm without changing the algorithm's
+structure.Base class declares algorithm 'placeholders', and derived classes
+implement the placeholders.Two different components have significant similarities, but demonstrate
+no reuse of common interface or implementation.  If a change common to
+both components becomes necessary, duplicate effort must be expended.The component designer decides which steps of an algorithm are
+invariant (or standard), and which are variant (or customizable).  The
+invariant steps are implemented in an abstract base class, while the
+variant steps are either given a default implementation, or no
+implementation at all.  The variant steps represent ""hooks"", or
+""placeholders"", that can, or must, be supplied by the component's
+client in a concrete derived class.The component designer mandates the required steps of an algorithm, and
+the ordering of the steps, but allows the component client to extend
+or replace some number of these steps.Template Method is used prominently in frameworks.  Each framework
+implements the invariant pieces of a domain's architecture, and defines
+""placeholders"" for all necessary or interesting client customization
+options.  In so doing, the framework becomes the ""center of the
+universe"", and the client customizations are simply ""the third rock
+from the sun"".  This inverted control structure has been affectionately
+labelled ""the Hollywood principle"" - ""don't call us, we'll call you""."
 Structural,Private Class Data,"Control write access to class attributesSeparate data from methods that use itEncapsulate class data initializationProviding new type of final - final after constructorA class may expose its attributes (class variables) to manipulation when manipulation is no longer desirable, e.g. after construction. Using the private class data design pattern prevents that undesirable manipulation.A class may have one-time mutable attributes that cannot be declared final. Using this design pattern allows one-time setting of those class attributes.The motivation for this design pattern comes from the design goal of protecting class state by minimizing the visibility of its attributes (data).The private class data design pattern seeks to reduce exposure of attributes by limiting their visibility.It reduces the number of class attributes by encapsulating them in single Data object. It allows the class designer to remove write privilege of attributes that are intended to be set only during construction, even from methods of the target class."
-Creational,Abstract Factory,"Provide an interface for creating families of related or dependent objects without specifying their concrete classes.A hierarchy that encapsulates: many possible ""platforms"", and the construction of a suite of ""products"".The new operator considered harmful.If an application is to be portable, it needs to
-encapsulate platform dependencies.  These ""platforms""
-might include: windowing system, operating system,
-database, etc.  Too often, this encapsulation is not
-engineered in advance, and lots of #ifdef case statements
-with options for all currently supported platforms begin
-to procreate like rabbits throughout the code.Provide a level of indirection that abstracts the creation
-of families of related or dependent objects without directly
-specifying their concrete classes.  The ""factory"" object has
-the responsibility for providing creation services for the
-entire platform family.  Clients never create platform objects
-directly, they ask the factory to do that for them.This mechanism makes exchanging product families easy because
-the specific class of the factory object appears only once in
-the application - where it is instantiated.  The application
-can wholesale replace the entire family of products simply by
-instantiating a different concrete instance of the abstract
-factory.Because the service provided by the factory object is so
-pervasive, it is routinely implemented as a Singleton."
 Structural,Facade,"Provide a unified interface to a set of interfaces in a subsystem.
 Facade defines a higher-level interface that makes the subsystem easier
 to use.Wrap a complicated subsystem with a simpler interface.A segment of the client community needs a simplified interface to the
@@ -403,6 +291,53 @@ object, not methods to an object's interface.  The interface presented
 to the client must remain constant as successive layers are specified.Also note that the core object's identity has now been ""hidden"" inside
 of a decorator object.  Trying to access the core object directly is
 now a problem."
+Behavioral,Strategy,"Define a family of algorithms, encapsulate each one,
+and make them interchangeable. Strategy lets the algorithm
+vary independently from the clients that use it.Capture the abstraction in an interface, bury
+implementation details in derived classes.One of the dominant strategies of object-oriented
+design is the ""open-closed principle"".Figure demonstrates how this is routinely achieved -
+encapsulate interface details in a base class, and bury
+implementation details in derived classes.  Clients can
+then couple themselves to an interface, and not have to
+experience the upheaval associated with change: no impact
+when the number of derived classes changes, and no impact
+when the implementation of a derived class changes.
+
+A generic value of the software community for years has been,
+""maximize cohesion and minimize coupling"".  The object-oriented
+design approach shown in figure is all about minimizing
+coupling.  Since the client is coupled only to an abstraction
+(i.e. a useful fiction), and not a particular realization of
+that abstraction, the client could be said to be practicing
+""abstract coupling"" . an object-oriented variant of the more
+generic exhortation ""minimize coupling"".A more popular characterization of this ""abstract coupling""
+principle is ""Program to an interface, not an implementation"".Clients should prefer the ""additional level of indirection""
+that an interface (or an abstract base class) affords.
+The interface captures the abstraction (i.e. the ""useful fiction"")
+the client wants to exercise, and the implementations of that
+interface are effectively hidden."
+Behavioral,Observer,"Define a one-to-many dependency between objects so that when one object
+changes state, all its dependents are notified and updated
+automatically.Encapsulate the core (or common or engine) components in a Subject
+abstraction, and the variable (or optional or user interface) components
+in an Observer hierarchy.The ""View"" part of Model-View-Controller.A large monolithic design does not scale well as new graphing or
+monitoring requirements are levied.Define an object that is the ""keeper"" of the data model and/or business
+logic (the Subject).  Delegate all ""view"" functionality to decoupled and
+distinct Observer objects.  Observers register themselves with the
+Subject as they are created.  Whenever the Subject changes, it
+broadcasts to all registered Observers that it has changed, and each
+Observer queries the Subject for that subset of the Subject's state
+that it is responsible for monitoring.This allows the number and ""type"" of ""view"" objects to be configured
+dynamically, instead of being statically specified at compile-time.The protocol described above specifies a ""pull"" interaction model.  Instead
+of the Subject ""pushing"" what has changed to all Observers, each Observer is
+responsible for ""pulling"" its particular ""window of interest"" from the
+Subject.  The ""push"" model compromises reuse, while the ""pull"" model is
+less efficient.Issues that are discussed, but left to the discretion of the designer,
+include:  implementing event compression (only sending a single change
+broadcast after a series of consecutive changes has occurred), having a
+single Observer monitoring multiple Subjects, and ensuring that a
+Subject notify its Observers when it is about to go away.The Observer pattern captures the lion's share of the Model-View-Controller
+architecture that has been a part of the Smalltalk community for years."
 Structural,Adapter,"Convert the interface of a class into another interface clients
 expect.  Adapter lets classes work together that couldn't otherwise
 because of incompatible interfaces.Wrap an existing class with a new interface.Impedance match an old component to a new systemAn ""off the shelf"" component offers compelling functionality that you
@@ -466,3 +401,68 @@ by the user as the actual class, but the work is done in the body.
 abstraction into smaller, more manageable classes.  The idiom may
 reflect the sharing of a single resource by multiple classes that
 control access to it (e.g. reference counting)."""
+Creational,Singleton,"Ensure a class has only one instance, and provide a global point of
+access to it.Encapsulated ""just-in-time initialization"" or ""initialization on
+first use"".Application needs one, and only one, instance of an object.  Additionally,
+lazy initialization and global access are necessary.Make the class of the single instance object responsible for creation,
+initialization, access, and enforcement.  Declare the instance as a
+private static data member.  Provide a public static member function
+that encapsulates all initialization code, and provides access to the
+instance.The client calls the accessor function (using the class name and scope
+resolution operator) whenever a reference to the single instance is
+required.Singleton should be considered only if all three of the following
+criteria are satisfied:Ownership of the single instance cannot be reasonably assignedLazy initialization is desirableGlobal access is not otherwise provided forIf ownership of the single instance, when and how initialization
+occurs, and global access are not issues, Singleton is not sufficiently
+interesting.The Singleton pattern can be extended to support access to an
+application-specific number of instances.The ""static member function accessor"" approach will not support
+subclassing of the Singleton class.  If subclassing is desired, refer
+to the discussion in the book.Deleting a Singleton class/instance is a non-trivial design problem.
+  See ""To Kill A Singleton"" by John Vlissides for a discussion."
+Creational,Abstract Factory,"Provide an interface for creating families of related or dependent objects without specifying their concrete classes.A hierarchy that encapsulates: many possible ""platforms"", and the construction of a suite of ""products"".The new operator considered harmful.If an application is to be portable, it needs to
+encapsulate platform dependencies.  These ""platforms""
+might include: windowing system, operating system,
+database, etc.  Too often, this encapsulation is not
+engineered in advance, and lots of #ifdef case statements
+with options for all currently supported platforms begin
+to procreate like rabbits throughout the code.Provide a level of indirection that abstracts the creation
+of families of related or dependent objects without directly
+specifying their concrete classes.  The ""factory"" object has
+the responsibility for providing creation services for the
+entire platform family.  Clients never create platform objects
+directly, they ask the factory to do that for them.This mechanism makes exchanging product families easy because
+the specific class of the factory object appears only once in
+the application - where it is instantiated.  The application
+can wholesale replace the entire family of products simply by
+instantiating a different concrete instance of the abstract
+factory.Because the service provided by the factory object is so
+pervasive, it is routinely implemented as a Singleton."
+Creational,Object Pool,"Object pooling can offer a significant performance boost; it is most effective in situations where the cost of initializing a class instance is high, the rate of instantiation of a class is high, and the number of instantiations in use at any one time is low.
+Object pools (otherwise known as resource pools) are used to manage the object caching. A client with access to a Object pool can avoid creating a new Objects by simply asking the pool for one that has already been instantiated instead. Generally the pool will be a growing pool, i.e. the pool itself will create new objects if the pool is empty, or we can have a pool, which restricts the number of objects created.It is desirable to keep all Reusable objects that are not currently in use in the same object pool so that they can be managed by one coherent policy. To achieve this, the Reusable Pool class is designed to be a singleton class.The Object Pool lets others ""check out"" objects from its pool, when those objects are no longer needed by their processes, they are returned to the pool in order to be reused. However, we don't want a process to have to wait for a particular object to be released, so the Object Pool also instantiates new objects as they are required, but must also implement a facility to clean up unused objects periodically."
+Creational,Builder,"Separate the construction of a complex object from its representation so that the same construction process can create different representations.Parse a complex representation, create one of several targets.An application needs to create the elements of a complex aggregate. The specification for the aggregate exists on secondary storage and one of many representations needs to be built in primary storage.Separate the algorithm for interpreting (i.e. reading and parsing) a stored persistence mechanism (e.g. RTF files) from the algorithm for building and representing one of many target products (e.g. ASCII, TeX, text widget).  The focus/distinction is on creating complex aggregates.The ""director"" invokes ""builder"" services as it interprets the external format.  The ""builder"" creates part of the complex object each time it is called and maintains all intermediate state.  When the product is finished, the client retrieves the result from the ""builder"".Affords finer control over the construction process.  Unlike creational patterns that construct products in one shot, the Builder pattern constructs the product step by step under the control of the ""director""."
+Creational,Factory Method,"Define an interface for creating an object, but let subclasses decide
+which class to instantiate.  Factory Method lets a class defer
+instantiation to subclasses.Defining a ""virtual"" constructor.The new operator considered harmful.A framework needs to standardize the architectural model for a range of
+applications, but allow for individual applications to define their own
+domain objects and provide for their instantiation.Factory Method is to creating objects as Template Method is to
+implementing an algorithm.  A superclass specifies all standard and
+generic behavior (using pure virtual ""placeholders"" for creation
+steps), and then delegates the creation details to subclasses that are
+supplied by the client.Factory Method makes a design more customizable and only a little more
+complicated.  Other design patterns require new classes, whereas
+Factory Method only requires a new operation.People often use Factory Method as the standard way to create objects;
+but it isn't necessary if: the class that's instantiated never changes,
+or instantiation takes place in an operation that subclasses can easily
+override (such as an initialization operation).Factory Method is similar to Abstract Factory but without the emphasis
+on families.Factory Methods are routinely specified by an architectural framework,
+and then implemented by the user of the framework."
+Creational,Prototype,"Specify the kinds of objects to create using a prototypical instance,
+and create new objects by copying this prototype.Co-opt one instance of a class for use as a breeder of all future
+instances.The new operator considered harmful.Application ""hard wires"" the class of object to create in each
+""new"" expression.Declare an abstract base class that specifies a pure virtual ""clone""
+method, and, maintains a dictionary of all ""cloneable"" concrete derived
+classes.  Any class that needs a ""polymorphic constructor"" capability:
+derives itself from the abstract base class, registers its prototypical
+instance, and implements the clone() operation.The client then, instead of writing code that invokes the ""new""
+operator on a hard-wired class name, calls a ""clone"" operation on the
+abstract base class, supplying a string or enumerated data type that
+designates the particular concrete derived class desired."
