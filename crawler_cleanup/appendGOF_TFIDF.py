@@ -51,11 +51,11 @@ vectorizer = TfidfVectorizer(ngram_range=(1, 2))  # This will consider single wo
 tfidf_matrix = vectorizer.fit_transform(df_combined.iloc[:, 2])
 
 # Write to CSV
-df_combined.to_csv('C:/VSCode/Project-22/crawler_cleanup/combinedGOF_TFIDF.csv', index=False, header = False)
+df_combined.to_csv('C:/VSCode/Project-22/crawler_cleanup/combined_GOF_TFIDF.csv', index=False, header = False)
 
 
 # Combine files into one file
-#with open('combinedGOF.csv', 'w', encoding = 'ISO-8859-1') as outfile:
+#with open('combined_GOF.csv', 'w', encoding = 'ISO-8859-1') as outfile:
 #    for i, fname in enumerate(csv_files):
 #        with open(fname) as infile:
 #            if i == 0:

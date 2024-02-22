@@ -45,7 +45,7 @@ df.to_csv('C:/VSCode/Project-22/crawler_cleanup/masterGOFNew.csv', index=False, 
 
 
 # Combine files into one file
-#with open('combinedGOF.csv', 'w', encoding = 'ISO-8859-1') as outfile:
+#with open('combined_GOF.csv', 'w', encoding = 'ISO-8859-1') as outfile:
 #    for i, fname in enumerate(csv_files):
 #        with open(fname) as infile:
 #            if i == 0:

@@ -47,11 +47,11 @@ df2.iloc[:, 2] = df2.iloc[:,2].astype(str).apply(preprocessText)
 df_combined = pd.concat([df1, df2], ignore_index=True)
 
 # Write to CSV
-df_combined.to_csv('C:/VSCode/Project-22/crawler_cleanup/combinedGOF_lemm.csv', index=False, header = False)
+df_combined.to_csv('C:/VSCode/Project-22/crawler_cleanup/combined_GOF_lemm.csv', index=False, header = False)
 
 
 # Combine files into one file
-#with open('combinedGOF.csv', 'w', encoding = 'ISO-8859-1') as outfile:
+#with open('combined_GOF.csv', 'w', encoding = 'ISO-8859-1') as outfile:
 #    for i, fname in enumerate(csv_files):
 #        with open(fname) as infile:
 #            if i == 0:

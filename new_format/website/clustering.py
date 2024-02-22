@@ -10,7 +10,7 @@ from sklearn.cluster import MiniBatchKMeans
 from pathlib import Path
   
 def trainIt():
-    filepath = Path(__file__).parent / "crawler_cleanup/combinedGOF.csv"
+    filepath = Path(__file__).parent / "crawler_cleanup/combined_GOF.csv"
     df = pd.read_csv(filepath, encoding='ISO-8859-1',
                    header=None, names=['Category', 'Pattern', 'Description'])
 
