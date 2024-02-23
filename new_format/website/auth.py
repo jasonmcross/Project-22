@@ -25,7 +25,8 @@ def login():
 
             if user_data and user_data[0] == password:
                 flash('Login successful!', category='success')
-                return render_template("admin-home.html")
+                libraries = ["SourceMaking (Gang of Four)", "RefactoringGuru (Gang of Four)", "GeeksForGeeks (Gang of Four)"]
+                return render_template("admin-home.html", libraries=libraries)
             else:
                 flash('Invalid email or password. Please try again.', category='error')
 
@@ -37,7 +38,9 @@ def sign_up():
         email = request.form.get('email')
         password = request.form.get('password')
         con_password = request.form.get('con_password')
-        name = request.form.get('name')
+        firstName = request.form.get('firstName')
+        lastName = request.form.get('lastName')
+        name = firstName + " " + lastName
         
         if len(email) < 12:
             flash('Invalid email entered.', category='error')
@@ -53,10 +56,12 @@ def sign_up():
             # Add the new admin account to the database
             db.add_user(email, name, password)
             flash('Admin account created successfully.', category='success')
-            return render_template("admin-home.html")
+            libraries = ["SourceMaking (Gang of Four)", "RefactoringGuru (Gang of Four)", "GeeksForGeeks (Gang of Four)"]
+            return render_template("admin-home.html", libraries=libraries)
         
     return render_template("admin-sign-up.html")
   
 @auth.route('/logout')
 def logout():
     return render_template("developer-home.html")
+
