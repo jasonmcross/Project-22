@@ -4,6 +4,7 @@ from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 import string
 import glob
+import os
 
 
 
@@ -11,8 +12,8 @@ import glob
 #path = 'C:/VSCodeProject-22/crawler/data/'
 #csv_files = glob.glob(path + '/*GOF.csv')
 
-df1 = pd.read_csv('C:/VSCodeProject-22/crawler/data/refactoringGOF.csv', header = None)
-df2 = pd.read_csv('C:/VSCodeProject-22/crawler/data/sourcemakingGOF.csv', header = None)
+df1 = pd.read_csv('C:/VSCode/Project-22/crawler/data/refactoringGOF.csv', header = None)
+df2 = pd.read_csv('C:/VSCode/Project-22/crawler/data/sourcemakingGOF.csv', header = None)
 
 nltk.download('stopwords')
 stop_words = set(stopwords.words('english'))
@@ -23,8 +24,12 @@ def preprocessText(text):
     text = text.lower()
     # Remove punctuation
     text = ''.join([char for char in text if char not in string.punctuation])
-    # Remove stopwords and stem
-    text = ' '.join([ps.stem(word) for word in text.split() if word not in stop_words])
+    # Split, remove stopwords and stem
+    words = [ps.stem(word) for word in text.split() if word not in stop_words]
+    # Remove duplicate words
+    words = list(set(words))
+    # Join words back together
+    text = ' '.join(words)
 
     return text
 
@@ -36,7 +41,7 @@ df2.iloc[:, 2] = df2.iloc[:,2].astype(str).apply(preprocessText)
 df_combined = pd.concat([df1, df2], ignore_index=True)
 
 # Write to CSV
-df_combined.to_csv('C:/VSCodeProject-22/crawler_cleanup/combined_GOF.csv', index=False, header = False)
+df_combined.to_csv('C:/VSCode/Project-22/crawler_cleanup/combined_GOFNew.csv', index=False, header = False)
 
 
 # Combine files into one file
