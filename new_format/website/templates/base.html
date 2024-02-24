@@ -24,14 +24,26 @@
                 data-target="#navbar">
             <span class="navbar-toggler-icon"></span>
         </button>
+        
         <div class="collapse navbar-collapse" id="navbar">
             <div class="navbar-nav">
+                <a class="nav-item nav-link" id="developer-home" href="/">Home</a>
+                {% if session.logged_in %}
+                    <a class="nav-item nav-link" id="admin-home" href="/admin-home">Admin Home</a>
+                    <a class="nav-item nav-link" id="sign_up" href="/sign-up">Admin Sign Up</a>
+                    <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+
+                {% else %}
+                    <a class="nav-item nav-link" id="login" href="/login">Admin Login</a>
+                {% endif %}
+            </div>
+            <!--<div class="navbar-nav">
                 <a class="nav-item nav-link" id="developer-home" href="/">Home</a>
                 <a class="nav-item nav-link" id="sign_up" href="/sign-up">Admin Sign Up</a>
                 <a class="nav-item nav-link" id="login" href="/login">Admin Login</a>
                 <a class="nav-item nav-link" id="admin-home" href="/admin-home">Home</a>
                 <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
-            </div>
+            </div>-->
         </div>
     </nav>
 
