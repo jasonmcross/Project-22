@@ -5,13 +5,18 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from sklearn.naive_bayes import MultinomialNB
 from sklearn import metrics
+from pathlib import Path
 import nltk
 import re
 import string
 from nltk.stem import WordNetLemmatizer
 
-data = pd.read_csv('combined_patterns.csv', encoding='ISO-8859-1',
-                   header=None, names=['Pattern', 'Description'])
+filepath = Path(__file__).parent / "combined_patterns.csv"
+data = pd.read_csv(filepath, encoding='ISO-8859-1',
+    header=None, names=['Pattern', 'Description'])
+
+#data = pd.read_csv('combined_patterns.csv', encoding='ISO-8859-1',
+#                   header=None, names=['Pattern', 'Description'])
 
 tfidf = TfidfVectorizer()
 
@@ -38,7 +43,7 @@ def predict_design_pattern(description, top_n=3):
                     for i in top_indicies]
     return top_patterns
 
-# test_description = "Add responsibilities to objects dynamically"
-# predicted_patterns = predict_design_pattern(test_description)
-# for pattern, score in predicted_patterns:
-#     print(f"Pattern: {pattern}, Score: {score}")
+test_description = "Add responsibilities to objects dynamically"
+predicted_patterns = predict_design_pattern(test_description)
+for pattern, score in predicted_patterns:
+    print(f"Pattern: {pattern}, Score: {score}")
