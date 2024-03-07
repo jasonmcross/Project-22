@@ -1,0 +1,8 @@
+#!/Users/User/Documents/GitHub/Project-22/new_format/website/crawler/scrapers/digital_lib_scraper/spiders/env/bin/python3
+# -*- coding: utf-8 -*-
+import re
+import sys
+from twisted.conch.scripts.ckeygen import run
+if __name__ == '__main__':
+    sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])
+    sys.exit(run())
