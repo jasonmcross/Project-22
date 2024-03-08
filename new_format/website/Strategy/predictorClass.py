@@ -20,27 +20,27 @@ class Predictor:
         self.clusterer = clusterer
 
     def preprocess_data(self, data):
-        """Apply the chain of preprocessing steps to the data."""
+        # Apply the chain of preprocessing steps to the data
         for preprocessor in self.preprocessors:
             data = preprocessor.preprocess(data)
         return data
 
     def vectorize_data(self, data):
-        """Vectorize the preprocessed data."""
+        # Vectorize the preprocessed data
         if self.vectorizer is not None:
             return self.vectorizer.vectorize(data)
         else:
             raise NotImplementedError("Vectorizer strategy has not been set.")
 
     def cluster_data(self, data):
-        """Apply the clustering algorithm to the vectorized data."""
+        # Apply the clustering algorithm to the vectorized data
         if self.clusterer is not None:
             return self.clusterer.cluster(data)
         else:
             raise NotImplementedError("Clusterer strategy has not been set.")
 
     def predict(self, data):
-        """The main method to process and predict based on the input data."""
+        # The main method to process and predict based on the input data
         preprocessed_data = self.preprocess_data(data)
         vectorized_data = self.vectorize_data(preprocessed_data)
         result = self.cluster_data(vectorized_data)
