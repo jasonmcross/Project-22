@@ -32,13 +32,19 @@ def developer_home():
 
 @views.route('/admin-home', methods=['GET', 'POST'])
 def admin_home():
-    if request.method =='POST':
-        req = request.form.get('req')
+    if 'logged_in' not in session:
+        flash('Cannot view page', category='error')
+        return render_template("admin-login.html")
+    else:
+        if request.method =='POST':
+            req = request.form.get('req')
         
-        if req == "update":
-            return render_template("admin-home.html")
-        elif req == "delete":
-            return render_template("admin-home.html")
+            if req == "crawl":
+                return render_template("admin-home.html")
+            elif req == "update":
+                return render_template("admin-home.html")
+            elif req == "delete":
+                return render_template("admin-home.html")
 
-    libraries = ["SourceMaking (Gang of Four)", "RefactoringGuru (Gang of Four)", "GeeksForGeeks (Gang of Four)"]
-    return render_template("admin-home.html", libraries=libraries)
+        libraries = ["SourceMaking (Gang of Four)", "RefactoringGuru (Gang of Four)", "GeeksForGeeks (Gang of Four)"]
+        return render_template("admin-home.html", libraries=libraries)
