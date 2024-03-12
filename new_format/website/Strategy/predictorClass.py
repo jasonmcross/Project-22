@@ -12,8 +12,7 @@ from website import cluster_plot as cp
 from pathlib import Path
 
 class Predictor:
-    preprocess_functions = []
-
+    
     def __init__(self, preprocessors=None, vectorizer=None, clusterer=None):
         # A list of preprocessor instances
         self.preprocessors = preprocessors if preprocessors is not None else []
@@ -47,14 +46,4 @@ class Predictor:
         preprocessed_data = self.preprocess_data(data)
         vectorized_data = self.vectorize_data(preprocessed_data)
         result = self.cluster_data(vectorized_data)
-        return result
-
-    
-preprocessors = [remove_junk(), stem()]
-vectorizer = SpecificVectorizer()
-clusterer = KMeansClusterer()
-# Create the Predictor instance with the chosen strategies
-predictor = Predictor(preprocessors=preprocessors, vectorizer=vectorizer, clusterer=clusterer)
-# Use the predictor with some data
-data = "Your input data here"
-prediction = predictor.predict(data)
+        return result    
