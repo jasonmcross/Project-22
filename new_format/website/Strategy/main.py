@@ -19,8 +19,7 @@ def main(problem, collection, source, vector, clusterer, preprocess):
         df = pd.read_csv(filepath, encoding='ISO-8859-1',
                        header=None, names=['Category', 'Pattern', 'Description'])    
     
-    
-    # Collect user input or read configuration    
+    # Collect user input for selected preprocessors    
     for i, value in enumerate(preprocess):
         if value == "1":
             pp_user.append(preprocessors[i])
