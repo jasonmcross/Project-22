@@ -1,4 +1,4 @@
-from flask import Flask, Blueprint, render_template, request, flash
+from flask import Flask, Blueprint, render_template, request, flash, session
 from website import predictor
 
 views = Blueprint('views', __name__)
