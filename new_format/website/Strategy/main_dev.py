@@ -12,56 +12,15 @@ def main(problem, collection, source, vector, clusterer, preprocess):
     # Instantiate the selected preprocessors
     preprocessors = [remove_junk(), stem(), tokenize(), lemmatize(), extract_nouns(), extract_verbs(), extract_adjectives(), synonymize()]
     pp_user = [lower_punc(), remove_stop()]
-    
-    # Load data
-    if collection == "1" or collection == "2":
-        filepath = Path(__file__).parent / "source_files/masterGOF.csv"
-        df = pd.read_csv(filepath, encoding='ISO-8859-1',
-                       header=None, names=['Category', 'Pattern', 'Description'])    
-    
+        
     # Collect user input for selected preprocessors
     for i, value in enumerate(preprocess):
         if value == "1":
             pp_user.append(preprocessors[i])
 
     # Preprocess data
-    for preprocessor in pp_user:
-        df.iloc[:, 2] = df.iloc[:,2].astype(str).apply(preprocessor)
-        user_input = preprocessor(problem)    
-
-    # Instantiate the selected vectorizer
-    if vector == "1":
-        vectorizer = defaultVectorizer()
-    elif vector == "2":
-        vectorizer = ngramVectorizer()
-
-    # Load vectorizer
-    if vector == "1":
-        filepath = Path(__file__).parent / "vectorizers/vectorizer_default.pkl"
-        with open(filepath, 'rb') as vec_file:
-            loaded_vec = pickle.load(vec_file)
-    elif vector == "2":
-        filepath = Path(__file__).parent / "vectorizers/vectorizer_ngram.pkl"
-        with open(filepath, 'rb') as vec_file:
-            loaded_vec = pickle.load(vec_file)
-
-    # Instantiate the selected clusterer
-    if clusterer == "1":
-        clusterer = kmeans()
-    elif clusterer == "2":
-        clusterer = mbkmeans()
-    elif clusterer == "3":
-        clusterer = agglomerative()
-    elif clusterer == "4":
-        clusterer = dbscan()
-    elif clusterer == "5":
-        clusterer = spectral()
-    elif clusterer == "6":
-        clusterer = meanShift()
-    elif clusterer == "7":
-        clusterer = gaussianMixture()
-    elif clusterer == "8":
-        clusterer = fuzzyCmean()
+    for preprocessor in pp_user:        
+        user_input = preprocessor(problem)        
 
     # Load model
     if clusterer == "1":
@@ -95,10 +54,23 @@ def main(problem, collection, source, vector, clusterer, preprocess):
     elif clusterer == "8":
         filepath = Path(__file__).parent / "models/fuzzy_cmean_model.pkl"
         with open(filepath, 'rb') as model_file:
-            loaded_cls = pickle.load(model_file)
+            loaded_cls = pickle.load(model_file)    
+    
+    # Instantiate the selected vectorizer
+    if vector == "1":
+        vectorizer = defaultVectorizer()
+    elif vector == "2":
+        vectorizer = ngramVectorizer()
 
-    # Create the Predictor instance with the selected strategies
-    predictor = Predictor(preprocessors=preprocessors, vectorizer=vectorizer, clusterer=clusterer)
+    # Load vectorizer
+    if vector == "1":
+        filepath = Path(__file__).parent / "vectorizers/vectorizer_default.pkl"
+        with open(filepath, 'rb') as vec_file:
+            loaded_vec = pickle.load(vec_file)
+    elif vector == "2":
+        filepath = Path(__file__).parent / "vectorizers/vectorizer_ngram.pkl"
+        with open(filepath, 'rb') as vec_file:
+            loaded_vec = pickle.load(vec_file)
 
     # Vectorize input
     user_input_vectorized = loaded_vec.transform([user_input])
@@ -134,6 +106,3 @@ def main(problem, collection, source, vector, clusterer, preprocess):
 
     # Return patterns
     return output, output1, output2
-
-if __name__ == "__main__":
-    main()
