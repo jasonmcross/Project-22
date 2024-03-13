@@ -1,3 +1,4 @@
+from predictorClass import Predictor
 from CoR import extract_adjectives, extract_nouns, extract_verbs, lemmatize, lower_punc, remove_junk, remove_stop, stem, synonymize, tokenize
 from Strategy import agglomerative, dbscan, fuzzyCmean, gaussianMixture, kmeans, mbkmeans, meanShift, spectral
 from Strategy import defaultVectorizer, ngramVectorizer
@@ -19,10 +20,9 @@ def main(collection, vector, clusterer, preprocess):
     # Collect user input for selected preprocessors
     for i, value in enumerate(preprocess):
         if value == "1":
-            pp_user.append(preprocessors[i])
+            pp_user.append(preprocessors[i])    
     
-    for i, value in enumerate(preprocess):        
-        df.iloc[:, 2] = df.iloc[:,2].astype(str).apply(pp_user[i])        
+    df = Predictor.preprocess_data(df)
 
     # Instantiate the selected vectorizer
     if vector == "1":
