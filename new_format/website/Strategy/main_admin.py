@@ -1,12 +1,9 @@
-from predictorClass import Predictor
 from CoR import extract_adjectives, extract_nouns, extract_verbs, lemmatize, lower_punc, remove_junk, remove_stop, stem, synonymize, tokenize
 from Strategy import agglomerative, dbscan, fuzzyCmean, gaussianMixture, kmeans, mbkmeans, meanShift, spectral
 from Strategy import defaultVectorizer, ngramVectorizer
 from pathlib import Path
-from sklearn.metrics.pairwise import cosine_similarity
 import pandas as pd
-import numpy as np
-import pickle
+
 
 def main(collection, vector, clusterer, preprocess):
     # Instantiate the selected preprocessors
@@ -15,7 +12,7 @@ def main(collection, vector, clusterer, preprocess):
     
     # Load data
     if collection == "1" or collection == "2":
-        filepath = Path(__file__).parent / "source_files/masterGOF.csv"
+        filepath = Path(__file__).parent / "source_files/rawGOF.csv"
         df = pd.read_csv(filepath, encoding='ISO-8859-1',
                        header=None, names=['Category', 'Pattern', 'Description'])    
     
@@ -23,38 +20,33 @@ def main(collection, vector, clusterer, preprocess):
     for i, value in enumerate(preprocess):
         if value == "1":
             pp_user.append(preprocessors[i])
-
-    # Preprocess data
-    for preprocessor in pp_user:
-        df.iloc[:, 2] = df.iloc[:,2].astype(str).apply(preprocessor)        
+    
+    for i, value in enumerate(preprocess):        
+        df.iloc[:, 2] = df.iloc[:,2].astype(str).apply(pp_user[i])        
 
     # Instantiate the selected vectorizer
     if vector == "1":
-        vectorizer = defaultVectorizer()
+        features = defaultVectorizer()
     elif vector == "2":
-        vectorizer = ngramVectorizer()    
+        features = ngramVectorizer()        
 
     # Instantiate the selected clusterer
     if clusterer == "1":
-        clusterer = kmeans()
+        kmeans(features)
     elif clusterer == "2":
-        clusterer = mbkmeans()
+        mbkmeans(features)
     elif clusterer == "3":
-        clusterer = agglomerative()
+        agglomerative(features)
     elif clusterer == "4":
-        clusterer = dbscan()
+        dbscan(features)
     elif clusterer == "5":
-        clusterer = spectral()
+        spectral(features)
     elif clusterer == "6":
-        clusterer = meanShift()
+        meanShift(features)
     elif clusterer == "7":
-        clusterer = gaussianMixture()
+        gaussianMixture(features)
     elif clusterer == "8":
-        clusterer = fuzzyCmean()    
-
-    # Create the Predictor instance with the selected strategies
-    predictor = Predictor(preprocessors=preprocessors, vectorizer=vectorizer, clusterer=clusterer)   
-
+        fuzzyCmean(features)
     
 
 if __name__ == "__main__":
