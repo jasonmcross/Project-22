@@ -1,4 +1,4 @@
-from preprocessor_sc import Preprocessor
+from CoR.preprocessor_sc import Preprocessor
 import string
 
 class LowerPunc(Preprocessor):
