@@ -1,14 +1,11 @@
 from CoR import extract_adjectives, extract_nouns, extract_verbs, lemmatize, lower_punc, remove_junk, remove_stop, stem, synonymize, tokenize
-from Strategy import agglomerative, dbscan, fuzzyCmean, gaussianMixture, kmeans, mbkmeans, meanShift, spectral
-from Strategy import defaultVectorizer, ngramVectorizer
+import agglomerative, dbscan, fuzzyCmean, gaussianMixture, kmeans, mbkmeans, meanShift, spectral
+import defaultVectorizer, ngramVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import pandas as pd
 import numpy as np
 import pickle
-from new_format.website.Strategy.CoR import remove_junk
-from website import preprocessing as pp
-from website import vectorizer as vec
-from website import cluster_plot as cp
+from CoR import remove_junk
 from pathlib import Path
 
 class Predictor:
@@ -68,9 +65,9 @@ class Predictor:
         similar_pattern2 = patterns.iloc[similar_index2]
 
         # Format output for html display including similarity scores
-        output = f"{similar_pattern['Pattern']}    Category: {similar_pattern['Category']}    Similarity: {similarity_score:.2f}"
-        output1 = f"{similar_pattern1['Pattern']}    Category: {similar_pattern1['Category']}    Similarity: {similarity_score1:.2f}"
-        output2 = f"{similar_pattern2['Pattern']}    Category: {similar_pattern2['Category']}    Similarity: {similarity_score2:.2f}"
-
+        output = similar_pattern['Pattern'] +    "Category: " + similar_pattern['Category'] +    "Similarity: " + similarity_score
+        output1 = similar_pattern1['Pattern'] +    "Category: " + similar_pattern1['Category'] +    "Similarity: " + similarity_score1
+        output2 = similar_pattern2['Pattern'] +    "Category: " + similar_pattern2['Category'] +    "Similarity: " + similarity_score2
+        
         # Return patterns
         return output, output1, output2  
