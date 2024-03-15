@@ -1,3 +1,4 @@
+from asyncio.windows_events import NULL
 from predictorClass import Predictor
 from CoR import extract_adjectives, extract_nouns, extract_verbs, lemmatize, lower_punc, remove_junk, remove_stop, stem, synonymize, tokenize
 from Strategy import agglomerative, dbscan, fuzzyCmean, gaussianMixture, kmeans, mbkmeans, meanShift, spectral
@@ -9,6 +10,11 @@ import numpy as np
 import pickle
 
 def main(problem, collection, source, vector, clusterer, preprocess):
+    
+    # Access database to get what preprocessing was used and what vectorizer was used and model file path
+    preprocess = NULL
+    vector = NULL
+    modelPath = NULL
     # Instantiate the selected preprocessors
     preprocessors = [remove_junk(), stem(), tokenize(), lemmatize(), extract_nouns(), extract_verbs(), extract_adjectives(), synonymize()]
     pp_user = [lower_punc(), remove_stop()]
@@ -18,43 +24,9 @@ def main(problem, collection, source, vector, clusterer, preprocess):
         if value == "1":
             pp_user.append(preprocessors[i])
 
-    # Preprocess data
-    for preprocessor in pp_user:        
-        user_input = preprocessor(problem)        
-
-    # Load model
-    if clusterer == "1":
-        filepath = Path(__file__).parent / "models/kmeans_model.pkl"
-        with open(filepath, 'rb') as model_file:
-            loaded_cls = pickle.load(model_file)
-    elif clusterer == "2":
-        filepath = Path(__file__).parent / "models/mbkmeans_model.pkl"
-        with open(filepath, 'rb') as model_file:
-            loaded_cls = pickle.load(model_file)
-    elif clusterer == "3":
-        filepath = Path(__file__).parent / "models/agglomerative_model.pkl"
-        with open(filepath, 'rb') as model_file:
-            loaded_cls = pickle.load(model_file)
-    elif clusterer == "4":
-        filepath = Path(__file__).parent / "models/dbscan_model.pkl"
-        with open(filepath, 'rb') as model_file:
-            loaded_cls = pickle.load(model_file)
-    elif clusterer == "5":
-        filepath = Path(__file__).parent / "models/spectral_model.pkl"
-        with open(filepath, 'rb') as model_file:
-            loaded_cls = pickle.load(model_file)
-    elif clusterer == "6":
-        filepath = Path(__file__).parent / "models/mean_shift_model.pkl"
-        with open(filepath, 'rb') as model_file:
-            loaded_cls = pickle.load(model_file)
-    elif clusterer == "7":
-        filepath = Path(__file__).parent / "models/gaussion_mixture_model.pkl"
-        with open(filepath, 'rb') as model_file:
-            loaded_cls = pickle.load(model_file)
-    elif clusterer == "8":
-        filepath = Path(__file__).parent / "models/fuzzy_cmean_model.pkl"
-        with open(filepath, 'rb') as model_file:
-            loaded_cls = pickle.load(model_file)    
+    filepath = Path(__file__).parent / "models/" + modelPath
+    with open(filepath, 'rb') as model_file:
+        loaded_cls = pickle.load(model_file)   
     
     # Instantiate the selected vectorizer
     if vector == "1":
@@ -72,37 +44,9 @@ def main(problem, collection, source, vector, clusterer, preprocess):
         with open(filepath, 'rb') as vec_file:
             loaded_vec = pickle.load(vec_file)
 
-    # Vectorize input
-    user_input_vectorized = loaded_vec.transform([user_input])
-
-    # Predict cluster
-    cluster = loaded_cls.predict(user_input_vectorized)[0]
+    p = Predictor(preprocess, vector, NULL)
+    problem = p.preprocess_data(problem)
+    p.vectorize_data(problem)
+    results = p.predict(problem, pd.DataFrame, loaded_cls, loaded_vec)
     
-    # Find patterns in cluster
-    patterns = df[loaded_cls.labels_ == cluster]
-
-    # Find similarity between input and patterns
-    similarities = cosine_similarity(user_input_vectorized, loaded_vec.transform(patterns['Description'].values))
-
-    # Find most similar patterns
-    similar_index = np.argmax(similarities)
-    similar_index1 = similar_index + 1
-    similar_index2 = similar_index + 2
-
-    # Get similarity score
-    similarity_score = similarities[0][similar_index]
-    similarity_score1 = similarities[0][similar_index1]
-    similarity_score2 = similarities[0][similar_index2]
-
-    # Get similar patterns
-    similar_pattern = patterns.iloc[similar_index]
-    similar_pattern1 = patterns.iloc[similar_index1]
-    similar_pattern2 = patterns.iloc[similar_index2]
-
-    # Format output for html display including similarity scores
-    output = f"{similar_pattern['Pattern']}    Category: {similar_pattern['Category']}    Similarity: {similarity_score:.2f}"
-    output1 = f"{similar_pattern1['Pattern']}    Category: {similar_pattern1['Category']}    Similarity: {similarity_score1:.2f}"
-    output2 = f"{similar_pattern2['Pattern']}    Category: {similar_pattern2['Category']}    Similarity: {similarity_score2:.2f}"
-
-    # Return patterns
-    return output, output1, output2
+    return results
