@@ -1,4 +1,4 @@
-from preprocessor_sc import Preprocessor
+from CoR.preprocessor_sc import Preprocessor
 from nltk.stem import WordNetLemmatizer
 
 class Lemmatize(Preprocessor):
