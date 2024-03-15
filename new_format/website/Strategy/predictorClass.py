@@ -40,6 +40,8 @@ class Predictor:
 
     def predict(self, problem, data, loaded_cls, loaded_vec):
         # The main method to process and predict based on the input data
+        # Vectorize input
+        problem = loaded_vec.transform([problem])
         # Predict cluster
         cluster = loaded_cls.predict(problem)[0]
     
