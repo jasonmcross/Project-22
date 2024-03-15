@@ -109,3 +109,6 @@ def main():
     results = predictor.predict(problem, df, loaded_cls, loaded_vec)
     
     print(results)
+
+if __name__ == "__main__":
+    main()
