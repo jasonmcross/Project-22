@@ -104,7 +104,6 @@ def main():
 
 
     problem = predictor.preprocess_data(problem)
-    problem = predictor.vectorize_data(problem)
   
     results = predictor.predict(problem, df, loaded_cls, loaded_vec)
     
