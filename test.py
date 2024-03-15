@@ -1,11 +1,11 @@
 from CoR import extract_adjectives, extract_nouns, extract_verbs, lemmatize, lower_punc, remove_junk, remove_stop, stem, synonymize, tokenize
-from Strategy import agglomerative, dbscan, fuzzyCmean, gaussianMixture, kmeans, mbkmeans, meanShift, spectral
-from Strategy import defaultVectorizer, ngramVectorizer
+import agglomerative, dbscan, fuzzyCmean, gaussianMixture, kmeans, mbkmeans, meanShift, spectral
+import defaultVectorizer, ngramVectorizer
 from pathlib import Path
 import pandas as pd
 import pickle
 
-from website.Strategy.predictorClass import Predictor
+from predictorClass import Predictor
 
 
 def main():
@@ -102,8 +102,10 @@ def main():
     features = predictor.vectorize_data(df)
     predictor.cluster_data(features)
 
+
     problem = predictor.preprocess_data(problem)
     problem = predictor.vectorize_data(problem)
+  
     results = predictor.predict(problem, df, loaded_cls, loaded_vec)
     
     print(results)
