@@ -1,9 +1,10 @@
-from predictorClass import Predictor
 from CoR import extract_adjectives, extract_nouns, extract_verbs, lemmatize, lower_punc, remove_junk, remove_stop, stem, synonymize, tokenize
 from Strategy import agglomerative, dbscan, fuzzyCmean, gaussianMixture, kmeans, mbkmeans, meanShift, spectral
 from Strategy import defaultVectorizer, ngramVectorizer
 from pathlib import Path
 import pandas as pd
+
+from website.Strategy.predictorClass import Predictor
 
 
 def main(collection, vector, clusterer, preprocess):
@@ -20,34 +21,37 @@ def main(collection, vector, clusterer, preprocess):
     # Collect user input for selected preprocessors
     for i, value in enumerate(preprocess):
         if value == "1":
-            pp_user.append(preprocessors[i])    
-    
-    df = Predictor.preprocess_data(df)
+            pp_user.append(preprocessors[i])       
 
     # Instantiate the selected vectorizer
     if vector == "1":
-        features = defaultVectorizer()
+        v = defaultVectorizer()
     elif vector == "2":
-        features = ngramVectorizer()        
+        v = ngramVectorizer()        
 
     # Instantiate the selected clusterer
     if clusterer == "1":
-        kmeans(features)
+        c = kmeans()
     elif clusterer == "2":
-        mbkmeans(features)
+        c = mbkmeans()
     elif clusterer == "3":
-        agglomerative(features)
+        c = agglomerative()
     elif clusterer == "4":
-        dbscan(features)
+        c = dbscan()
     elif clusterer == "5":
-        spectral(features)
+        c = spectral()
     elif clusterer == "6":
-        meanShift(features)
+        c = meanShift()
     elif clusterer == "7":
-        gaussianMixture(features)
+        c = gaussianMixture()
     elif clusterer == "8":
-        fuzzyCmean(features)
+        c = fuzzyCmean()
     
+    predictor = Predictor(preprocessors, v, c)
+
+    df = predictor.preprocess_data(df)
+    features = predictor.vectorize_data(df)
+    predictor.cluster_data(features)
 
 if __name__ == "__main__":
     main()
