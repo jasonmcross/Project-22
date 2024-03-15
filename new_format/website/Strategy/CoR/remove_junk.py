@@ -1,4 +1,4 @@
-from preprocessor_sc import Preprocessor
+from CoR.preprocessor_sc import Preprocessor
 
 class RemoveJunk(Preprocessor):
     junk_words = ["imagine", "pattern", "design", "patterns", "also", "like", "code", "let", "used", "use", "app", "fun", "may", "problem", "client", "often", "later", "however", "got", 
