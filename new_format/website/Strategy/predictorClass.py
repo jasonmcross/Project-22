@@ -55,11 +55,16 @@ class Predictor:
         similar_index = np.argmax(similarities)
         similar_index1 = similar_index + 1
         similar_index2 = similar_index + 2
-
+        
         # Get similarity score
         similarity_score = similarities[0][similar_index]
         similarity_score1 = similarities[0][similar_index1]
         similarity_score2 = similarities[0][similar_index2]
+
+        # Convert similarity score to 2 decimal places
+        similarity_score = round(similarity_score, 2)
+        similarity_score1 = round(similarity_score1, 2)
+        similarity_score2 = round(similarity_score2, 2)
 
         # Get similar patterns
         similar_pattern = patterns.iloc[similar_index]
@@ -67,9 +72,9 @@ class Predictor:
         similar_pattern2 = patterns.iloc[similar_index2]
 
         # Format output for html display including similarity scores
-        output = similar_pattern['Pattern'] +    "Category: " + similar_pattern['Category'] +    "Similarity: " + similarity_score.astype(str)
-        output1 = similar_pattern1['Pattern'] +    "Category: " + similar_pattern1['Category'] +    "Similarity: " + similarity_score1.astype(str)
-        output2 = similar_pattern2['Pattern'] +    "Category: " + similar_pattern2['Category'] +    "Similarity: " + similarity_score2.astype(str)
+        output = similar_pattern['Pattern'] + " " + "Category: " + similar_pattern['Category'] + " " + "Similarity: " + similarity_score.astype(str)
+        output1 = similar_pattern1['Pattern'] + " " + "Category: " + similar_pattern1['Category'] + " " + "Similarity: " + similarity_score1.astype(str)
+        output2 = similar_pattern2['Pattern'] + " " + "Category: " + similar_pattern2['Category'] + " " + "Similarity: " + similarity_score2.astype(str)
         
         # Return patterns
         return output, output1, output2  

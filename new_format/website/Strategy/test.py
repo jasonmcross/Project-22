@@ -113,7 +113,6 @@ def main():
     features = predictor.vectorize_data(df)
     predictor.cluster_data(features)
 
-
     problem = predictor.preprocess_data(problem)
   
     results = predictor.predict(problem, df, loaded_cls, loaded_vec)
