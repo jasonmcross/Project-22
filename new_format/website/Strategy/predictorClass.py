@@ -72,9 +72,9 @@ class Predictor:
         similar_pattern2 = patterns.iloc[similar_index2]
 
         # Format output for html display including similarity scores
-        output = similar_pattern['Pattern'] + " " + "Category: " + similar_pattern['Category'] + " " + "Similarity: " + similarity_score.astype(str)
-        output1 = similar_pattern1['Pattern'] + " " + "Category: " + similar_pattern1['Category'] + " " + "Similarity: " + similarity_score1.astype(str)
-        output2 = similar_pattern2['Pattern'] + " " + "Category: " + similar_pattern2['Category'] + " " + "Similarity: " + similarity_score2.astype(str)
+        output = "Pattern: " + similar_pattern['Pattern'] + "   " + "Category: " + similar_pattern['Category'] + "   " + "Similarity: " + similarity_score.astype(str)
+        output1 = "Pattern: " + similar_pattern1['Pattern'] + "   " + "Category: " + similar_pattern1['Category'] + "   " + "Similarity: " + similarity_score1.astype(str)
+        output2 = "Pattern: " + similar_pattern2['Pattern'] + "   " + "Category: " + similar_pattern2['Category'] + "   " + "Similarity: " + similarity_score2.astype(str)
         
         # Return patterns
         return output, output1, output2  
