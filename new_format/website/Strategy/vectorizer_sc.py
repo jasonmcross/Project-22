@@ -15,9 +15,9 @@ class Vectorizer:
     def add_weights(self, features):
 
         important_words = {
-            'Behavioral': ['state', 'design', 'method'],
-            'Creational': ['factory', 'algorithm', 'create'],
-            'Structural': ['implementation', 'proxy', 'client']
+            'Behavioral': ['state', 'design', 'method', 'responsibility', 'command', 'interpreter', 'iterator', 'mediater', 'memmento', 'null', 'observer', 'strategy', 'visitor'],
+            'Creational': ['factory', 'algorithm', 'create', 'builder', 'pool', 'prototype', 'singleton'],
+            'Structural': ['implementation', 'proxy', 'client', 'adapter', 'bridge', 'composite', 'decorator', 'facade', 'flyweight', 'private']
         }
 
         for cat, words in important_words.items():

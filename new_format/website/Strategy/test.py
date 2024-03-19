@@ -9,16 +9,28 @@ from predictorClass import Predictor
 
 
 def main():
-    preprocess = ["None", "None", "None", "None", "None", "None", "None", "None"]
+    preprocess = ["1", "1", "1", "1", "1", "1", "None", "None"]
     vector = "1"
-    clusterer = "1"
-    problem = '''Design a drawing editor. A design is composed of the graphics (lines, rectangles and roses), positioned at precise
+    clusterer = "2"
+    problems = ['''Design a DVD market place work. The DVD
+                marketplace provides DVD to its clients with three categories:
+                children, normal and new. A DVD is new during some weeks, and
+                after change category. The DVD price depends on the category. It is
+                probable that the system evolves in order to take into account the
+                horror category.''',
+               '''Design a drawing editor. A design is composed of the graphics (lines, rectangles and roses), positioned at precise
                 positions. Each graphic form must be modeled by a class that
                 provides a method draw(): void. A rose is a complex graphic designed by a black-box class component. This component performs
                 this drawing in memory, and provides access through a method
                 getRose(): int that returns the address of the drawing. It is probable
-                that the system evolves in order to draw circles'''
-
+                that the system evolves in order to draw circles''',
+                '''Many distinct and unrelated operations need
+                to be performed on node objects in a heterogeneous aggregate
+                structure. You want to avoid polluting the node classes with these
+                operations. And, you do not want to have to query the type of
+                each node and cast the pointer to the appropriate type before
+                performing the desired operation.'''
+                ]
     # Instantiate the selected preprocessors
     preprocessors = [remove_junk.RemoveJunk(), stem.Stem(), tokenize.Tokenize(), lemmatize.Lemmatize(), extract_nouns.ExtractNouns(), 
                      extract_verbs.ExtractVerbs(), extract_adjectives.ExtractAdjectives(), synonymize.Synonymize()]
@@ -113,11 +125,13 @@ def main():
     features = predictor.vectorize_data(df)
     predictor.cluster_data(features)
 
-    problem = predictor.preprocess_data(problem)
-  
-    results = predictor.predict(problem, df, loaded_cls, loaded_vec)
+    for i, problem in enumerate(problems):
+        problem = predictor.preprocess_data(problem)
+        results = predictor.predict(problem, df, loaded_cls, loaded_vec)
+        print(i)
+        for result in results:
+            print(result)
     
-    print(results)
 
 if __name__ == "__main__":
     main()
