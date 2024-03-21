@@ -53,8 +53,8 @@ class Predictor:
 
         # Find most similar patterns
         similar_index = np.argmax(similarities)
-        similar_index1 = similar_index + 1
-        similar_index2 = similar_index + 2
+        similar_index1 = np.argsort(np.max(similarities, axis=0))[-2]
+        similar_index2 = np.argsort(np.max(similarities, axis=0))[-3]
         
         # Get similarity score
         similarity_score = similarities[0][similar_index]
