@@ -77,4 +77,4 @@ class Predictor:
         output2 = "Pattern: " + similar_pattern2['Pattern'] + "   " + "Category: " + similar_pattern2['Category'] + "   " + "Similarity: " + similarity_score2.astype(str)
         
         # Return patterns
-        return output, output1, output2  
+        return similar_pattern['Pattern'] 
