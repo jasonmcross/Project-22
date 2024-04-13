@@ -27,9 +27,15 @@ class KMeansClusterer(Clusterer):
         plt.title("KMeans")
         plt.xlabel("PCA Feature 1")
         plt.ylabel("PCA Feature 2")
-        plt.show()
+        ##plt.show()
 
-        filepath = Path(__file__).parent / "models/kmeans_model.pkl"
+        filepath = Path(__file__).parent.parent / "models/kmeans_model.pkl"
         with open(filepath, 'wb') as model_file:
             pickle.dump(km, model_file)
         pass
+
+    def vectorize(self, problem, vec):
+        return vec.transform([problem])
+
+    def predict(self, features, cls):
+        return cls.predict(features)[0]

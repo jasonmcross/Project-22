@@ -38,14 +38,15 @@ class Predictor:
         else:
             raise NotImplementedError("Clusterer has not been set.")
 
-    def predict(self, problem, data: pd.DataFrame, loaded_cls, loaded_vec):
+    def predict(self, problem, data, loaded_cls, loaded_vec):
         # The main method to process and predict based on the input data
         # Vectorize input
-        problem = loaded_vec.transform([problem])
+        problem = self.clusterer.vectorize(problem, loaded_vec)# loaded_vec.transform([problem])
         # Predict cluster
-        cluster = loaded_cls.predict(problem)[0]
+        cluster = self.clusterer.predict(problem, loaded_cls)# loaded_cls.predict(problem)[0]
     
         # Find patterns in cluster
+        #print(loaded_cls.labels_, cluster, data)
         patterns = data[loaded_cls.labels_ == cluster]
 
         # Find similarity between input and patterns
@@ -55,16 +56,11 @@ class Predictor:
         similar_index = np.argmax(similarities)
         similar_index1 = np.argsort(np.max(similarities, axis=0))[-2]
         similar_index2 = np.argsort(np.max(similarities, axis=0))[-3]
-        
+
         # Get similarity score
         similarity_score = similarities[0][similar_index]
         similarity_score1 = similarities[0][similar_index1]
         similarity_score2 = similarities[0][similar_index2]
-
-        # Convert similarity score to 2 decimal places
-        similarity_score = round(similarity_score, 2)
-        similarity_score1 = round(similarity_score1, 2)
-        similarity_score2 = round(similarity_score2, 2)
 
         # Get similar patterns
         similar_pattern = patterns.iloc[similar_index]
@@ -72,9 +68,9 @@ class Predictor:
         similar_pattern2 = patterns.iloc[similar_index2]
 
         # Format output for html display including similarity scores
-        output = "Pattern: " + similar_pattern['Pattern'] + "   " + "Category: " + similar_pattern['Category'] + "   " + "Similarity: " + similarity_score.astype(str)
-        output1 = "Pattern: " + similar_pattern1['Pattern'] + "   " + "Category: " + similar_pattern1['Category'] + "   " + "Similarity: " + similarity_score1.astype(str)
-        output2 = "Pattern: " + similar_pattern2['Pattern'] + "   " + "Category: " + similar_pattern2['Category'] + "   " + "Similarity: " + similarity_score2.astype(str)
+        #output = similar_pattern['Pattern'] +    "Category: " + similar_pattern['Category'] +    "Similarity: " + similarity_score
+        #output1 = similar_pattern1['Pattern'] +    "Category: " + similar_pattern1['Category'] +    "Similarity: " + similarity_score1
+        #output2 = similar_pattern2['Pattern'] +    "Category: " + similar_pattern2['Category'] +    "Similarity: " + similarity_score2
         
         # Return patterns
-        return similar_pattern['Pattern'] 
+        return similar_pattern['Pattern'], similar_pattern1['Pattern'], similar_pattern2['Pattern']

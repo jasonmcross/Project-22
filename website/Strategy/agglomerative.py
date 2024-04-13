@@ -5,15 +5,16 @@ import numpy as np
 import matplotlib.pyplot as plt 
 from sklearn.cluster import AgglomerativeClustering
 from sklearn.decomposition import PCA
+from sklearn.datasets import make_blobs
 from pathlib import Path
 
 class AgglomerativeClusterer(Clusterer):
     def __init__(self, num_clusters):
         super().__init__(num_clusters=num_clusters)
     
-    def cluster(self, df: pd.DataFrame, features):
+    def cluster(self, features):
         ac = AgglomerativeClustering(n_clusters=3)
-        ac.fit(features)
+        ac.fit(features.toarray())
         pca = PCA(n_components=2, random_state = 0)
         reduced_features = pca.fit_transform(features.toarray())
 
@@ -28,9 +29,15 @@ class AgglomerativeClusterer(Clusterer):
         plt.title("AgglomerativeClustering")
         plt.xlabel("PCA Feature 1")
         plt.ylabel("PCA Feature 2")
-        plt.show()
+        ##plt.show()
 
-        filepath = Path(__file__).parent / "models/agglomerative_model.pkl"
+        filepath = Path(__file__).parent.parent / "models/agglomerative_model.pkl"
         with open(filepath, 'wb') as model_file:
             pickle.dump(ac, model_file)
         pass
+
+    def vectorize(self, problem, vec):
+        return vec.transform([problem])
+
+    def predict(self, features, cls):
+        return cls.fit_predict(features.toarray())
