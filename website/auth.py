@@ -1,5 +1,5 @@
 from flask import Flask, Blueprint, render_template, request, flash, redirect, url_for, session
-from neon_python.userDB import DatabaseOperations
+from database.userDB import DatabaseOperations
 
 auth = Blueprint('auth', __name__)
 

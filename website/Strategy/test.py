@@ -16,7 +16,7 @@ def run_test(preprocess=["1", "1", "1", "1", "none", "none", "none", "none"], ve
     pp_user = [lower_punc.LowerPunc(), remove_stop.RemoveStop()]
     
     # Load data
-    filepath = Path(__file__).parent / "Philo_testing/source_files/masterGOF.csv"
+    filepath = Path(__file__).parent.parent / "source_files/masterGOF.csv" # .parent.parent = ./website
     df = pd.read_csv(filepath, encoding='ISO-8859-1',
                    header=None, names=['Category', 'Pattern', 'Description'])    
     
