@@ -5,7 +5,6 @@ from pathlib import Path
 import pandas as pd
 import pickle
 from website.Strategy.predictorClass import Predictor
-from asyncio.windows_events import NULL
 
 def main(problem, collection):
     # Instantiate the selected preprocessors
@@ -14,10 +13,12 @@ def main(problem, collection):
     
     # Get what clusterer to use
     if clusterer == "1":
+        c = kmeans.KMeansClusterer(3)
         filepath = Path(__file__).parent / "models/kmeans_model.pkl"
         with open(filepath, 'rb') as model_file:
             loaded_cls = pickle.load(model_file)
     elif clusterer == "2":
+        c = mbkmeans.MBKMeansClusterer(3)
         filepath = Path(__file__).parent / "models/mbkmeans_model.pkl"
         with open(filepath, 'rb') as model_file:
             loaded_cls = pickle.load(model_file)
@@ -36,7 +37,7 @@ def main(problem, collection):
     df = pd.read_csv(filepath, encoding='ISO-8859-1',
                    header=None, names=['Category', 'Pattern', 'Description']) 
 
-    p = Predictor(preprocessors, vectorizer, NULL)
+    p = Predictor(preprocessors, vectorizer, c)
     df.iloc[:, 2] = df.iloc[:,2].astype(str).apply(p.preprocess_data)
     problem = p.preprocess_data(problem)
     results = p.predict(problem, df, loaded_cls, loaded_vec)
