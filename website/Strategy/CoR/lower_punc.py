@@ -1,4 +1,4 @@
-from CoR.preprocessor_sc import Preprocessor
+from website.Strategy.CoR.preprocessor_sc import Preprocessor
 import string
 
 class LowerPunc(Preprocessor):
