@@ -1,5 +1,5 @@
 from website.Strategy.CoR import extract_adjectives, extract_nouns, extract_verbs, lemmatize, lower_punc, remove_junk, remove_stop, stem, synonymize, tokenize
-from website.Strategy import agglomerative, dbscan, fuzzyCmean, gaussianMixture, kmeans, mbkmeans, meanShift, spectral
+from website.Strategy import kmeans, mbkmeans
 from website.Strategy import defaultVectorizer, ngramVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import pandas as pd
