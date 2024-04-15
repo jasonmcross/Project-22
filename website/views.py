@@ -1,6 +1,6 @@
 from flask import Flask, Blueprint, render_template, request, flash, session
 from website.Strategy import main_dev
-from neon_python.collections import DatabaseOperations
+from database.collections import DatabaseOperations
 
 views = Blueprint('views', __name__)
 db_ops = DatabaseOperations()
