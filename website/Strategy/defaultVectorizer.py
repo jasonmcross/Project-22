@@ -1,6 +1,6 @@
 import pandas as pd
 import pickle
-from vectorizer_sc import Vectorizer
+from website.Strategy.vectorizer_sc import Vectorizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from pathlib import Path
 
