@@ -1,5 +1,5 @@
 import pickle
-from clusterer_sc import Clusterer
+from website.Strategy.clusterer_sc import Clusterer
 import pandas as pd
 import matplotlib.pyplot as plt 
 from sklearn.cluster import MiniBatchKMeans
