@@ -8,7 +8,6 @@ from website.Strategy.predictorClass import Predictor
 from asyncio.windows_events import NULL
 
 def main(problem, collection):
-    print(collection)
     # Instantiate the selected preprocessors
     preprocessors = [lower_punc.LowerPunc(), remove_stop.RemoveStop(), remove_junk.RemoveJunk(), stem.Stem(), tokenize.Tokenize(), lemmatize.Lemmatize()]
     clusterer = "2"
