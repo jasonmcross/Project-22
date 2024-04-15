@@ -1,57 +1,44 @@
-from CoR import extract_adjectives, extract_nouns, extract_verbs, lemmatize, lower_punc, remove_junk, remove_stop, stem, synonymize, tokenize
-from Strategy import agglomerative, dbscan, fuzzyCmean, gaussianMixture, kmeans, mbkmeans, meanShift, spectral
-from Strategy import defaultVectorizer, ngramVectorizer
+from website.Strategy.CoR import extract_adjectives, extract_nouns, extract_verbs, lemmatize, lower_punc, remove_junk, remove_stop, stem, synonymize, tokenize
+from website.Strategy import agglomerative, dbscan, fuzzyCmean, gaussianMixture, kmeans, mbkmeans, meanShift, spectral
+from website.Strategy import defaultVectorizer, ngramVectorizer
 from pathlib import Path
 import pandas as pd
 
 from website.Strategy.predictorClass import Predictor
 
 
-def main(collection, vector, clusterer, preprocess):
-    # Instantiate the selected preprocessors
-    preprocessors = [remove_junk(), stem(), tokenize(), lemmatize(), extract_nouns(), extract_verbs(), extract_adjectives(), synonymize()]
-    pp_user = [lower_punc(), remove_stop()]
+def main(collection, clusterer):
+    # Instantiate the preprocessors
+    preprocessors = [lower_punc.LowerPunc(), remove_stop.RemoveStop(), remove_junk.RemoveJunk(), stem.Stem(), tokenize.Tokenize(), lemmatize.Lemmatize()]
     
     # Load data
     if collection == "1" or collection == "2":
         filepath = Path(__file__).parent / "source_files/rawGOF.csv"
         df = pd.read_csv(filepath, encoding='ISO-8859-1',
                        header=None, names=['Category', 'Pattern', 'Description'])    
-    
-    # Collect user input for selected preprocessors
-    for i, value in enumerate(preprocess):
-        if value == "1":
-            pp_user.append(preprocessors[i])       
-
-    # Instantiate the selected vectorizer
-    if vector == "1":
-        v = defaultVectorizer()
-    elif vector == "2":
-        v = ngramVectorizer()        
+          
+    v = defaultVectorizer.defaultVectorizer()        
 
     # Instantiate the selected clusterer
     if clusterer == "1":
-        c = kmeans()
+        c = kmeans.KMeansClusterer(3)
     elif clusterer == "2":
-        c = mbkmeans()
+        c = mbkmeans.MBKMeansClusterer(3)
     elif clusterer == "3":
-        c = agglomerative()
+        c = agglomerative.AgglomerativeClusterer(3)
     elif clusterer == "4":
-        c = dbscan()
+        c = dbscan.DBSCAN(3)
     elif clusterer == "5":
-        c = spectral()
+        c = spectral.SpectralClusterer(3)
     elif clusterer == "6":
-        c = meanShift()
+        c = meanShift.MeanShiftClusterer(3)
     elif clusterer == "7":
-        c = gaussianMixture()
+        c = gaussianMixture.GaussianMixtureClusterer(3)
     elif clusterer == "8":
-        c = fuzzyCmean()
+        c = fuzzyCmean.FuzzyCMeansClusterer(3)
     
     predictor = Predictor(preprocessors, v, c)
 
-    df = predictor.preprocess_data(df)
+    df.iloc[:, 2] = df.iloc[:,2].astype(str).apply(predictor.preprocess_data)
     features = predictor.vectorize_data(df)
     predictor.cluster_data(features)
-
-if __name__ == "__main__":
-    main()
