@@ -1,11 +1,11 @@
-from CoR import extract_adjectives, extract_nouns, extract_verbs, lemmatize, lower_punc, remove_junk, remove_stop, stem, synonymize, tokenize
-import agglomerative, dbscan, fuzzyCmean, gaussianMixture, kmeans, mbkmeans, meanShift, spectral
-import defaultVectorizer, ngramVectorizer
+from website.Strategy.CoR import extract_adjectives, extract_nouns, extract_verbs, lemmatize, lower_punc, remove_junk, remove_stop, stem, synonymize, tokenize
+from website.Strategy import fuzzyCmean, kmeans, mbkmeans
+from website.Strategy import defaultVectorizer
 from pathlib import Path
 import pandas as pd
 import pickle
 
-from predictorClass import Predictor
+from website.Strategy.predictorClass import Predictor
 
 
 def run_test(preprocess=["1", "1", "1", "1", "none", "none", "none", "none"], vector=1, clusterer=1, problem="This is a test problem."):
@@ -29,9 +29,7 @@ def run_test(preprocess=["1", "1", "1", "1", "none", "none", "none", "none"], ve
 
     # Instantiate the selected vectorizer
     if vector == 1:
-        v = defaultVectorizer.defaultVectorizer()
-    elif vector == 2:
-        v = ngramVectorizer.ngramVectorizer()        
+        v = defaultVectorizer.defaultVectorizer()      
 
     # Instantiate the selected clusterer
     if clusterer == 1:
@@ -39,16 +37,6 @@ def run_test(preprocess=["1", "1", "1", "1", "none", "none", "none", "none"], ve
     elif clusterer == 2:
         c = mbkmeans.MBKMeansClusterer(3)
     elif clusterer == 3:
-        c = agglomerative.AgglomerativeClusterer(3)
-    elif clusterer == 4:
-        c = dbscan.DBScan(3)
-    elif clusterer == 5:
-        c = spectral.SpectralClusterer(3)
-    elif clusterer == 6:
-        c = meanShift.MeanShiftClusterer(3)
-    elif clusterer == 7:
-        c = gaussianMixture.GaussianMixtureClusterer(3)
-    elif clusterer == 8:
         c = fuzzyCmean.FuzzyCMeansClusterer(3)
 
     predictor = Predictor(pp_user, v, c)
@@ -78,26 +66,6 @@ def run_test(preprocess=["1", "1", "1", "1", "none", "none", "none", "none"], ve
         with open(filepath, 'rb') as model_file:
             loaded_cls = pickle.load(model_file)
     elif clusterer == 3:
-        filepath = Path(__file__).parent / "../models/agglomerative_model.pkl"
-        with open(filepath, 'rb') as model_file:
-            loaded_cls = pickle.load(model_file)
-    elif clusterer == 4:
-        filepath = Path(__file__).parent / "../models/dbscan_model.pkl"
-        with open(filepath, 'rb') as model_file:
-            loaded_cls = pickle.load(model_file)
-    elif clusterer == 5:
-        filepath = Path(__file__).parent / "../models/spectral_model.pkl"
-        with open(filepath, 'rb') as model_file:
-            loaded_cls = pickle.load(model_file)
-    elif clusterer == 6:
-        filepath = Path(__file__).parent / "../models/mean_shift_model.pkl"
-        with open(filepath, 'rb') as model_file:
-            loaded_cls = pickle.load(model_file)
-    elif clusterer == 7:
-        filepath = Path(__file__).parent / "../models/gaussion_mixture_model.pkl"
-        with open(filepath, 'rb') as model_file:
-            loaded_cls = pickle.load(model_file)
-    elif clusterer == 8:
         filepath = Path(__file__).parent / "../models/fuzzycmeans_model.pkl"
         with open(filepath, 'rb') as model_file:
             loaded_cls = pickle.load(model_file)
