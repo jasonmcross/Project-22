@@ -1,5 +1,6 @@
 from flask import Flask, Blueprint, render_template, request, flash, session
-from website.Strategy import main_dev
+from website.Strategy import main_dev, main_admin
+from website.crawler.src import dig_lib_crawler
 from database.collections import DatabaseOperations
 
 views = Blueprint('views', __name__)
@@ -30,20 +31,30 @@ def developer_home():
 def admin_home():
     if 'logged_in' not in session:
         flash('Cannot view page', category='error')
-        #return render_template("admin-login.html")
-        collection_names = db_ops.get_collection_names()
-        libraries = ["SourceMaking (Gang of Four)", "RefactoringGuru (Gang of Four)", "GeeksForGeeks (Gang of Four)"]
-        return render_template("admin-home.html", collections=collection_names, libraries=libraries)
+        return render_template("admin-login.html")
     else:
+        # Get current collections in database and their sources
+        collection_names = db_ops.get_collection_names()
+        sources = ["SourceMaking (Gang of Four)", "RefactoringGuru (Gang of Four)", "GeeksForGeeks (Gang of Four)"]
+        
         if request.method =='POST':
             req = request.form.get('req')
         
             if req == "crawl":
-                return render_template("admin-home.html")
+                # Run new web crawlers                
+                dig_lib_crawler.run()
+                flash('All new web crawlers have been run.', category='success')
+                
             elif req == "update":
-                return render_template("admin-home.html")
+                # Get collection and model to use
+                collection = request.form.get('collection')
+                model = request.form.get('model')
+                
+                # Update collection using selected model
+                main_admin.main(collection, model)
+                flash('Collection updated with new model.', category='success')
+                
             elif req == "delete":
-                return render_template("admin-home.html")
+                return render_template("admin-home.html", collections=collection_names, sources=sources)
 
-        libraries = ["SourceMaking (Gang of Four)", "RefactoringGuru (Gang of Four)", "GeeksForGeeks (Gang of Four)"]
-        return render_template("admin-home.html", libraries=libraries)
+        return render_template("admin-home.html", collections=collection_names, sources=sources)
