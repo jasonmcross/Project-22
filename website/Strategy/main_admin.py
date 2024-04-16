@@ -7,35 +7,25 @@ import pandas as pd
 from website.Strategy.predictorClass import Predictor
 
 
-def main(collection, clusterer):
+def main(collection, model):
     # Instantiate the preprocessors
     preprocessors = [lower_punc.LowerPunc(), remove_stop.RemoveStop(), remove_junk.RemoveJunk(), stem.Stem(), tokenize.Tokenize(), lemmatize.Lemmatize()]
     
-    # Load data
-    if collection == "1" or collection == "2":
-        filepath = Path(__file__).parent / "source_files/rawGOF.csv"
-        df = pd.read_csv(filepath, encoding='ISO-8859-1',
-                       header=None, names=['Category', 'Pattern', 'Description'])    
+    # Get what collection csv to use
+    path = "source_files/" + collection + ".csv"
+    filepath = Path(__file__).parent / path
+    df = pd.read_csv(filepath, encoding='ISO-8859-1',
+                   header=None, names=['Category', 'Pattern', 'Description'])   
           
     v = defaultVectorizer.defaultVectorizer()        
 
     # Instantiate the selected clusterer
-    if clusterer == "1":
+    if model == "1":
         c = kmeans.KMeansClusterer(3)
-    elif clusterer == "2":
+    elif model == "2":
         c = mbkmeans.MBKMeansClusterer(3)
-    elif clusterer == "3":
-        c = agglomerative.AgglomerativeClusterer(3)
-    elif clusterer == "4":
-        c = dbscan.DBSCAN(3)
-    elif clusterer == "5":
-        c = spectral.SpectralClusterer(3)
-    elif clusterer == "6":
-        c = meanShift.MeanShiftClusterer(3)
-    elif clusterer == "7":
-        c = gaussianMixture.GaussianMixtureClusterer(3)
-    elif clusterer == "8":
-        c = fuzzyCmean.FuzzyCMeansClusterer(3)
+    elif model == "3":
+        c = "Bert"
     
     predictor = Predictor(preprocessors, v, c)
 
