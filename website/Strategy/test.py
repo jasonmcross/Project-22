@@ -104,6 +104,6 @@ def run_test(preprocess=["1", "1", "1", "1", "none", "none", "none", "none"], ve
 
     
     problem = predictor.preprocess_data(problem)
-    results = predictor.predict(problem, df, loaded_cls, loaded_vec)
+    results = predictor.predictTest(problem, df, loaded_cls, loaded_vec)
     
     return(results)
