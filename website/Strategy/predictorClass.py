@@ -73,3 +73,30 @@ class Predictor:
         
         # Return patterns
         return output, output1, output2
+
+    def predictTest(self, problem, data, loaded_cls, loaded_vec):
+        # The main method to process and predict based on the input data
+        # Vectorize input
+        problem = self.clusterer.vectorize(problem, loaded_vec)# loaded_vec.transform([problem])
+        # Predict cluster
+        cluster = self.clusterer.predict(problem, loaded_cls)# loaded_cls.predict(problem)[0]
+    
+        # Find patterns in cluster
+        #print(loaded_cls.labels_, cluster, data)
+        patterns = data[loaded_cls.labels_ == cluster]
+
+        # Find similarity between input and patterns
+        similarities = cosine_similarity(problem, loaded_vec.transform(patterns['Description'].values))
+
+        # Find most similar patterns
+        similar_index = np.argmax(similarities)
+        similar_index1 = np.argsort(np.max(similarities, axis=0))[-2]
+        similar_index2 = np.argsort(np.max(similarities, axis=0))[-3]
+
+        # Get similar patterns
+        similar_pattern = patterns.iloc[similar_index]
+        similar_pattern1 = patterns.iloc[similar_index1]
+        similar_pattern2 = patterns.iloc[similar_index2]
+        
+        # Return patterns
+        return similar_pattern['Pattern'], similar_pattern1['Pattern'], similar_pattern2['Pattern']
