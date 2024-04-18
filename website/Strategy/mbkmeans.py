@@ -1,5 +1,5 @@
 import pickle
-from clusterer_sc import Clusterer
+from website.Strategy.clusterer_sc import Clusterer
 import pandas as pd
 import matplotlib.pyplot as plt 
 from sklearn.cluster import MiniBatchKMeans
@@ -17,14 +17,14 @@ class MBKMeansClusterer(Clusterer):
         reduced_features = pca.fit_transform(features.toarray())
         reduced_cluster_centers = pca.transform(mbkm.cluster_centers_)
         
-        plt.scatter(reduced_features[:,0], reduced_features[:,1], c=mbkm.labels_)
-        plt.scatter(reduced_cluster_centers[:, 0], reduced_cluster_centers[:,1], marker='x', s=150, c='b')
-        plt.title("MiniBatchKMeans")
-        plt.xlabel("PCA Feature 1")
-        plt.ylabel("PCA Feature 2")
+        #plt.scatter(reduced_features[:,0], reduced_features[:,1], c=mbkm.labels_)
+        #plt.scatter(reduced_cluster_centers[:, 0], reduced_cluster_centers[:,1], marker='x', s=150, c='b')
+        #plt.title("MiniBatchKMeans")
+        #plt.xlabel("PCA Feature 1")
+        #plt.ylabel("PCA Feature 2")
         #plt.show()
 
-        filepath = Path(__file__).parent.parent / "models/mbkmeans_model.pkl"
+        filepath = Path(__file__).parent / "models/mbkmeans_model.pkl"
         with open(filepath, 'wb') as model_file:
             pickle.dump(mbkm, model_file)
         pass

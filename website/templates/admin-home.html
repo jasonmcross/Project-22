@@ -4,14 +4,43 @@
 {% block header %}Digital Library Manager{% endblock %}
 
 {% block page_content %}
+<h4>Update Web Crawlers</h4>
+<form class="mx-auto" name="crawler" id="crawler" method="POST">
+    <input type="hidden" name="req" id="req" value="crawler" />
+    <button type="submit" class="btn btn-primary">Run</button>
+</form>
+<br />
+<br />
+<form method="POST">
+    <h4>Update Digital Library Collection</h4>
+    <div class="form-group">
+        <label for="model">Choose a model: </label>
+        <select name="model" id="model">
+            <option value="0">--Please choose an option--</option>
+            <option value="1">KMeans</option>
+            <option value="2">MiniKMeans</option>
+            <option value="3">Bert</option>
+
+        </select>
+        <label for="collection">Choose a collection: </label>
+        <select name="collection" id="collection">
+            <option value="0">--Please choose an option--</option>
+            {% for collection in collections %}
+            <option value="{{collection}}">{{collection}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <br />
+    <input type="hidden" name="req" id="req" value="update" />
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>
+<br />
+<br />
+<h4>Digital Library Sources</h4>
 <ul class="list-group list-group-flush" id="libraries">
-    {% for library in libraries %}
+    {% for source in sources %}
     <li class="list-group-item d-flex flex-wrap">
-        {{ library }}
-        <form class="mx-auto" method="POST">
-            <input type="hidden" name="req" id="req" value="update" />
-            <button type="submit" class="btn btn-primary">Update</button>
-        </form>
+        {{ source }}
         <form class="mx-auto" method="POST">
             <input type="hidden" name="req" id="req" value="delete" />
             <button type="submit" class="btn btn-primary">Delete</button>
@@ -20,3 +49,4 @@
     {% endfor %}
 </ul>
 {% endblock %}
+

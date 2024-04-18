@@ -1,5 +1,5 @@
 import pickle
-from clusterer_sc import Clusterer
+from website.Strategy.clusterer_sc import Clusterer
 import pandas as pd
 import matplotlib.pyplot as plt 
 from sklearn.cluster import KMeans
@@ -21,15 +21,15 @@ class KMeansClusterer(Clusterer):
             cluster_points = reduced_features[km.labels_ == cluster_label]
             plt.scatter(cluster_points[:, 0], cluster_points[:, 1], label=f'Cluster {cluster_label}')
     
-        plt.scatter(reduced_features[:,0], reduced_features[:,1], c=km.labels_)
-        plt.scatter(reduced_cluster_centers[:, 0], reduced_cluster_centers[:,1], marker='x', s=150, c='b')
-        plt.legend()
-        plt.title("KMeans")
-        plt.xlabel("PCA Feature 1")
-        plt.ylabel("PCA Feature 2")
+        #plt.scatter(reduced_features[:,0], reduced_features[:,1], c=km.labels_)
+        #plt.scatter(reduced_cluster_centers[:, 0], reduced_cluster_centers[:,1], marker='x', s=150, c='b')
+        #plt.legend()
+        #plt.title("KMeans")
+        #plt.xlabel("PCA Feature 1")
+        #plt.ylabel("PCA Feature 2")
         ##plt.show()
 
-        filepath = Path(__file__).parent.parent / "models/kmeans_model.pkl"
+        filepath = Path(__file__).parent / "models/kmeans_model.pkl"
         with open(filepath, 'wb') as model_file:
             pickle.dump(km, model_file)
         pass

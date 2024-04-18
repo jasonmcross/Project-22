@@ -18,9 +18,9 @@ from website.Strategy.test import run_test
 
 # Reads CSV file for problems and answers
 def read_csv():
-    file_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "answer_key.csv"))
+    filepath = Path(__file__).parent / "answer_key.csv"
     data = []
-    with open(file_path, 'r') as csv_file:
+    with open(filepath, 'r') as csv_file:
         csv_reader = csv.DictReader(csv_file)
         for row in csv_reader:
             data.append((row['problem'], row['Answer']))

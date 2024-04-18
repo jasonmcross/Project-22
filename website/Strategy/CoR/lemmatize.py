@@ -1,4 +1,4 @@
-from CoR.preprocessor_sc import Preprocessor
+from website.Strategy.CoR.preprocessor_sc import Preprocessor
 from nltk.stem import WordNetLemmatizer
 
 class Lemmatize(Preprocessor):
