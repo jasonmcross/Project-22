@@ -8,7 +8,7 @@ def run():
     spider_path = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "scrapers", "digital_lib_scraper", "spiders"))
     spider_files = os.listdir(spider_path)
     data_path =  os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data"))
-    master_path = os.path.join(data_path, "master_collection_format.csv")
+    master_path = os.path.join(data_path, "MasterSpider.csv")
     with open(master_path, 'w') as file:
         pass
 

@@ -1,6 +1,7 @@
 import scrapy
 import csv
 import os
+from database.designPatterns import DatabaseOperations
 
 class sourcemaking_GOF_Spider(scrapy.Spider):
     name = "sourcemaking"
@@ -54,7 +55,10 @@ class sourcemaking_GOF_Spider(scrapy.Spider):
         self.write_to_csv(out_data)
 
     def write_to_csv(self, data):
-        with open(os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../../data/master_collection_format.csv")), "a", newline="", encoding="utf-8") as csvfile:
+        with open(os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../../data/MasterSpider.csv")), "a", newline="", encoding="utf-8") as csvfile:
             fieldnames = ["Category", "Pattern", "Data", "Collection", "Library"]
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            #writer.writerow(data)
+            db_ops = DatabaseOperations()
+            db_ops.insert_csv_data(csvfile)
             writer.writerow(data)
