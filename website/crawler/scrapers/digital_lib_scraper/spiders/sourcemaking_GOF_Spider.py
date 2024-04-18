@@ -46,13 +46,15 @@ class sourcemaking_GOF_Spider(scrapy.Spider):
         out_data = {
             "Category": category,
             "Pattern": pattern,
-            "Data": data
+            "Data": data,
+            "Collection": "GOF",
+            "Library": self.name.capitalize()
         }
 
         self.write_to_csv(out_data)
 
     def write_to_csv(self, data):
-        with open(os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../../data/sourcemaking_GOF.csv")), "a", newline="", encoding="utf-8") as csvfile:
-            fieldnames = ["Category", "Pattern", "Data"]
+        with open(os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../../data/master_collection_format.csv")), "a", newline="", encoding="utf-8") as csvfile:
+            fieldnames = ["Category", "Pattern", "Data", "Collection", "Library"]
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
             writer.writerow(data)
