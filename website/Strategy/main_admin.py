@@ -1,11 +1,7 @@
-from website.Strategy.CoR import extract_adjectives, extract_nouns, extract_verbs, lemmatize, lower_punc, remove_junk, remove_stop, stem, synonymize, tokenize
-from website.Strategy import agglomerative, dbscan, fuzzyCmean, gaussianMixture, kmeans, mbkmeans, meanShift, spectral
-from website.Strategy import defaultVectorizer, ngramVectorizer
 from pathlib import Path
 import pandas as pd
 
 from website.Strategy.predictorClass import Predictor
-
 
 def main(collection, model):
     # Instantiate the preprocessors
