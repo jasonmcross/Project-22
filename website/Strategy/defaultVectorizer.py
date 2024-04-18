@@ -15,7 +15,7 @@ class defaultVectorizer(Vectorizer):
         features = vec.transform(df.Description.values)
     
         # Save vectorizer
-        filepath = Path(__file__).parent / "../vectorizers/vectorizer_default.pkl"
+        filepath = Path(__file__).parent / "vectorizers/vectorizer_default.pkl"
         with open(filepath, 'wb') as vec_file:
             pickle.dump(vec, vec_file)
     
