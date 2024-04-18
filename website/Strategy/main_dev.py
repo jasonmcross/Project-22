@@ -9,7 +9,7 @@ from website.Strategy.predictorClass import Predictor
 def main(problem, collection):
     # Instantiate the selected preprocessors
     preprocessors = [lower_punc.LowerPunc(), remove_stop.RemoveStop(), remove_junk.RemoveJunk(), stem.Stem(), tokenize.Tokenize(), lemmatize.Lemmatize()]
-    clusterer = "2"
+    clusterer = "1"
     
     # Get what clusterer to use
     if clusterer == "1":
