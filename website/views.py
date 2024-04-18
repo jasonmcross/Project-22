@@ -1,14 +1,14 @@
 from flask import Flask, Blueprint, render_template, request, flash, session, redirect
 from website.Strategy import main_dev, main_admin
 from website.crawler.src import dig_lib_crawler
-from database.collections import DatabaseOperations
+from database.designPatterns import DatabaseOperations
 
 views = Blueprint('views', __name__)
 db_ops = DatabaseOperations()
 
 @views.route('/', methods=['GET', 'POST'])
 def developer_home():
-    collection_names = db_ops.get_collection_names()
+    collection_names = db_ops.get_unique_collections()
     
     if request.method == 'POST':
         problem = request.form.get('problem')
@@ -21,6 +21,7 @@ def developer_home():
         elif collection == "0":
             flash('Select a digital library collection', category='error')
         else:
+            db_ops.export_collection_to_csv(collection)
             patterns = main_dev.main(problem, collection)
             flash('Design problem submitted.', category='success')
             return render_template("developer-home.html", patterns=patterns, collections=collection_names)
@@ -34,8 +35,8 @@ def admin_home():
         return redirect('/login')
     else:
         # Get current collections in database and their sources
-        collection_names = db_ops.get_collection_names()
-        sources = ["SourceMaking (Gang of Four)", "RefactoringGuru (Gang of Four)", "GeeksForGeeks (Gang of Four)"]
+        collection_names = db_ops.get_unique_collections()
+        sources = db_ops.get_unique_combinations()#["SourceMaking (Gang of Four)", "RefactoringGuru (Gang of Four)", "GeeksForGeeks (Gang of Four)"]
         
         if request.method =='POST':
             req = request.form.get('req')
@@ -48,6 +49,7 @@ def admin_home():
             elif req == "update":
                 # Get collection and model to use
                 collection = request.form.get('collection')
+                db_ops.export_collection_to_csv(collection)
                 model = request.form.get('model')
                 
                 # Update collection using selected model
@@ -55,6 +57,13 @@ def admin_home():
                 flash('Collection updated with new model.', category='success')
                 
             elif req == "delete":
+                source = request.form.get('s')
+                index = source.find('(')
+                if index !=-1: 
+                    libraryName = source[:index-1].strip()
+                    collectionName= source[index+1:].split(')')[0].strip()
+                db_ops.delete_rows_by_combination(libraryName, collectionName)
                 return render_template("admin-home.html", collections=collection_names, sources=sources)
+
 
         return render_template("admin-home.html", collections=collection_names, sources=sources)

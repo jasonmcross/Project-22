@@ -1,3 +1,6 @@
+from website.Strategy.CoR import extract_adjectives, extract_nouns, extract_verbs, lemmatize, lower_punc, remove_junk, remove_stop, stem, synonymize, tokenize
+from website.Strategy import kmeans, mbkmeans
+from website.Strategy import defaultVectorizer
 from pathlib import Path
 import pandas as pd
 
@@ -8,7 +11,7 @@ def main(collection, model):
     preprocessors = [lower_punc.LowerPunc(), remove_stop.RemoveStop(), remove_junk.RemoveJunk(), stem.Stem(), tokenize.Tokenize(), lemmatize.Lemmatize()]
     
     # Get what collection csv to use
-    path = "source_files/" + collection + ".csv"
+    path = "source_files/MasterSource.csv"
     filepath = Path(__file__).parent / path
     df = pd.read_csv(filepath, encoding='ISO-8859-1',
                    header=None, names=['Category', 'Pattern', 'Description'])   

@@ -32,7 +32,7 @@ def main(problem, collection):
         loaded_vec = pickle.load(vec_file)
     
     # Get what collection csv to use
-    path = "source_files/" + collection + ".csv"
+    path = "source_files/MasterSource.csv"
     filepath = Path(__file__).parent / path
     df = pd.read_csv(filepath, encoding='ISO-8859-1',
                    header=None, names=['Category', 'Pattern', 'Description']) 

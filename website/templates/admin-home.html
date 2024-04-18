@@ -42,6 +42,7 @@
     <li class="list-group-item d-flex flex-wrap">
         {{ source }}
         <form class="mx-auto" method="POST">
+            <input type="hidden" name="s" id="s" value="{{source}}" />
             <input type="hidden" name="req" id="req" value="delete" />
             <button type="submit" class="btn btn-primary">Delete</button>
         </form>
