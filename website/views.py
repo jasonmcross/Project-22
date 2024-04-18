@@ -1,4 +1,4 @@
-from flask import Flask, Blueprint, render_template, request, flash, session
+from flask import Flask, Blueprint, render_template, request, flash, session, redirect
 from website.Strategy import main_dev, main_admin
 from website.crawler.src import dig_lib_crawler
 from database.collections import DatabaseOperations
@@ -31,7 +31,7 @@ def developer_home():
 def admin_home():
     if 'logged_in' not in session:
         flash('Cannot view page', category='error')
-        return render_template("admin-login.html")
+        return redirect('/login')
     else:
         # Get current collections in database and their sources
         collection_names = db_ops.get_collection_names()
