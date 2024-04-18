@@ -31,7 +31,7 @@ def test_bert_accuracy():
     # Read answer key
     answer_key = read_csv() # Adjust file name accordingly
 
-    pred = BertPredictor(os.path.abspath(os.path.join(os.path.dirname(__file__), "masterGOF.csv")))
+    pred = BertPredictor(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "website", "source_files", "masterGOF.csv")))
 
     total_questions = len(answer_key)
     
@@ -67,8 +67,6 @@ def test_custom_accuracy(vector, clusterer):
     system_output = [] #read_csv(system_output_file)
     for i in range(total_questions):
         system_output.append(run_test(preprocess, vector, clusterer, answer_key[i][0]))
-
-    print(len(system_output))
 
     # Calculate accuracy
     correct_answers = 0

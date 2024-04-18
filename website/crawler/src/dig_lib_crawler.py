@@ -13,6 +13,7 @@ def run():
     data_df = pd.DataFrame({"data": data_files})
     run_spider = spider_df[spider_df["spider"].str.contains("_Spider")]
     run_spider = run_spider[~run_spider["spider"].str.contains('|'.join(data_df["data"]))]
+    print(run_spider)
     
     for file in run_spider["spider"]:
         cmd = "scrapy runspider " + '"' + os.path.join(spider_path, file) + '"' # to check error message: -v 2"
