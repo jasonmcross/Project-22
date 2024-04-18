@@ -16,7 +16,7 @@ def run_test(preprocess=["1", "1", "1", "1", "none", "none", "none", "none"], ve
     pp_user = [lower_punc.LowerPunc(), remove_stop.RemoveStop()]
     
     # Load data
-    filepath = Path(__file__).parent.parent / "source_files/masterGOF.csv" # .parent.parent = ./website
+    filepath = Path(__file__).parent / "source_files/masterGOF.csv" # .parent.parent = ./website
     df = pd.read_csv(filepath, encoding='ISO-8859-1',
                    header=None, names=['Category', 'Pattern', 'Description'])    
     
@@ -48,25 +48,25 @@ def run_test(preprocess=["1", "1", "1", "1", "none", "none", "none", "none"], ve
 
     # Load vectorizer
     if vector == 1:
-        filepath = Path(__file__).parent / "../vectorizers/vectorizer_default.pkl"
+        filepath = Path(__file__).parent / "vectorizers/vectorizer_default.pkl"
         with open(filepath, 'rb') as vec_file:
             loaded_vec = pickle.load(vec_file)
     elif vector == 2:
-        filepath = Path(__file__).parent / "../vectorizers/vectorizer_ngram.pkl"
+        filepath = Path(__file__).parent / "vectorizers/vectorizer_ngram.pkl"
         with open(filepath, 'rb') as vec_file:
             loaded_vec = pickle.load(vec_file)
     
     # Load model
     if clusterer == 1:
-        filepath = Path(__file__).parent / "../models/kmeans_model.pkl"
+        filepath = Path(__file__).parent / "models/kmeans_model.pkl"
         with open(filepath, 'rb') as model_file:
             loaded_cls = pickle.load(model_file)
     elif clusterer == 2:
-        filepath = Path(__file__).parent / "../models/mbkmeans_model.pkl"
+        filepath = Path(__file__).parent / "models/mbkmeans_model.pkl"
         with open(filepath, 'rb') as model_file:
             loaded_cls = pickle.load(model_file)
     elif clusterer == 3:
-        filepath = Path(__file__).parent / "../models/fuzzycmeans_model.pkl"
+        filepath = Path(__file__).parent / "models/fuzzycmeans_model.pkl"
         with open(filepath, 'rb') as model_file:
             loaded_cls = pickle.load(model_file)
 
