@@ -20,7 +20,7 @@ def login():
             if user_data and user_data[0] == password:
                 session['logged_in'] = True
                 flash('Login successful!', category='success')
-                return render_template("admin-home.html")
+                return redirect('/admin-home')
 
             else:
                 flash('Invalid email or password. Please try again.', category='error')
@@ -31,7 +31,7 @@ def login():
 def sign_up():
     if 'logged_in' not in session:
         flash('Cannot view page', category='error')
-        return render_template("admin-login.html")
+        return redirect('/login')
     else:
         if request.method == 'POST':
             email = request.form.get('email')
@@ -46,7 +46,7 @@ def sign_up():
                 db.add_user(email, name, password)
                 flash('Admin account created successfully.', category='success')
                 session['logged_in'] = True
-                return render_template("admin-home.html")
+                return redirect('/admin-home')
     
         return render_template("admin-sign-up.html")
 
@@ -54,8 +54,8 @@ def sign_up():
 def logout():
     if 'logged_in' not in session:
         flash('Cannot view page', category='error')
-        return render_template("admin-login.html")
+        return redirect('/login')
     else:
         session.pop('logged_in', None)
         flash('Logged out sucessfully!', category='success')
-        return render_template("developer-home.html")
+        return redirect('/')
