@@ -14,13 +14,13 @@ def run():
 
     # data_files = os.listdir(data_path)
     # data_files = [name.replace('.csv', '') for name in data_files ]
-    # spider_df = pd.DataFrame({"spider": spider_files})
+    spider_df = pd.DataFrame({"spider": spider_files})
     # data_df = pd.DataFrame({"data": data_files})
     # run_spider = spider_df[spider_df["spider"].str.contains("_Spider")]
     # run_spider = run_spider[~run_spider["spider"].str.contains('|'.join(data_df["data"]))]
     # print(run_spider)
     
-    for file in spider_files["spider"]:
+    for file in spider_df["spider"]:
         cmd = "scrapy runspider " + '"' + os.path.join(spider_path, file) + '"' # to check error message: -v 2"
         subprocess.run(cmd, shell=True, check=True, text=True, stdout=subprocess.PIPE)
 
