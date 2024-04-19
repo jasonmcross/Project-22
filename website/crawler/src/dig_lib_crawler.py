@@ -22,7 +22,8 @@ def run():
     
     for file in run_spider["spider"]:
         cmd = "scrapy runspider " + '"' + os.path.join(spider_path, file) + '"' # to check error message: -v 2"
-        subprocess.run(cmd, shell=True, check=True, text=True, stdout=subprocess.PIPE)
+        if subprocess.run(cmd, shell=True, check=True, text=True): #, stdout=subprocess.PIPE)
+            print(file)
 
 if __name__ == '__main__':
     run()
