@@ -102,7 +102,9 @@ class DatabaseOperations:
 if __name__ == "__main__":
     db_ops = DatabaseOperations()
     #push all data
-    csv_file_path = "../website/crawler/data/MasterSpider.csv"
+    #csv_file_path = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "/website/crawler/data/MasterSpider.csv")) #os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "/website/crawler/data/MasterSpider.csv"))csv_file_path = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "/website/crawler/data/MasterSpider.csv")) #os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "/website/crawler/data/MasterSpider.csv"))
+    csv_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "website", "crawler", "data", "MasterSpider.csv")
+    print(csv_file_path)
     db_ops.insert_csv_data(csv_file_path)
     
     #get all data
