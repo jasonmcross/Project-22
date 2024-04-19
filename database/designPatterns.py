@@ -91,11 +91,10 @@ class DatabaseOperations:
                 combined_discription[key] = discription
 
                 
-        with open(source_filepath, 'w', newline='') as file:
+        with open(source_filepath, 'w', newline='', encoding='utf-8') as file:
             writer = csv.writer(file)
-            #writer.writerow(["designPattern", "designType", "discretion"])  # Write header
             for (design_pattern, design_type), description in combined_discription.items():
-                writer.writerow([design_pattern, design_type, description ])
+                writer.writerow([design_pattern, design_type, description])
 
         
                 
