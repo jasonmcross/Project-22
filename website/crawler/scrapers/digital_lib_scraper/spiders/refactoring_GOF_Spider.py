@@ -34,10 +34,20 @@ class refactoring_GOF_Spider(scrapy.Spider):
 
         self.write_to_csv(out_data)
 
+    # def write_to_csv(self, data):
+    #     with open(os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../../data/MasterSpider.csv")), "a", newline="", encoding="utf-8") as csvfile:
+    #         fieldnames = ["Category", "Pattern", "Data", "Library", "Collection"]
+    #         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+    #         writer.writerow(data)
+    #     db_ops = DatabaseOperations()
+    #     db_ops.insert_csv_data(csvfile)
+        
     def write_to_csv(self, data):
-        with open(os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../../data/MasterSpider.csv")), "a", newline="", encoding="utf-8") as csvfile:
+        db_ops = DatabaseOperations()
+        db_ops.delete_rows_by_combination("refactoring", "GOF")
+        file_path = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../../data/MasterSpider.csv"))
+        with open(file_path, "a", newline="", encoding="utf-8") as csvfile:
             fieldnames = ["Category", "Pattern", "Data", "Library", "Collection"]
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
             writer.writerow(data)
-            db_ops = DatabaseOperations()
-            db_ops.insert_csv_data(csvfile)
+    

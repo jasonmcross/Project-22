@@ -101,9 +101,9 @@ class DatabaseOperations:
 # Example usage
 if __name__ == "__main__":
     db_ops = DatabaseOperations()
-    #push all data
-    csv_file_path = "../website/crawler/data/MasterSpider.csv"
-    db_ops.insert_csv_data(csv_file_path)
+#     #push all data
+#     csv_file_path = "../website/crawler/data/MasterSpider.csv"
+#     db_ops.insert_csv_data(csv_file_path)
     
     #get all data
     # csv_file_path = "../website/crawler/data/masterpull.csv"
