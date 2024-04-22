@@ -49,7 +49,7 @@ class sourcemaking_GOF_Spider(scrapy.Spider):
         out_data = {
             "Category": category,
             "Pattern": pattern,
-            "Data": data.replace("\n", " "),
+            "Data": data.replace("\n", " ").replace("’", "'").replace(",", ""),
             "Library": self.name.capitalize(),
             "Collection": "GOF"
         }

@@ -87,7 +87,5 @@ def copy_csv(source_path, destination_path):
             for row in reader:
                 writer.writerow(row)
 
-
-
 if __name__ == '__main__':
     run()

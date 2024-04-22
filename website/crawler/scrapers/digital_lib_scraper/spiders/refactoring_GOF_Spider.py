@@ -27,20 +27,12 @@ class refactoring_GOF_Spider(scrapy.Spider):
         out_data = {
             "Category": category,
             "Pattern": pattern,
-            "Data": data.replace("\n", " "),
+            "Data": data.replace("\n", " ").replace("’", "'").replace(",", ""),
             "Library": self.name.capitalize(),
             "Collection": "GOF"
         }
 
         self.write_to_csv(out_data)
-
-    # def write_to_csv(self, data):
-    #     with open(os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../../data/MasterSpider.csv")), "a", newline="", encoding="utf-8") as csvfile:
-    #         fieldnames = ["Category", "Pattern", "Data", "Library", "Collection"]
-    #         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-    #         writer.writerow(data)
-    #     db_ops = DatabaseOperations()
-    #     db_ops.insert_csv_data(csvfile)
         
     def write_to_csv(self, data):
         db_ops = DatabaseOperations()
@@ -50,4 +42,3 @@ class refactoring_GOF_Spider(scrapy.Spider):
             fieldnames = ["Category", "Pattern", "Data", "Library", "Collection"]
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
             writer.writerow(data)
-    

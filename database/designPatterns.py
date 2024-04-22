@@ -101,32 +101,3 @@ class DatabaseOperations:
 # Example usage
 if __name__ == "__main__":
     db_ops = DatabaseOperations()
-#     #push all data
-#     csv_file_path = "../website/crawler/data/MasterSpider.csv"
-#     db_ops.insert_csv_data(csv_file_path)
-    
-    #get all data
-    # csv_file_path = "../website/crawler/data/masterpull.csv"
-    # db_ops.export_to_csv(csv_file_path)
-
-    #delete library comb with collection
-    #db_ops.delete_rows_by_combination("sourcemacking", "GOF")
-
-    ###combination of collections and library
-    # unique_combinations = db_ops.get_unique_combinations()
-    # for combination in unique_combinations:
-    #     print(combination)
-        
-    ###collections
-    # unique_collections = db_ops.get_unique_collections()
-    # for collection in unique_collections:
-    #     print(collection)
-    
-    
-    # csv_file_path = "../website/crawler/data/masterpull.csv"
-    # db_ops.export_to_csv(csv_file_path)
-    
-    #pull for collection
-    # collection_name = " GOF"
-    # csv_file_path = "../website/Strategy/source_files/MasterSource.csv"
-    # db_ops.export_collection_to_csv(collection_name, csv_file_path)
