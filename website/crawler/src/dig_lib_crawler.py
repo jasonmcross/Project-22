@@ -3,6 +3,7 @@ import subprocess
 import sys
 import pandas as pd
 import csv
+from pathlib import Path
 
 
 # Calculate the absolute path to the directory two levels up
@@ -56,7 +57,8 @@ def run():
     # run_spider = run_spider[~run_spider["spider"].str.contains('|'.join(data_df["data"]))]
     # print(run_spider)
     
-    manual_data_files = os.listdir("../scrapers/manual_data_input")
+    filepath = Path(__file__).parent.parent / "scrapers/manual_data_input"
+    manual_data_files = os.listdir(filepath)
     
     
     for file in run_spider["spider"]:
