@@ -59,7 +59,9 @@ class sourcemaking_GOF_Spider(scrapy.Spider):
     def write_to_csv(self, data):
         db_ops = DatabaseOperations()
         db_ops.delete_rows_by_combination("refactoring", "GOF")
-        with open(os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../../data/MasterSpider.csv")), "a", newline="", encoding="utf-8") as csvfile:
+        path = "data/MasterSpider.csv"
+        filepath = Path(__file__).parent.parent.parent.parent / path
+        with open(filepath, "a", newline="", encoding="utf-8") as csvfile:
             fieldnames = ["Category", "Pattern", "Data", "Library", "Collection"]
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
             writer.writerow(data)
