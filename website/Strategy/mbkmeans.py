@@ -10,7 +10,7 @@ class MBKMeansClusterer(Clusterer):
     def __init__(self, num_clusters):
         super().__init__(num_clusters=num_clusters)
     
-    def cluster(self, features):
+    def cluster(self, features, collection):
         mbkm = MiniBatchKMeans(n_clusters=3, random_state = 0)
         mbkm.fit(features)
         pca = PCA(n_components=2, random_state = 0)
@@ -24,7 +24,8 @@ class MBKMeansClusterer(Clusterer):
         #plt.ylabel("PCA Feature 2")
         #plt.show()
 
-        filepath = Path(__file__).parent / "models/mbkmeans_model.pkl"
+        path = f"models/{collection}MBKMeans.pkl"
+        filepath = Path(__file__).parent / path
         with open(filepath, 'wb') as model_file:
             pickle.dump(mbkm, model_file)
         pass
