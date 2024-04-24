@@ -16,9 +16,8 @@ class DatabaseOperations:
             self.conn.close()
 
     def insert_csv_data(self, csv_file_path):
-        with open(csv_file_path, 'r') as file:
+        with open(csv_file_path, 'r', encoding="utf-8") as file:
             reader = csv.reader(file)
-            #next(reader)  # Skip header row
             for row in reader:
                 design_pattern, design_type, discretion, library_src, *extra = row
                 collection_name = extra[0] if extra else None
@@ -26,7 +25,6 @@ class DatabaseOperations:
                 INSERT INTO DesignPatterns (designPattern, designType, discretion, librarySRC, collectionName)
                 VALUES (%s, %s, %s, %s, %s);
                 """
-                #
                 self.cur.execute(query, (design_pattern, design_type, discretion, library_src, collection_name))
 
         self.conn.commit()
