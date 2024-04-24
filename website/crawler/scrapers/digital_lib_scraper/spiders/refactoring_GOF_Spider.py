@@ -4,6 +4,7 @@ import os
 import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", ".."))
 from database.designPatterns import DatabaseOperations
+from pathlib import Path
 
 class refactoring_GOF_Spider(scrapy.Spider):
     name = "refactoring"
