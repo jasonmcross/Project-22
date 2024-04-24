@@ -41,7 +41,7 @@ def admin_home():
         if request.method =='POST':
             req = request.form.get('req')
         
-            if req == "crawl":
+            if req == "crawler":
                 # Run new web crawlers                
                 dig_lib_crawler.run()
                 flash('All new web crawlers have been run.', category='success')

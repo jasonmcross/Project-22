@@ -37,7 +37,7 @@ class refactoring_GOF_Spider(scrapy.Spider):
         
     def write_to_csv(self, data):
         db_ops = DatabaseOperations()
-        db_ops.delete_rows_by_combination("refactoring", "GOF")
+        db_ops.delete_rows_by_combination("Refactoring", "GOF")
         path = "data/MasterSpider.csv"
         filepath = Path(__file__).parent.parent.parent.parent / path
         with open(filepath, "a", newline="", encoding="utf-8") as csvfile:

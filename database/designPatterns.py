@@ -99,3 +99,5 @@ class DatabaseOperations:
 # Example usage
 if __name__ == "__main__":
     db_ops = DatabaseOperations()
+    
+    db_ops.delete_rows_by_combination("Sourcemaking", "GOF")
