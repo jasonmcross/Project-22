@@ -23,11 +23,9 @@ def main(collection, model):
         c = kmeans.KMeansClusterer(3)
     elif model == "2":
         c = mbkmeans.MBKMeansClusterer(3)
-    elif model == "3":
-        c = "Bert"
     
     predictor = Predictor(preprocessors, v, c)
 
     df.iloc[:, 2] = df.iloc[:,2].astype(str).apply(predictor.preprocess_data)
-    features = predictor.vectorize_data(df)
-    predictor.cluster_data(features)
+    features = predictor.vectorize_data(df, collection)
+    predictor.cluster_data(features, collection)
