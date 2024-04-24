@@ -26,14 +26,14 @@ class Predictor:
     def vectorize_data(self, data, collection):
         # Vectorize the preprocessed data
         if self.vectorizer is not None:
-            return self.vectorizer.vectorize(data)
+            return self.vectorizer.vectorize(data, collection)
         else:
             raise NotImplementedError("Vectorizer has not been set.")
 
     def cluster_data(self, data, collection):
         # Apply the clustering algorithm to the vectorized data
         if self.clusterer is not None:
-            self.clusterer.cluster(data)
+            self.clusterer.cluster(data, collection)
         else:
             raise NotImplementedError("Clusterer has not been set.")
 
