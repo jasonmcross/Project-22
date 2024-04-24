@@ -10,7 +10,7 @@ class KMeansClusterer(Clusterer):
     def __init__(self, num_clusters):
         super().__init__(num_clusters=num_clusters)
     
-    def cluster(self, features):
+    def cluster(self, features, collection):
         km = KMeans(n_clusters=3, random_state = 0, algorithm='elkan')
         km.fit(features)
         pca = PCA(n_components=2, random_state = 0)
@@ -29,7 +29,8 @@ class KMeansClusterer(Clusterer):
         #plt.ylabel("PCA Feature 2")
         ##plt.show()
 
-        filepath = Path(__file__).parent / "models/kmeans_model.pkl"
+        path = f"models/{collection}KMeans.pkl"
+        filepath = Path(__file__).parent / path
         with open(filepath, 'wb') as model_file:
             pickle.dump(km, model_file)
         pass
