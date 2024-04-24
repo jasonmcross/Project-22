@@ -9,13 +9,14 @@ class defaultVectorizer(Vectorizer):
         super().__init__()
         self.vectorizer = TfidfVectorizer()
         
-    def vectorize(self, df: pd.DataFrame):
+    def vectorize(self, df: pd.DataFrame, collection):
         vec = TfidfVectorizer()
         vec.fit(df.Description.values)
         features = vec.transform(df.Description.values)
     
         # Save vectorizer
-        filepath = Path(__file__).parent / "vectorizers/vectorizer_default.pkl"
+        path = f"vectorizers/{collection}.pkl"
+        filepath = Path(__file__).parent / path
         with open(filepath, 'wb') as vec_file:
             pickle.dump(vec, vec_file)
     
