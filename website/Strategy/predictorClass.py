@@ -52,19 +52,6 @@ class Predictor:
         similarities = cosine_similarity(problem, loaded_vec.transform(patterns['Description'].values))
 
         # Find most similar patterns
-       #index = -2
-       #similar_index = np.argmax(similarities)
-       #similar_index1 = np.argsort(np.max(similarities, axis=0))[index]
-       #similar_pattern = patterns.iloc[similar_index]
-       #similar_pattern1 = patterns.iloc[similar_index1]
-       #while similar_pattern['Pattern'] == similar_pattern1['Pattern']:
-       #    index -= 1
-       #    print(similar_pattern1['Pattern'])
-       #    similar_index1 = np.argsort(np.max(similarities, axis=0))[index]
-       #similar_index2 = np.argsort(np.max(similarities, axis=0))[index-1]
-       #similar_pattern2 = patterns.iloc[similar_index2]
-
-        # Find most similar patterns
         similar_index = np.argmax(similarities)
         similar_index1 = np.argsort(np.max(similarities, axis=0))[-2]
         similar_index2 = np.argsort(np.max(similarities, axis=0))[-3]
@@ -75,14 +62,14 @@ class Predictor:
         similar_pattern2 = patterns.iloc[similar_index2]
 
         # Get similarity score
-        similarity_score = similarities[0][similar_index]
-        similarity_score1 = similarities[0][similar_index1]
-        similarity_score2 = similarities[0][similar_index2]
+        similarity_score = round(similarities[0][similar_index], 2)
+        similarity_score1 = round(similarities[0][similar_index1], 2)
+        similarity_score2 = round(similarities[0][similar_index2], 2)
 
         # Format output for html display including similarity scores
-        output = f"{similar_pattern['Pattern']} Category: {similar_pattern['Category']} Similarity: {similarity_score}"
-        output1 = f"{similar_pattern1['Pattern']} Category: {similar_pattern1['Category']} Similarity: {similarity_score1}"
-        output2 = f"{similar_pattern2['Pattern']} Category: {similar_pattern2['Category']} Similarity: {similarity_score2}"
+        output = f"{similar_pattern['Pattern']}   Category: {similar_pattern['Category']}   Similarity: {similarity_score}"
+        output1 = f"{similar_pattern1['Pattern']}   Category: {similar_pattern1['Category']}   Similarity: {similarity_score1}"
+        output2 = f"{similar_pattern2['Pattern']}   Category: {similar_pattern2['Category']}   Similarity: {similarity_score2}"
         
         # Return patterns
         return output, output1, output2
