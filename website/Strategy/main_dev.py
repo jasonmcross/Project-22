@@ -9,17 +9,21 @@ from website.Strategy.predictorClass import Predictor
 def main(problem, collection):
     # Instantiate the selected preprocessors
     preprocessors = [lower_punc.LowerPunc(), remove_stop.RemoveStop(), remove_junk.RemoveJunk(), stem.Stem(), tokenize.Tokenize(), lemmatize.Lemmatize()]
-    clusterer = "1"
     
     # Get what clusterer to use
-    if clusterer == "1":
+    path1 = f"models/{collection}KMeans.pkl"
+    check1 = Path(__file__).parent / path1
+    path2 = f"models/{collection}MBKMeans.pkl"
+    check2 = Path(__file__).parent / path2
+    
+    if check1.is_file():
         c = kmeans.KMeansClusterer(3)
-        filepath = Path(__file__).parent / "models/kmeans_model.pkl"
+        filepath = Path(__file__).parent / path1
         with open(filepath, 'rb') as model_file:
             loaded_cls = pickle.load(model_file)
-    elif clusterer == "2":
+    elif check2.is_file():
         c = mbkmeans.MBKMeansClusterer(3)
-        filepath = Path(__file__).parent / "models/mbkmeans_model.pkl"
+        filepath = Path(__file__).parent / path2
         with open(filepath, 'rb') as model_file:
             loaded_cls = pickle.load(model_file)
     
@@ -27,7 +31,8 @@ def main(problem, collection):
     vectorizer = defaultVectorizer.defaultVectorizer()
 
     # Load vectorizer
-    filepath = Path(__file__).parent / "vectorizers/vectorizer_default.pkl"
+    path = f"vectorizers/{collection}.pkl"
+    filepath = Path(__file__).parent / path
     with open(filepath, 'rb') as vec_file:
         loaded_vec = pickle.load(vec_file)
     
