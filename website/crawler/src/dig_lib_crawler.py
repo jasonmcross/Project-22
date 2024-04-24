@@ -13,19 +13,6 @@ print("Adding to sys.path:", project_root)
 sys.path.insert(0, project_root)
 
 from database.designPatterns import DatabaseOperations
-
-def split_filename(filename):
-    # Define the pattern to match the file name
-    pattern = r'^(.*?)_\((.*?)\)\.csv$'
-    
-    # Use regular expressions to extract librarySRC and collection
-    match = re.match(pattern, filename)
-    if match:
-        librarySRC = match.group(1).replace('_', ' ')
-        collection = match.group(2)
-        return librarySRC, collection
-    else:
-        return None, None
     
 def split_filename(filename):
     # Replace underscores with spaces
@@ -33,7 +20,8 @@ def split_filename(filename):
     
     # Extract librarySRC and collection
     librarySRC = filename_parts[0].strip()
-    collection = filename_parts[1].replace(')', '').strip()
+    collection = filename_parts[1].replace(')', '').replace('.csv','').replace('.CSV','').strip()
+    # print (librarySRC, collection)
     
     return librarySRC, collection
 
