@@ -44,7 +44,7 @@ def admin_home():
             if req == "crawler":
                 # Run new web crawlers                
                 dig_lib_crawler.run()
-                flash('All new web crawlers have been run.', category='success')
+                flash('Stored data updated.', category='success')
                 
             elif req == "update":
                 # Get collection and model to use
