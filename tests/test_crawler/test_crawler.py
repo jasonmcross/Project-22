@@ -4,14 +4,15 @@ import pytest
 import scrapy
 from scrapy.crawler import CrawlerRunner
 from scrapy.utils.project import get_project_settings
+from twisted.internet import defer
 
-SPIDER_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "crawler", "digital_lib_scraper", "digital_lib_scraper", "spiders"))
-DATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "crawler", "data"))
+SPIDER_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "website", "crawler", "scrapers", "digital_lib_scraper", "spiders"))
+DATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "website", "crawler", "data"))
 
 sys.path.append(SPIDER_PATH)
 
-from SpringframeworkSpider import SpringframeworkSpider
-from StackoverflowSpider import StackoverflowSpider
+from refactoring_GOF_Spider import refactoring_GOF_Spider
+from sourcemaking_GOF_Spider import sourcemaking_GOF_Spider
 
 spider_modules = locals()
 
@@ -21,15 +22,21 @@ def crawler_runner():
     return CrawlerRunner(settings)
 
 @pytest.mark.parametrize("spider_name", [name for name in spider_modules if name.endswith("Spider")])
-@pytest.mark.asyncio
+@pytest.mark.twisted
 async def test_scrape(crawler_runner, spider_name):
-    spider = spider_modules[spider_name]
-    print(os.path.join(DATA_PATH, str(spider_name) + ".json"))
+    deferred = crawler_runner.crawl(spider_name)
 
-    crawler_instance = await crawler_runner.create_crawler(spider)
-    await crawler_instance.crawl()
-    
-    result = crawler_runner.spider.data
-    assert len(result) > 0
+    def check_response(results):
+        # Access the data produced by the spider
+        spider_output = [item for item in results if isinstance(item, dict)]
 
-    assert os.path.exists(os.path.abspath(os.path.join(DATA_PATH, str(spider_name) + ".json")))
+        # Ensure data was yielded
+        assert len(spider_output) > 0  
+        # Check for a status key
+        assert "status" in spider_output[0]  
+        # Verify HTTP status is 200
+        assert spider_output[0]["status"] == 200  
+        return results
+
+    deferred.addCallback(check_response)
+    return deferred
