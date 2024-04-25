@@ -4,7 +4,7 @@
 {% block header %}Digital Library Manager{% endblock %}
 
 {% block page_content %}
-<h4>Update Web Crawlers</h4>
+<h4>Update Stored Data</h4>
 <form class="mx-auto" name="crawler" id="crawler" method="POST">
     <input type="hidden" name="req" id="req" value="crawler" />
     <button type="submit" class="btn btn-primary">Run</button>
@@ -12,7 +12,7 @@
 <br />
 <br />
 <form method="POST">
-    <h4>Update Digital Library Collection</h4>
+    <h4>Update Machine Learning Model Used For Collection</h4>
     <div class="form-group">
         <label for="model">Choose a model: </label>
         <select name="model" id="model">
