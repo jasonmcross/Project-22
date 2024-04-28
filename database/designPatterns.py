@@ -94,6 +94,13 @@ class DatabaseOperations:
             for (design_pattern, design_type), description in combined_discription.items():
                 writer.writerow([design_pattern, design_type, description])
 
+    def deleteAll(self):
+        query = """
+        DELETE FROM DesignPatterns;
+        """
+        self.cur.execute(query)
+        print ("Database was erased")
+        
         
                 
 # Example usage

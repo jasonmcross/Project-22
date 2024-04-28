@@ -31,8 +31,7 @@ def test_bert_accuracy():
     # Read answer key
     answer_key = read_csv() # Adjust file name accordingly
 
-    filepath = Path(__file__).parent.parent.parent / "website/Strategy/source_files/masterGOF.csv"
-    pred = BertPredictor(filepath)
+    pred = BertPredictor(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "website", "source_files", "masterGOF.csv")))
 
     total_questions = len(answer_key)
     
