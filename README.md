@@ -1,11 +1,11 @@
 Project 22
 
-need to install 
+From the main project folder, run the following command to install the required packages:
+pip install -r requirements.txt
 
-npm install dotenv
-npm install postgres
-npm install dotenv express pg nodemon
+To run the program, run the following command:
+python main.py or python3 main.py
 
+Open a web browser and go to the following URL:
+http://127.0.0.1:3000
 
-npx prisma migrate push/dev/deploy --name (name the migration)
- nest g resource patterns
