@@ -7,7 +7,7 @@ from sklearn.decomposition import PCA
 from pathlib import Path
 
 class KMeansClusterer(Clusterer):
-    def __init__(self, num_clusters):
+    def __init__(self, num_clusters):        
         super().__init__(num_clusters=num_clusters)
     
     def cluster(self, features, collection):
