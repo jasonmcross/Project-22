@@ -2,7 +2,7 @@ import sys
 import os
 
 sys.path.append(os.path.abspath(os.path.join(os.curdir, '../..')))
-from new_format.neon_python.userDB import DatabaseOperations
+from database.userDB import DatabaseOperations
 
 def test_database():
     db = DatabaseOperations()
