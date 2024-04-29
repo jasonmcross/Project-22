@@ -18,8 +18,7 @@ def run_test(preprocess=["1", "1", "1", "1", "none", "none", "none", "none"], ve
     # Load data
     filepath = Path(__file__).parent / "source_files/masterGOF.csv" # .parent.parent = ./website
     df = pd.read_csv(filepath, encoding='ISO-8859-1',
-                   header=None, names=['Category', 'Pattern', 'Description'])    
-    
+                   header=None, names=['Category', 'Pattern', 'Description'])       
     
 
     # Collect user input for selected preprocessors
@@ -36,9 +35,7 @@ def run_test(preprocess=["1", "1", "1", "1", "none", "none", "none", "none"], ve
         c = kmeans.KMeansClusterer(3)
     elif clusterer == 2:
         c = mbkmeans.MBKMeansClusterer(3)
-    elif clusterer == 3:
-        c = fuzzyCmean.FuzzyCMeansClusterer(3)
-
+    
     predictor = Predictor(pp_user, v, c)
 
     df.iloc[:, 2] = df.iloc[:,2].astype(str).apply(predictor.preprocess_data)
@@ -65,12 +62,7 @@ def run_test(preprocess=["1", "1", "1", "1", "none", "none", "none", "none"], ve
         filepath = Path(__file__).parent / "models/mbkmeans_model.pkl"
         with open(filepath, 'rb') as model_file:
             loaded_cls = pickle.load(model_file)
-    elif clusterer == 3:
-        filepath = Path(__file__).parent / "models/fuzzycmeans_model.pkl"
-        with open(filepath, 'rb') as model_file:
-            loaded_cls = pickle.load(model_file)
-
-    
+        
     problem = predictor.preprocess_data(problem)
     results = predictor.predictTest(problem, df, loaded_cls, loaded_vec)
     
