@@ -2,15 +2,13 @@ from flask import Flask, Blueprint, render_template, request, flash, session, re
 from website.Strategy import main_dev, main_admin
 from website.crawler.src import dig_lib_crawler
 from database.designPatterns import DatabaseOperations
-import nltk
 
 views = Blueprint('views', __name__)
 db_ops = DatabaseOperations()
 
 @views.route('/', methods=['GET', 'POST'])
 def developer_home():
-    collection_names = db_ops.get_unique_collections()
-    nltk.download('punkt')
+    collection_names = db_ops.get_unique_collections()    
     
     if request.method == 'POST':
         problem = request.form.get('problem')

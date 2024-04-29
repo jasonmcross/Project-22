@@ -1,8 +1,7 @@
 import os
-
 import subprocess
 import psycopg2
-from database import DatabaseOperations
+from database.designPatterns import DatabaseOperations
 
 def test(self):
     db_ops = DatabaseOperations() 
