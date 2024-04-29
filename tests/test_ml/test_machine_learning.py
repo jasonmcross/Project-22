@@ -85,4 +85,4 @@ def test_custom_accuracy(vector, clusterer):
     print(f"System accuracy is {accuracy}%, which is below 60%.")
     
     # Assert if accuracy meets the desired threshold
-    assert accuracy >= 60 , f"System accuracy is {accuracy}%."
+    assert accuracy >= 100
